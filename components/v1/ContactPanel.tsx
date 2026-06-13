@@ -15,7 +15,7 @@ function CopyButton({ value }: { value: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-colors flex items-center gap-1.5"
+      className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[var(--accent-subtle)] text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors flex items-center gap-1.5"
     >
       {copied ? (
         <>
@@ -58,15 +58,15 @@ function ContactCard({
   href: string;
 }) {
   return (
-    <div className="bg-navy-800 border border-slate-700 rounded-2xl p-5 flex items-center gap-4">
-      <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 flex-shrink-0">
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 flex items-center gap-4">
+      <div className="w-12 h-12 bg-[var(--accent-subtle)] rounded-xl flex items-center justify-center text-[var(--accent)] flex-shrink-0">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-slate-400 text-xs mb-0.5">{label}</p>
+        <p className="text-[var(--text-muted)] text-xs mb-0.5">{label}</p>
         <a
           href={href}
-          className="text-white font-medium hover:text-indigo-400 transition-colors truncate block"
+          className="text-[var(--text)] font-medium hover:text-[var(--accent)] transition-colors truncate block"
         >
           {value}
         </a>
@@ -80,8 +80,8 @@ export default function ContactPanel() {
   return (
     <div className="panel-enter max-w-2xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">연락하기</h2>
-        <p className="text-slate-400">협업 제안이나 채용 문의는 아래 연락처로 연락주세요.</p>
+        <h2 className="text-2xl font-bold text-[var(--text)] mb-2">연락하기</h2>
+        <p className="text-[var(--text-muted)]">협업 제안이나 채용 문의는 아래 연락처로 연락주세요.</p>
       </div>
 
       <div className="space-y-4">
@@ -119,12 +119,12 @@ export default function ContactPanel() {
       </div>
 
       {/* Availability */}
-      <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-6 text-center">
+      <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-2xl p-6 text-center">
         <div className="inline-flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-          <span className="text-emerald-400 text-sm font-medium">현재 기회에 열려 있습니다</span>
+          <span className="w-2 h-2 bg-[#4ade80] rounded-full animate-pulse" />
+          <span className="text-[#4ade80] text-sm font-medium">현재 기회에 열려 있습니다</span>
         </div>
-        <p className="text-slate-300 text-sm">
+        <p className="text-[var(--text-muted)] text-sm">
           서비스 운영, 고객 경험 개선, 데이터 기반 의사결정이 필요한 곳이라면 언제든지 연락주세요.
         </p>
       </div>

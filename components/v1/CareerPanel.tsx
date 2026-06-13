@@ -6,28 +6,22 @@ import type { CareerItem } from "@/lib/types";
 
 const colorMap: Record<
   string,
-  { bg: string; border: string; text: string; badge: string; dot: string }
+  { dot: string; text: string; badge: string }
 > = {
   green: {
-    bg: "bg-emerald-500/10",
-    border: "border-emerald-500/30",
-    text: "text-emerald-400",
-    badge: "bg-emerald-500/20 text-emerald-300",
-    dot: "bg-emerald-500",
+    dot: "bg-[#4ade80]",
+    text: "text-[#4ade80]",
+    badge: "bg-[#4ade80]/20 text-[#4ade80]",
   },
   amber: {
-    bg: "bg-amber-500/10",
-    border: "border-amber-500/30",
-    text: "text-amber-400",
-    badge: "bg-amber-500/20 text-amber-300",
-    dot: "bg-amber-500",
+    dot: "bg-[#f59e0b]",
+    text: "text-[#f59e0b]",
+    badge: "bg-[#f59e0b]/20 text-[#f59e0b]",
   },
   purple: {
-    bg: "bg-purple-500/10",
-    border: "border-purple-500/30",
-    text: "text-purple-400",
-    badge: "bg-purple-500/20 text-purple-300",
-    dot: "bg-purple-500",
+    dot: "bg-[var(--accent2)]",
+    text: "text-[var(--accent2)]",
+    badge: "bg-[var(--accent2-subtle)] text-[var(--accent2)]",
   },
 };
 
@@ -36,13 +30,11 @@ function CareerCard({ item }: { item: CareerItem }) {
   const colors = colorMap[item.color];
 
   return (
-    <div
-      className={`bg-navy-800 border ${colors.border} rounded-2xl p-6 transition-all duration-300 hover:shadow-lg`}
-    >
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 transition-all duration-300 hover:shadow-lg">
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className={`text-lg font-bold ${colors.text}`}>{item.company}</h3>
-          <p className="text-slate-400 text-sm mt-1">{item.period}</p>
+          <p className="text-[var(--accent)] text-sm mt-1">{item.period}</p>
         </div>
         <span className={`px-2 py-1 text-xs rounded-full ${colors.badge}`}>
           {item.color === "purple" ? "재직중" : "전직"}
@@ -53,7 +45,7 @@ function CareerCard({ item }: { item: CareerItem }) {
         {(expanded ? item.tasks : item.tasks.slice(0, 3)).map((task, i) => (
           <div key={i} className="flex items-start gap-2">
             <span className={`w-1.5 h-1.5 ${colors.dot} rounded-full mt-2 flex-shrink-0`} />
-            <p className="text-slate-300 text-sm leading-relaxed">{task}</p>
+            <p className="text-[var(--text-muted)] text-sm leading-relaxed">{task}</p>
           </div>
         ))}
       </div>
@@ -82,8 +74,8 @@ export default function CareerPanel() {
   return (
     <div className="panel-enter space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white">경력 사항</h2>
-        <span className="text-slate-400 text-sm">총 {careerData.length}개 회사</span>
+        <h2 className="text-xl font-bold text-[var(--text)]">경력 사항</h2>
+        <span className="text-[var(--text-muted)] text-sm">총 {careerData.length}개 회사</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -93,21 +85,21 @@ export default function CareerPanel() {
       </div>
 
       {/* Timeline summary */}
-      <div className="bg-navy-800 border border-slate-700 rounded-2xl p-6">
-        <h3 className="text-white font-semibold mb-4">경력 타임라인</h3>
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+        <h3 className="text-[var(--text)] font-semibold mb-4">경력 타임라인</h3>
         <div className="relative">
-          <div className="absolute left-3 top-0 bottom-0 w-px bg-slate-700" />
+          <div className="absolute left-3 top-0 bottom-0 w-px bg-[var(--border)]" />
           <div className="space-y-4">
             {[...careerData].reverse().map((item) => {
               const colors = colorMap[item.color];
               return (
                 <div key={item.companyKey} className="flex items-center gap-4 pl-8 relative">
                   <span
-                    className={`absolute left-1.5 w-3 h-3 ${colors.dot} rounded-full ring-2 ring-navy-800`}
+                    className={`absolute left-1.5 w-3 h-3 ${colors.dot} rounded-full ring-2 ring-[var(--bg-card)]`}
                   />
                   <div>
                     <p className={`font-medium ${colors.text}`}>{item.company}</p>
-                    <p className="text-slate-400 text-sm">{item.period}</p>
+                    <p className="text-[var(--text-muted)] text-sm">{item.period}</p>
                   </div>
                 </div>
               );

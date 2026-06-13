@@ -1,20 +1,25 @@
 "use client";
 
 import { personInfo } from "@/lib/static-data";
+import type { ActivePanel } from "@/lib/types";
 
-export default function AboutPanel() {
+interface AboutPanelProps {
+  onNavigate: (panel: ActivePanel) => void;
+}
+
+export default function AboutPanel({ onNavigate }: AboutPanelProps) {
   return (
     <div className="panel-enter grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Profile Info */}
       <div className="space-y-6">
-        <div className="bg-navy-800 border border-slate-700 rounded-2xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-2xl font-bold">김</span>
+            <div className="w-20 h-20 rounded-2xl bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center flex-shrink-0">
+              <span className="text-[var(--accent)] text-2xl font-bold">김</span>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">{personInfo.name}</h2>
-              <p className="text-indigo-400 text-sm mt-1">{personInfo.title}</p>
+              <h2 className="text-2xl font-bold text-[var(--text)]">{personInfo.name}</h2>
+              <p className="text-[var(--accent)] text-sm mt-1">{personInfo.title}</p>
             </div>
           </div>
 
@@ -41,35 +46,35 @@ export default function AboutPanel() {
         </div>
 
         {/* Education */}
-        <div className="bg-navy-800 border border-slate-700 rounded-2xl p-6">
-          <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+          <h3 className="text-[var(--text)] font-semibold mb-4 flex items-center gap-2">
+            <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
             </svg>
             학력
           </h3>
           <div className="space-y-1">
-            <p className="text-white font-medium">{personInfo.education}</p>
-            <p className="text-slate-400 text-sm">{personInfo.educationPeriod}</p>
+            <p className="text-[var(--text)] font-medium">{personInfo.education}</p>
+            <p className="text-[var(--text-muted)] text-sm">{personInfo.educationPeriod}</p>
           </div>
         </div>
 
         {/* Certifications & Languages */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-navy-800 border border-slate-700 rounded-2xl p-5">
-            <h3 className="text-white font-semibold mb-3 text-sm">자격증</h3>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
+            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">자격증</h3>
             <div className="space-y-1">
               {personInfo.certifications.map((cert) => (
-                <p key={cert} className="text-slate-300 text-sm">{cert}</p>
+                <p key={cert} className="text-[var(--text-muted)] text-sm">{cert}</p>
               ))}
             </div>
           </div>
-          <div className="bg-navy-800 border border-slate-700 rounded-2xl p-5">
-            <h3 className="text-white font-semibold mb-3 text-sm">어학</h3>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
+            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">어학</h3>
             <div className="space-y-1">
               {personInfo.languages.map((lang) => (
-                <p key={lang} className="text-slate-300 text-sm">{lang}</p>
+                <p key={lang} className="text-[var(--text-muted)] text-sm">{lang}</p>
               ))}
             </div>
           </div>
@@ -77,14 +82,14 @@ export default function AboutPanel() {
       </div>
 
       {/* Right: Intro */}
-      <div className="bg-navy-800 border border-slate-700 rounded-2xl p-6 flex flex-col">
-        <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-          <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 flex flex-col">
+        <h3 className="text-[var(--text)] font-semibold mb-4 flex items-center gap-2">
+          <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
           자기소개
         </h3>
-        <p className="text-slate-300 leading-relaxed text-[15px] flex-1">
+        <p className="text-[var(--text-muted)] leading-relaxed text-[15px] flex-1">
           {personInfo.intro}
         </p>
 
@@ -95,11 +100,31 @@ export default function AboutPanel() {
             { label: "자격증", value: "SQLD" },
             { label: "TOEIC", value: "920" },
           ].map((item) => (
-            <div key={item.label} className="bg-navy-900/50 rounded-xl p-3 text-center">
-              <p className="text-indigo-400 font-bold text-lg">{item.value}</p>
-              <p className="text-slate-400 text-xs mt-0.5">{item.label}</p>
+            <div key={item.label} className="bg-[var(--accent-subtle)] rounded-xl p-3 text-center">
+              <p className="text-[var(--accent)] font-bold text-lg">{item.value}</p>
+              <p className="text-[var(--text-muted)] text-xs mt-0.5">{item.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Navigation CTAs */}
+        <div className="mt-6 pt-5 border-t border-[var(--border)]">
+          <p className="text-[var(--text-muted)] text-xs mb-3">더 알아보기</p>
+          <div className="flex gap-3">
+            <button
+              onClick={() => onNavigate("career")}
+              className="flex-1 py-2.5 rounded-xl border border-[var(--accent)]/40 text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-all"
+            >
+              Career →
+            </button>
+            <button
+              onClick={() => onNavigate("projects")}
+              className="flex-1 py-2.5 rounded-xl bg-[var(--accent)] text-sm font-medium hover:opacity-90 transition-all"
+              style={{ color: "#0a1a14" }}
+            >
+              Projects →
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -117,12 +142,12 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 bg-indigo-500/10 rounded-lg flex items-center justify-center text-indigo-400 flex-shrink-0">
+      <div className="w-8 h-8 bg-[var(--accent-subtle)] rounded-lg flex items-center justify-center text-[var(--accent)] flex-shrink-0">
         {icon}
       </div>
       <div>
-        <p className="text-slate-400 text-xs">{label}</p>
-        <p className="text-white text-sm font-medium">{value}</p>
+        <p className="text-[var(--text-muted)] text-xs">{label}</p>
+        <p className="text-[var(--text)] text-sm font-medium">{value}</p>
       </div>
     </div>
   );

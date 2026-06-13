@@ -5,19 +5,10 @@ import type { CompanyKey, Project } from "@/lib/types";
 import { projectsData, companyLabels } from "@/lib/static-data";
 import ProjectModal from "@/components/shared/ProjectModal";
 
-const companyColorMap: Record<CompanyKey, { tab: string; tag: string }> = {
-  flex: {
-    tab: "bg-purple-600 text-white",
-    tag: "bg-purple-500/20 text-purple-300",
-  },
-  jarvis: {
-    tab: "bg-amber-600 text-white",
-    tag: "bg-amber-500/20 text-amber-300",
-  },
-  midas: {
-    tab: "bg-emerald-600 text-white",
-    tag: "bg-emerald-500/20 text-emerald-300",
-  },
+const companyTagMap: Record<CompanyKey, string> = {
+  flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/20",
+  jarvis: "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20",
+  midas: "bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20",
 };
 
 function ProjectCard({
@@ -27,25 +18,25 @@ function ProjectCard({
   project: Project;
   onClick: () => void;
 }) {
-  const colors = companyColorMap[project.company];
+  const tagClass = companyTagMap[project.company];
 
   return (
     <button
       onClick={onClick}
-      className="text-left bg-navy-800 border border-slate-700 rounded-2xl p-5 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-200 group"
+      className="text-left bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 hover:border-[var(--accent)]/40 hover:shadow-lg transition-all duration-200 group"
     >
       <div className="flex items-start justify-between gap-2 mb-3">
-        <span className="text-xs text-slate-400">{project.period}</span>
-        <span className={`text-xs px-2 py-0.5 rounded-full ${colors.tag}`}>
+        <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
+        <span className={`text-xs px-2 py-0.5 rounded-full ${tagClass}`}>
           {companyLabels[project.company]}
         </span>
       </div>
 
-      <h3 className="text-white font-semibold text-sm leading-tight mb-2 group-hover:text-indigo-300 transition-colors">
+      <h3 className="text-[var(--text)] font-semibold text-sm leading-tight mb-2 group-hover:text-[var(--accent)] transition-colors">
         {project.title}
       </h3>
 
-      <p className="text-slate-400 text-xs leading-relaxed line-clamp-3 mb-4">
+      <p className="text-[var(--text-muted)] text-xs leading-relaxed line-clamp-3 mb-4">
         {project.summary}
       </p>
 
@@ -54,14 +45,14 @@ function ProjectCard({
           {project.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 bg-slate-700/50 text-slate-400 rounded-full"
+              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 rounded-full"
             >
               {tag}
             </span>
           ))}
         </div>
         <svg
-          className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors flex-shrink-0"
+          className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -75,8 +66,8 @@ function ProjectCard({
         </svg>
       </div>
 
-      <div className="mt-3 pt-3 border-t border-slate-700/50">
-        <p className="text-xs text-emerald-400 font-medium line-clamp-1">
+      <div className="mt-3 pt-3 border-t border-[var(--border)]">
+        <p className="text-xs text-[var(--accent2)] font-medium line-clamp-1">
           ✓ {project.result}
         </p>
       </div>
@@ -95,27 +86,26 @@ export default function ProjectsPanel() {
     <div className="panel-enter space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold text-white">프로젝트</h2>
-          <span className="px-2 py-0.5 text-xs bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-full">
+          <h2 className="text-xl font-bold text-[var(--text)]">프로젝트</h2>
+          <span className="px-2 py-0.5 text-xs bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30 rounded-full">
             Notion으로 관리됨
           </span>
         </div>
-        <span className="text-slate-400 text-sm">총 {projectsData.length}개 프로젝트</span>
+        <span className="text-[var(--text-muted)] text-sm">총 {projectsData.length}개 프로젝트</span>
       </div>
 
       {/* Company Filter */}
       <div className="flex gap-2 flex-wrap">
         {companies.map((company) => {
           const isActive = activeCompany === company;
-          const colors = companyColorMap[company];
           return (
             <button
               key={company}
               onClick={() => setActiveCompany(company)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? colors.tab
-                  : "bg-navy-800 border border-slate-700 text-slate-400 hover:text-white hover:border-slate-600"
+                  ? "bg-[var(--accent)] text-[#0a1a14]"
+                  : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50"
               }`}
             >
               {companyLabels[company]}
@@ -139,7 +129,7 @@ export default function ProjectsPanel() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 text-slate-500">
+        <div className="text-center py-16 text-[var(--text-muted)]">
           <p>이 회사의 프로젝트가 없습니다.</p>
         </div>
       )}
@@ -147,7 +137,6 @@ export default function ProjectsPanel() {
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
-        theme="dark"
       />
     </div>
   );
