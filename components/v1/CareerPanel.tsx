@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { careerData } from "@/lib/static-data";
 import type { CareerItem } from "@/lib/types";
+import { useLang } from "@/lib/lang-context";
+import { ui, tCareer } from "@/lib/i18n";
 
 const colorMap: Record<
   string,
@@ -25,7 +27,19 @@ const colorMap: Record<
   },
 };
 
-function CareerCard({ item }: { item: CareerItem }) {
+function CareerCard({
+  item,
+  currentLabel,
+  formerLabel,
+  expandLabel,
+  collapseLabel,
+}: {
+  item: CareerItem;
+  currentLabel: string;
+  formerLabel: string;
+  expandLabel: (n: number) => string;
+  collapseLabel: string;
+}) {
   const [expanded, setExpanded] = useState(false);
   const colors = colorMap[item.color];
 
@@ -37,7 +51,7 @@ function CareerCard({ item }: { item: CareerItem }) {
           <p className="text-[var(--accent)] text-sm mt-1">{item.period}</p>
         </div>
         <span className={`px-2 py-1 text-xs rounded-full ${colors.badge}`}>
-          {item.color === "purple" ? "재직중" : "전직"}
+          {item.color === "purple" ? currentLabel : formerLabel}
         </span>
       </div>
 
@@ -55,7 +69,7 @@ function CareerCard({ item }: { item: CareerItem }) {
           onClick={() => setExpanded(!expanded)}
           className={`mt-4 text-xs font-medium ${colors.text} hover:opacity-80 transition-opacity flex items-center gap-1`}
         >
-          {expanded ? "접기" : `+${item.tasks.length - 3}개 더보기`}
+          {expanded ? collapseLabel : expandLabel(item.tasks.length - 3)}
           <svg
             className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`}
             fill="none"
@@ -71,22 +85,38 @@ function CareerCard({ item }: { item: CareerItem }) {
 }
 
 export default function CareerPanel() {
+  const { lang } = useLang();
+  const t = ui[lang];
+  const translatedCareer = careerData.map((item) => tCareer(item, lang));
+
+  const expandLabel = (n: number) => lang === "ko" ? `+${n}개 더보기` : `+${n} more`;
+  const collapseLabel = lang === "ko" ? "접기" : "Collapse";
+
   return (
     <div className="panel-enter space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[var(--text)]">경력 사항</h2>
-        <span className="text-[var(--text-muted)] text-sm">총 {careerData.length}개 회사</span>
+        <h2 className="text-xl font-bold text-[var(--text)]">{t.careerHeading}</h2>
+        <span className="text-[var(--text-muted)] text-sm">
+          {lang === "ko" ? `총 ${careerData.length}${t.totalCompanies}` : `${careerData.length}${t.totalCompanies}`}
+        </span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {careerData.map((item) => (
-          <CareerCard key={item.companyKey} item={item} />
+        {translatedCareer.map((item) => (
+          <CareerCard
+            key={item.companyKey}
+            item={item}
+            currentLabel={t.current}
+            formerLabel={t.former}
+            expandLabel={expandLabel}
+            collapseLabel={collapseLabel}
+          />
         ))}
       </div>
 
       {/* Timeline summary */}
       <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
-        <h3 className="text-[var(--text)] font-semibold mb-4">경력 타임라인</h3>
+        <h3 className="text-[var(--text)] font-semibold mb-4">{t.careerTimeline}</h3>
         <div className="relative">
           <div className="absolute left-3 top-0 bottom-0 w-px bg-[var(--border)]" />
           <div className="space-y-4">

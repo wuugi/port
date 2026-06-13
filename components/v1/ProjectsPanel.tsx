@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import type { CompanyKey, Project } from "@/lib/types";
-import { projectsData, companyLabels } from "@/lib/static-data";
+import { projectsData, companyLabels, companyLabelsEn } from "@/lib/static-data";
 import ProjectModal from "@/components/shared/ProjectModal";
+import { useLang } from "@/lib/lang-context";
+import { ui, tProject } from "@/lib/i18n";
 
 const companyTagMap: Record<CompanyKey, string> = {
   flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/20",
@@ -13,9 +15,11 @@ const companyTagMap: Record<CompanyKey, string> = {
 
 function ProjectCard({
   project,
+  companyLabel,
   onClick,
 }: {
   project: Project;
+  companyLabel: string;
   onClick: () => void;
 }) {
   const tagClass = companyTagMap[project.company];
@@ -28,7 +32,7 @@ function ProjectCard({
       <div className="flex items-start justify-between gap-2 mb-3">
         <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
         <span className={`text-xs px-2 py-0.5 rounded-full ${tagClass}`}>
-          {companyLabels[project.company]}
+          {companyLabel}
         </span>
       </div>
 
@@ -76,19 +80,24 @@ function ProjectCard({
 }
 
 export default function ProjectsPanel() {
+  const { lang } = useLang();
+  const t = ui[lang];
+  const labels = lang === "en" ? companyLabelsEn : companyLabels;
+
   const [activeCompany, setActiveCompany] = useState<CompanyKey>("flex");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [allProjects, setAllProjects] = useState<Project[]>(projectsData);
+  const [rawProjects, setRawProjects] = useState<Project[]>(projectsData);
 
   useEffect(() => {
     fetch("/api/notion/projects")
       .then((r) => r.json())
       .then((data) => {
-        if (data.projects?.length) setAllProjects(data.projects);
+        if (data.projects?.length) setRawProjects(data.projects);
       })
       .catch(() => {});
   }, []);
 
+  const allProjects = rawProjects.map((p) => tProject(p, lang));
   const companies: CompanyKey[] = ["flex", "jarvis", "midas"];
   const filtered = allProjects.filter((p) => p.company === activeCompany);
 
@@ -96,12 +105,12 @@ export default function ProjectsPanel() {
     <div className="panel-enter space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold text-[var(--text)]">프로젝트</h2>
+          <h2 className="text-xl font-bold text-[var(--text)]">{t.projectsHeading}</h2>
           <span className="px-2 py-0.5 text-xs bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30 rounded-full">
-            Notion으로 관리됨
+            {t.managedViaNotion}
           </span>
         </div>
-        <span className="text-[var(--text-muted)] text-sm">총 {allProjects.length}개 프로젝트</span>
+        <span className="text-[var(--text-muted)] text-sm">{t.totalProjects(rawProjects.length)}</span>
       </div>
 
       {/* Company Filter */}
@@ -118,9 +127,9 @@ export default function ProjectsPanel() {
                   : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50"
               }`}
             >
-              {companyLabels[company]}
+              {labels[company]}
               <span className={`ml-1.5 text-xs ${isActive ? "opacity-70" : "opacity-50"}`}>
-                ({allProjects.filter((p) => p.company === company).length})
+                ({rawProjects.filter((p) => p.company === company).length})
               </span>
             </button>
           );
@@ -134,18 +143,22 @@ export default function ProjectsPanel() {
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={() => setSelectedProject(project)}
+              companyLabel={labels[project.company]}
+              onClick={() => setSelectedProject(
+                rawProjects.find((p) => p.id === project.id) ?? project
+              )}
             />
           ))}
         </div>
       ) : (
         <div className="text-center py-16 text-[var(--text-muted)]">
-          <p>이 회사의 프로젝트가 없습니다.</p>
+          <p>{t.noProjects}</p>
         </div>
       )}
 
       <ProjectModal
-        project={selectedProject}
+        project={selectedProject ? tProject(selectedProject, lang) : null}
+        rawProject={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
     </div>

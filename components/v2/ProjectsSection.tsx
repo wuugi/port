@@ -125,7 +125,6 @@ export default function ProjectsSection() {
         <ProjectModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
-          theme="light"
         />
       </div>
     </section>

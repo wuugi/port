@@ -2,6 +2,7 @@
 
 import type { ActivePanel } from "@/lib/types";
 import { useTheme } from "@/lib/theme-context";
+import { useLang } from "@/lib/lang-context";
 
 interface TopNavProps {
   activePanel: ActivePanel;
@@ -42,6 +43,7 @@ function MoonIcon() {
 
 export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
   const { theme, toggleTheme } = useTheme();
+  const { lang, toggleLang } = useLang();
 
   return (
     <nav className="sticky top-0 z-40 bg-[var(--bg)]/95 backdrop-blur-md border-b border-[var(--border)]">
@@ -68,9 +70,24 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
                 {item.label}
               </button>
             ))}
+
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              className={`ml-2 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
+                lang === "en"
+                  ? "border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-subtle)]"
+                  : "border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+              }`}
+              aria-label="언어 전환"
+            >
+              {lang === "ko" ? "EN" : "KO"}
+            </button>
+
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="ml-3 p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
+              className="ml-1 p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
               aria-label="테마 전환"
             >
               {theme === "dark" ? <MoonIcon /> : <SunIcon />}

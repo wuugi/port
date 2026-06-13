@@ -2,12 +2,18 @@
 
 import { personInfo } from "@/lib/static-data";
 import type { ActivePanel } from "@/lib/types";
+import { useLang } from "@/lib/lang-context";
+import { ui, tPerson } from "@/lib/i18n";
 
 interface AboutPanelProps {
   onNavigate: (panel: ActivePanel) => void;
 }
 
 export default function AboutPanel({ onNavigate }: AboutPanelProps) {
+  const { lang } = useLang();
+  const t = ui[lang];
+  const p = tPerson(personInfo, lang);
+
   return (
     <div className="panel-enter grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Profile Info */}
@@ -19,7 +25,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-[var(--text)]">{personInfo.name}</h2>
-              <p className="text-[var(--accent)] text-sm mt-1">{personInfo.title}</p>
+              <p className="text-[var(--accent)] text-sm mt-1">{p.title}</p>
             </div>
           </div>
 
@@ -30,7 +36,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               }
-              label="이메일"
+              label={t.email}
               value={personInfo.email}
             />
             <InfoRow
@@ -39,7 +45,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               }
-              label="전화번호"
+              label={t.phone}
               value={personInfo.phone}
             />
           </div>
@@ -52,10 +58,10 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
             </svg>
-            학력
+            {t.education}
           </h3>
           <div className="space-y-1">
-            <p className="text-[var(--text)] font-medium">{personInfo.education}</p>
+            <p className="text-[var(--text)] font-medium">{p.education}</p>
             <p className="text-[var(--text-muted)] text-sm">{personInfo.educationPeriod}</p>
           </div>
         </div>
@@ -63,18 +69,18 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
         {/* Certifications & Languages */}
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
-            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">자격증</h3>
+            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">{t.certifications}</h3>
             <div className="space-y-1">
-              {personInfo.certifications.map((cert) => (
+              {p.certifications.map((cert) => (
                 <p key={cert} className="text-[var(--text-muted)] text-sm">{cert}</p>
               ))}
             </div>
           </div>
           <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
-            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">어학</h3>
+            <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">{t.languages}</h3>
             <div className="space-y-1">
-              {personInfo.languages.map((lang) => (
-                <p key={lang} className="text-[var(--text-muted)] text-sm">{lang}</p>
+              {p.languages.map((langItem) => (
+                <p key={langItem} className="text-[var(--text-muted)] text-sm">{langItem}</p>
               ))}
             </div>
           </div>
@@ -87,18 +93,18 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
           <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          자기소개
+          {t.aboutHeading}
         </h3>
         <p className="text-[var(--text-muted)] leading-relaxed text-[15px] flex-1">
-          {personInfo.intro}
+          {p.intro}
         </p>
 
         {/* Key Highlights */}
         <div className="mt-6 grid grid-cols-3 gap-3">
           {[
-            { label: "경력", value: "6년차" },
-            { label: "자격증", value: "SQLD" },
-            { label: "TOEIC", value: "920" },
+            { label: t.experienceLabel, value: t.experienceValue },
+            { label: t.certLabel, value: "SQLD" },
+            { label: t.toeicLabel, value: "920" },
           ].map((item) => (
             <div key={item.label} className="bg-[var(--accent-subtle)] rounded-xl p-3 text-center">
               <p className="text-[var(--accent)] font-bold text-lg">{item.value}</p>
@@ -109,7 +115,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
 
         {/* Navigation CTAs */}
         <div className="mt-6 pt-5 border-t border-[var(--border)]">
-          <p className="text-[var(--text-muted)] text-xs mb-3">더 알아보기</p>
+          <p className="text-[var(--text-muted)] text-xs mb-3">{t.exploreMore}</p>
           <div className="flex gap-3">
             <button
               onClick={() => onNavigate("career")}

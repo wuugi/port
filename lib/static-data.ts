@@ -12,6 +12,14 @@ export const personInfo: PersonInfo = {
   certifications: ["SQLD (23.12.15)"],
   languages: ["영어 회화 베이직", "TOEIC 920 (2022.7 - 2024.7 만료)"],
   profileImage: "",
+  en: {
+    title: "6-Year Operations Manager Focused on Customer Experience & Data",
+    intro:
+      "I believe customer pain is the starting point for improvement. Over 6 years at Midas-in, Jarvis & Villains (삼쩜삼), and Flex, I've analyzed service issues with data and designed end-to-end customer journeys. From establishing operating policies and SQL-based monitoring to AI-powered workflow automation — I work with teams to ensure customers fully experience the value of the product.",
+    education: "Kyung Hee University — Geography / Journalism & Communications",
+    certifications: ["SQLD (Dec 15, 2023)"],
+    languages: ["Basic English Conversation", "TOEIC 920 (Jul 2022 – Jul 2024, expired)"],
+  },
 };
 
 export const careerData: CareerItem[] = [
@@ -27,6 +35,15 @@ export const careerData: CareerItem[] = [
       "시나리오봇 응대율 개선 프로젝트 진행",
       "데이터 분석 기반 응대 프로세스 개선",
     ],
+    en: {
+      tasks: [
+        "New web service strategy planning",
+        "Service improvement planning based on VOC",
+        "Customer support automation flow improvement",
+        "Chatbot response rate improvement project",
+        "Response process improvement based on data analysis",
+      ],
+    },
   },
   {
     company: "자비스앤빌런즈 (삼쩜삼)",
@@ -43,6 +60,18 @@ export const careerData: CareerItem[] = [
       "SQL 활용 서비스 모니터링 대시보드 생성",
       "서비스 오픈 및 클렌징 담당",
     ],
+    en: {
+      tasks: [
+        "Service monitoring (usage, applications, tax filing)",
+        "Operational policy establishment and management",
+        "Service issue response / extracting affected users via query build and determining resolution direction",
+        "Customer-facing message planning (KakaoTalk notifications, in-service copy)",
+        "Service satisfaction survey dashboard planning and development (R coding)",
+        "Customer pain point–driven service improvement planning",
+        "SQL-based service monitoring dashboard creation",
+        "Service launch and data cleansing",
+      ],
+    },
   },
   {
     company: "플렉스",
@@ -57,6 +86,16 @@ export const careerData: CareerItem[] = [
       "고객 현황 모니터링 대시보드 구축",
       "고객 경험 개선 액션 진행",
     ],
+    en: {
+      tasks: [
+        "Handling customer inquiries related to the service",
+        "Operational policy design",
+        "Service operations efficiency and automation",
+        "Service monitoring dashboard planning and development",
+        "Customer status monitoring dashboard development",
+        "Customer experience improvement initiatives",
+      ],
+    },
   },
 ];
 
@@ -67,12 +106,15 @@ export const projectsData: Project[] = [
     title: "요금제 전환 프로젝트",
     company: "flex",
     period: "2026.04 – 2026.07",
-    summary: "요금 체계를 기능 중심에서 요금제 형태로 전환하며, 전환 로직 설계와 고객 안내 프로세스를 처음부터 구축했습니다.",
+    summary:
+      "요금 체계를 기능 중심에서 요금제 형태로 전환하며, 전환 로직 설계와 고객 안내 프로세스를 처음부터 구축했습니다.",
     role: "전환 로직 설계, 고객 안내 프로세스 기획·운영",
     result: "NDR 118% 달성, 이탈율 10% 이하 유지",
     tags: ["비즈니스 액션", "요금제 개편", "고객 안내"],
-    background: "비즈니스 목표 달성을 위한 요금 인상 필요성이 대두되었고, 단순 인상을 넘어 기능 중심 → 요금제 형태로의 체계 전환이 결정되었습니다.",
-    problem: "서비스 런칭 후 첫 대대적인 과금 체계 변화로 고객 체감 충격이 클 수 있었고, 상위 기능 이용 고객은 요금이 크게 오르는 케이스가 발생했습니다. 고객 사전 안내 프로세스 자체가 전무한 상태였습니다.",
+    background:
+      "비즈니스 목표 달성을 위한 요금 인상 필요성이 대두되었고, 단순 인상을 넘어 기능 중심 → 요금제 형태로의 체계 전환이 결정되었습니다.",
+    problem:
+      "서비스 런칭 후 첫 대대적인 과금 체계 변화로 고객 체감 충격이 클 수 있었고, 상위 기능 이용 고객은 요금이 크게 오르는 케이스가 발생했습니다. 고객 사전 안내 프로세스 자체가 전무한 상태였습니다.",
     process: [
       "요금제 종류 및 변경 시점 파악 — 요금제별 제공 기능 확인, 고객 안내 프로세스 구축을 위한 변경 시점 정의",
       "엣지 케이스 체크 — 유효 계약·파트너 서비스 등 기존 정책 유지 시 문제가 생기는 케이스 정리, 비즈니스 목표와 고객 경험 사이의 밸런스 조율 및 각 케이스별 적용 로직 결정",
@@ -80,28 +122,74 @@ export const projectsData: Project[] = [
       "데이터 연동·대시보드 협업 — 요금제 전환 정보 확인 및 안내 자동화를 위한 데이터 연동 요청(DA팀), 시뮬레이션 데이터 검증용 대시보드 제작",
       "연간 계약 프로세스 구축 — SMB 대상 연간 계약 진행 프로세스 수립, 계약서·견적서 생성 자동화, 이탈 위험 고객 협상 리드",
     ],
-    fullResult: "레거시 코드에 따른 요금제 전환 간 발생한 여러 엣지 케이스를 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경 사전 안내 및 요금제 전환을 완료했고, NDR 118%로 상승 전환, 이탈율 목표치 유지 중입니다.",
+    fullResult:
+      "레거시 코드에 따른 요금제 전환 간 발생한 여러 엣지 케이스를 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경 사전 안내 및 요금제 전환을 완료했고, NDR 118%로 상승 전환, 이탈율 목표치 유지 중입니다.",
     notionUrl: "https://app.notion.com/p/36b8937a33b180cc8f31f3cd9919dd82",
+    en: {
+      title: "Pricing Plan Migration Project",
+      summary:
+        "Led the full redesign of the billing structure from feature-based to a subscription plan model, building the migration logic and customer communication process from scratch.",
+      role: "Migration logic design, customer communication process planning & operations",
+      result: "NDR 118% achieved, churn rate kept below 10%",
+      tags: ["Business Action", "Plan Restructure", "Customer Communication"],
+      background:
+        "A need arose to raise prices to meet business targets, and leadership decided to go beyond a simple price hike — restructuring from feature-based billing to a subscription plan model.",
+      problem:
+        "As the first major billing overhaul since launch, there was significant risk of customer shock. Some high-feature users faced substantial price increases, and there was zero pre-existing customer communication process.",
+      process: [
+        "Identifying plan types and transition timing — Reviewing features per plan; defining transition timing to build the customer communication process",
+        "Checking edge cases — Cataloguing scenarios where legacy policies (active contracts, partner services) would cause issues; balancing business goals against customer experience; defining per-case logic",
+        "Establishing the customer communication process — Designing notification schedules, channels, and message content; drafting and sending terms-of-service change notification emails; setting up inquiry response workflows",
+        "Data integration & dashboard collaboration — Requesting data pipeline from the DA team to verify plan migration and enable notification automation; building a simulation data validation dashboard",
+        "Building the annual contract process — Establishing the annual contract flow for SMB customers; automating contract and quote generation; leading negotiations with at-risk churn accounts",
+      ],
+      fullResult:
+        "Personally reviewed and finalized the migration logic for numerous edge cases caused by legacy code. Completed major terms changes and plan migration. NDR rose to 118%; churn rate remains within target.",
+    },
   },
   {
     id: "proj-flex-2",
     title: "리드 메시지 채널 분기 개선",
     company: "flex",
     period: "2026.01 – 2026.02",
-    summary: "기존·잠재 고객 구분 없이 수신되던 리드 메시지에 분기 기준을 도입해, 불필요한 이중 컨택을 차단하고 업셀링 기회를 확보했습니다.",
+    summary:
+      "기존·잠재 고객 구분 없이 수신되던 리드 메시지에 분기 기준을 도입해, 불필요한 이중 컨택을 차단하고 업셀링 기회를 확보했습니다.",
     role: "프로세스 기획·테스트",
     result: "AM 담당 고객 자동 안내 실현, 재계약 성사",
     tags: ["운영 개선", "자동화", "CX"],
-    background: "리드폼 수집 시 기존 고객과 잠재 고객을 구분하지 않아 신규 영업팀과 AM팀이 동일 고객을 중복 컨택하는 상황이 반복됐습니다.",
-    problem: "기존 고객에게 이력 확인 없이 신규 영업팀이 컨택 후 AM으로 이관되는 경험이 누적되어 고객 신뢰도가 저하되고, AM이 업셀링 기회를 놓치는 구조적 문제가 있었습니다.",
+    background:
+      "리드폼 수집 시 기존 고객과 잠재 고객을 구분하지 않아 신규 영업팀과 AM팀이 동일 고객을 중복 컨택하는 상황이 반복됐습니다.",
+    problem:
+      "기존 고객에게 이력 확인 없이 신규 영업팀이 컨택 후 AM으로 이관되는 경험이 누적되어 고객 신뢰도가 저하되고, AM이 업셀링 기회를 놓치는 구조적 문제가 있었습니다.",
     process: [
       "메시지 채널 현황 정리 — 각 액션별 메시지 구조·발송 채널·분리 기준 파악",
       "AM 니즈 체크 — 메시지 내 필수·선택 정보 체크 후 메시지 구조 설계",
       "발송 로직 기획 — 신규·기존 채널 분기 조건 설정, 메시지 구조·내용·하이퍼링크 변수 기획",
       "개발 협업 및 QA — 기획안 기반 개발 요청, PRD 배포 후 메시지 내용·분기 QA 진행",
     ],
-    fullResult: "AM 담당 고객·AM 배정 필요 고객의 액션 팔로업 체계가 구축되었습니다. 리드 수집 시 AM 터치를 통한 라포 형성이 가능해졌고, 챔피언 확인 및 재계약 컨택을 통해 실 재계약 성사로 이어졌습니다.",
+    fullResult:
+      "AM 담당 고객·AM 배정 필요 고객의 액션 팔로업 체계가 구축되었습니다. 리드 수집 시 AM 터치를 통한 라포 형성이 가능해졌고, 챔피언 확인 및 재계약 컨택을 통해 실 재계약 성사로 이어졌습니다.",
     notionUrl: "https://app.notion.com/p/3498937a33b180d1a478ce45a805aa56",
+    en: {
+      title: "Lead Message Channel Routing Improvement",
+      summary:
+        "Introduced branching logic to differentiate existing vs. prospective customers in lead message routing, eliminating redundant double-contacts and unlocking upsell opportunities.",
+      role: "Process planning & QA",
+      result: "Automated AM-managed customer notifications; renewal deal closed",
+      tags: ["Operations Improvement", "Automation", "CX"],
+      background:
+        "Lead form submissions were not segmented by existing vs. new customers, causing the new sales team and Account Management team to repeatedly contact the same customer.",
+      problem:
+        "Existing customers were repeatedly contacted by the new sales team without history checks before being handed off to AM, eroding trust and causing AM to miss upsell opportunities.",
+      process: [
+        "Auditing message channels — Mapping the message structure, sending channels, and segmentation criteria for each action type",
+        "Checking AM requirements — Reviewing required vs. optional fields in messages, then designing the message structure",
+        "Planning send logic — Defining branch conditions for new vs. existing customer channels; designing message structure, content, and hyperlink variables",
+        "Dev collaboration & QA — Filing development requests based on the plan; running QA on message content and branching logic after PRD deployment",
+      ],
+      fullResult:
+        "Built a follow-up system for AM-assigned customers and those needing AM assignment. AM touch points now enable rapport-building from the lead stage, and champion identification plus renewal outreach led to actual contract renewals.",
+    },
   },
 
   // JARVIS
@@ -110,31 +198,57 @@ export const projectsData: Project[] = [
     title: "신규 환급 서비스 런칭 운영",
     company: "jarvis",
     period: "2023.10 – 2024.05",
-    summary: "신규 환급 서비스의 운영 정책을 처음부터 설계하고, SQL 기반 모니터링 체계를 구축해 안정적인 서비스 랜딩을 이끌었습니다.",
+    summary:
+      "신규 환급 서비스의 운영 정책을 처음부터 설계하고, SQL 기반 모니터링 체계를 구축해 안정적인 서비스 랜딩을 이끌었습니다.",
     role: "서비스 운영 담당자 (운영 정책·모니터링·이슈 대응 전담)",
     result: "서비스 안정 랜딩 기여, 신규 서비스 매출 비중 20.13%",
     tags: ["신규 서비스", "운영 정책", "SQL"],
-    background: "기존 삼쩜삼의 신규 환급 서비스 런칭을 앞두고 운영 정책·알림톡·이슈 대응 체계가 없는 상태에서 준비가 필요했습니다.",
-    problem: "신규 서비스라 선례가 없어 대상자 판단 기준, 결제·환불 정책, 엣지 케이스 처리 방식을 모두 직접 정의해야 했습니다.",
+    background:
+      "기존 삼쩜삼의 신규 환급 서비스 런칭을 앞두고 운영 정책·알림톡·이슈 대응 체계가 없는 상태에서 준비가 필요했습니다.",
+    problem:
+      "신규 서비스라 선례가 없어 대상자 판단 기준, 결제·환불 정책, 엣지 케이스 처리 방식을 모두 직접 정의해야 했습니다.",
     process: [
       "서비스 내용 파악 및 운영 정책 설정 — 대상자 판단·결제·환불·엣지 케이스·어드민 처리 절차 수립",
       "서비스 운영 모니터링 대시보드 구축 — 서비스 플로우 정상 데이터 파악, 비정상 로그 추적 쿼리 빌드, 고객 여정 데이터 대시보드 제작",
       "서비스 운영 — 제출 서류 검토, 서비스 이슈 라이징, 운영 개선 사항 PM 전달, 고객 경험 개선 아이데이션",
     ],
-    fullResult: "운영 프로세스 확립을 통한 안정적 서비스 랜딩에 기여했으며, 신규 서비스 이용을 통한 매출 기여 비중 20.13%를 달성했습니다.",
+    fullResult:
+      "운영 프로세스 확립을 통한 안정적 서비스 랜딩에 기여했으며, 신규 서비스 이용을 통한 매출 기여 비중 20.13%를 달성했습니다.",
     notionUrl: "https://app.notion.com/p/1418937a33b180a0be91dd0c447a1c8a",
+    en: {
+      title: "New Refund Service Launch Operations",
+      summary:
+        "Designed the operational policies for a new refund service from scratch and built an SQL-based monitoring system, contributing to a stable service landing.",
+      role: "Service operations lead (operational policy, monitoring, and issue response)",
+      result: "Contributed to stable service landing; new service revenue share at 20.13%",
+      tags: ["New Service", "Operations Policy", "SQL"],
+      background:
+        "With the launch of a new refund service on 삼쩜삼 approaching, there were no operational policies, KakaoTalk notification templates, or issue response procedures in place.",
+      problem:
+        "With no precedent to draw from, we had to define eligibility criteria, payment/refund policies, and edge case handling entirely from scratch.",
+      process: [
+        "Service research & policy setting — Establishing eligibility criteria, payment, refund, edge case handling, and admin processing procedures",
+        "Service monitoring dashboard build — Mapping normal service flow data, building queries to trace abnormal logs, creating customer journey data dashboards",
+        "Service operations — Reviewing submitted documents, surfacing service issues, relaying improvements to PM, ideating on customer experience enhancements",
+      ],
+      fullResult:
+        "Contributed to a stable service launch by establishing the full operations process. Achieved a 20.13% revenue contribution share from the new service.",
+    },
   },
   {
     id: "proj-jarvis-2",
     title: "즉시환급 테스트 서비스 운영",
     company: "jarvis",
     period: "2025.03 – 2025.04",
-    summary: "환급 대기 기간에 대한 고객 불만을 해소하기 위한 즉시환급 테스트 서비스를 운영하며 행정·운영 한계점을 실증했습니다.",
+    summary:
+      "환급 대기 기간에 대한 고객 불만을 해소하기 위한 즉시환급 테스트 서비스를 운영하며 행정·운영 한계점을 실증했습니다.",
     role: "신규 서비스(즉시환급) 운영 담당 — 고객 플로우 기획, 모니터링 체계 구축, 이슈 처리",
     result: "운영 이슈 사전 대비 체계 구축, 서비스 기획 방향 전환 근거 마련",
     tags: ["신규 서비스", "운영", "SQL", "대시보드"],
-    background: "삼쩜삼 신고 시점과 환급금 지급 시점 간 약 2개월 차이에 대한 고객 불만이 지속되었고, 경쟁사 증가에 따른 경쟁력 확보가 필요했습니다.",
-    problem: "선지급 후 환수 구조로 인한 회수 리스크가 있었고, 고객 어뷰징·세무서 행정 처리 미흡 등 운영 불확실성이 높은 상황이었습니다.",
+    background:
+      "삼쩜삼 신고 시점과 환급금 지급 시점 간 약 2개월 차이에 대한 고객 불만이 지속되었고, 경쟁사 증가에 따른 경쟁력 확보가 필요했습니다.",
+    problem:
+      "선지급 후 환수 구조로 인한 회수 리스크가 있었고, 고객 어뷰징·세무서 행정 처리 미흡 등 운영 불확실성이 높은 상황이었습니다.",
     process: [
       "서비스 방향 기획 — 환급금 선지급 시 회수 가능 방법 확인, 세무 행정 절차 내 가능 여부 연구",
       "테스트 서비스 결정 — 전체 대상자 진행 시 회수 리스크를 고려해 일부 대상 테스트 서비스로 진행",
@@ -143,40 +257,90 @@ export const projectsData: Project[] = [
       "크리티컬 이슈 대응 — 금액 계산 로직 오류 확인 후 서비스 임시 차단, 로직 수정 요청·QA 진행",
       "테스트 결과 분석 — 환수율 60%, 행정 처리 문제 확인 후 서비스 방향 전환 근거 마련",
     ],
-    fullResult: "선환급 후 환수율 60% 달성. 고객 어뷰징 케이스 10%, 세무서 오처리 90%를 확인하며 현 구조의 수익성 한계를 실증했습니다. 해당 결과를 바탕으로 신규 서비스 기획 방향 전환의 근거가 되었고, 운영 모니터링 체계 중요성을 확인해 이후 서비스 운영에 반영했습니다.",
+    fullResult:
+      "선환급 후 환수율 60% 달성. 고객 어뷰징 케이스 10%, 세무서 오처리 90%를 확인하며 현 구조의 수익성 한계를 실증했습니다. 해당 결과를 바탕으로 신규 서비스 기획 방향 전환의 근거가 되었고, 운영 모니터링 체계 중요성을 확인해 이후 서비스 운영에 반영했습니다.",
     notionUrl: "https://app.notion.com/p/2138937a33b180b5b062fcb1a9e64a59",
+    en: {
+      title: "Instant Refund Test Service Operations",
+      summary:
+        "Operated a test service for instant refunds designed to address customer complaints about waiting periods, empirically validating administrative and operational limitations.",
+      role: "New service (instant refund) operations — customer flow planning, monitoring setup, issue handling",
+      result: "Built proactive issue response system; provided evidence to redirect the service roadmap",
+      tags: ["New Service", "Operations", "SQL", "Dashboard"],
+      background:
+        "Ongoing customer complaints about the ~2-month gap between 삼쩜삼's filing date and refund disbursement created pressure, and growing competition made competitive differentiation necessary.",
+      problem:
+        "The advance-payment / clawback structure carried collection risk, and operational uncertainty was high due to potential user abuse and inconsistent tax authority processing.",
+      process: [
+        "Service direction planning — Researching clawback methods for advance payments; studying feasibility within tax admin procedures",
+        "Test service decision — Given clawback risk from a full rollout, decided to run a limited-audience test service",
+        "Feasibility & edge case review — Checking operational viability (eligibility criteria, disbursement methods); preparing per-case contingency plans; building SQL dashboards (Redash)",
+        "Production deployment & monitoring — Monitoring payment status and service completion; tracking issue occurrence",
+        "Critical issue response — Confirmed a payment calculation logic error; temporarily blocked the service, filed a fix request, and ran QA",
+        "Test result analysis — Confirmed 60% clawback rate; identified 10% user abuse and 90% tax authority processing errors, establishing grounds to redirect the service roadmap",
+      ],
+      fullResult:
+        "60% clawback rate achieved. Confirmed 10% user abuse and 90% tax authority processing errors, empirically demonstrating the profitability limits of the current structure. Results became the basis for redirecting the new service roadmap; monitoring best practices were incorporated into subsequent operations.",
+    },
   },
   {
     id: "proj-jarvis-3",
     title: "백오피스 기능 고도화",
     company: "jarvis",
     period: "2024.07 – 2025.05",
-    summary: "서비스 변경에 따라 누적된 백오피스 기능 부재 문제를 리스트업·기획·개발 리딩하여 운영 업무 효율을 50% 향상시켰습니다.",
+    summary:
+      "서비스 변경에 따라 누적된 백오피스 기능 부재 문제를 리스트업·기획·개발 리딩하여 운영 업무 효율을 50% 향상시켰습니다.",
     role: "백오피스 기능 개선 기획 및 개발 리딩",
     result: "운영 업무 효율 50% 향상, BE 리소스 확보",
     tags: ["서비스 개선", "백오피스", "운영 효율화"],
-    background: "신규 서비스 추가·기존 서비스 로직 변경 등이 반복되며 백오피스 기능이 누락된 채 운영되었고, BE 개발자가 단순 확인 업무까지 처리해야 하는 상황이 발생했습니다.",
-    problem: "백오피스 미지원으로 인해 단순 확인·보정 처리 시 이전 대비 리드 타임이 300% 이상 소요되며 업무 효율이 급감하고 고객 불만이 증가했습니다.",
+    background:
+      "신규 서비스 추가·기존 서비스 로직 변경 등이 반복되며 백오피스 기능이 누락된 채 운영되었고, BE 개발자가 단순 확인 업무까지 처리해야 하는 상황이 발생했습니다.",
+    problem:
+      "백오피스 미지원으로 인해 단순 확인·보정 처리 시 이전 대비 리드 타임이 300% 이상 소요되며 업무 효율이 급감하고 고객 불만이 증가했습니다.",
     process: [
       "개선 필요 사항 리스트업 — 서비스 기능 추가에 따른 필수 기능 확인, 운영 간 필요 기능·개선 필요 로직 파악, 우선순위 체크 후 HIGH 이상만 최종 선정",
       "개선안 기획 — 개선 아이템별 초기 기획 진행, 필요 스펙·버튼 동작 정의",
       "개발 논의 및 리딩 — PM과 개발 일정·담당 논의, 필수·후순위 티켓 재선정 후 개발 리딩",
       "개발 현황 확인·QA — STG 배포 건 QA 진행, 정상 작동·오작동 여부 체크 후 전달",
     ],
-    fullResult: "전체 아이템 중 필수 아이템 개선·배포 완료. 백오피스 기능 개선을 통해 운영 업무 효율 50% 향상, 단순 확인·보정 처리를 위한 BE 리소스를 확보했습니다.",
+    fullResult:
+      "전체 아이템 중 필수 아이템 개선·배포 완료. 백오피스 기능 개선을 통해 운영 업무 효율 50% 향상, 단순 확인·보정 처리를 위한 BE 리소스를 확보했습니다.",
     notionUrl: "https://app.notion.com/p/2278937a33b1802e9009c523b9560ab4",
+    en: {
+      title: "Back-Office Feature Upgrade",
+      summary:
+        "Systematically identified accumulated back-office gaps caused by service changes, led planning and development, and improved operational efficiency by 50%.",
+      role: "Back-office improvement planning and development lead",
+      result: "50% improvement in operational efficiency; freed up back-end engineering resources",
+      tags: ["Service Improvement", "Back-Office", "Operations Efficiency"],
+      background:
+        "Repeated new service additions and logic changes left the back-office missing key features, requiring back-end engineers to handle routine verification tasks.",
+      problem:
+        "Lack of back-office support caused lead time for routine checks and corrections to increase by 300%+, sharply degrading operational efficiency and increasing customer complaints.",
+      process: [
+        "Listing improvements — Identifying required features from service additions; cataloguing needed functions and logic fixes from operations; shortlisting to HIGH priority and above",
+        "Planning improvements — Initial planning for each improvement item; defining required specs and button behaviors",
+        "Dev discussion & lead — Discussing schedule and ownership with PM; re-prioritizing tickets to essential/deferred; leading development",
+        "Dev status check & QA — Running QA on STG-deployed items; checking correct vs. incorrect behavior and feeding back",
+      ],
+      fullResult:
+        "Completed deployment of all essential items. Back-office improvements delivered a 50% gain in operational efficiency and freed back-end engineering resources from routine verification tasks.",
+    },
   },
   {
     id: "proj-jarvis-4",
     title: "서비스 신뢰도 하락 이슈 해결",
     company: "jarvis",
     period: "2025.04 – 2025.05",
-    summary: "서비스 전환 시 고객이 오인하는 장기 known 이슈를 SQL·알림톡 자동화로 선제 해결해, 관련 문의를 95% 감소시켰습니다.",
+    summary:
+      "서비스 전환 시 고객이 오인하는 장기 known 이슈를 SQL·알림톡 자동화로 선제 해결해, 관련 문의를 95% 감소시켰습니다.",
     role: "개선안 기획 및 고객 안내 액션 실행",
     result: "관련 문의 95% 감소, PG사 민원 80% 감소",
     tags: ["데이터 분석", "SQL", "고객 안내", "자동화"],
-    background: "세금 신고 기간에 따라 서비스가 클로징·오픈되는 구조에서, 재진입 시 기존 이용 내역이 아닌 신규 이용으로 판단되어 고객이 '이용료를 사취당했다'고 오인하는 이슈가 반복되었습니다.",
-    problem: "서비스 신뢰도 하락 및 부정 바이럴이 확산되고 있었으나 개발 리소스 부족·사이드 이펙트 우려로 근본적 수정이 어려운 상황이었습니다.",
+    background:
+      "세금 신고 기간에 따라 서비스가 클로징·오픈되는 구조에서, 재진입 시 기존 이용 내역이 아닌 신규 이용으로 판단되어 고객이 '이용료를 사취당했다'고 오인하는 이슈가 반복되었습니다.",
+    problem:
+      "서비스 신뢰도 하락 및 부정 바이럴이 확산되고 있었으나 개발 리소스 부족·사이드 이펙트 우려로 근본적 수정이 어려운 상황이었습니다.",
     process: [
       "이슈 상황 정의 — 불만 인입의 90%가 서비스 전환 후 미대상자 안내를 받은 고객임을 확인",
       "대상자 구체화 — DB명·속성명으로 이슈 처리 대상자를 코드 형태로 정의",
@@ -184,8 +348,30 @@ export const projectsData: Project[] = [
       "방향 결정 및 실행 — FE 개선 + 운영 자체 선안내 병행 결정. SQL 쿼리로 대상자 판단 로직 빌드, 알림톡 발송 트리거를 운영계 DB에 직접 구축해 대상자 발생 시 자동 발송",
       "FE 배포·알림톡 운영 — 5월 말 미대상자 화면에 이전 이용 내역 진입점 노출, 4월 말부터 실시간 알림톡 자동 발송 운영",
     ],
-    fullResult: "해당 이슈 불만·문의 작년 대비 95% 감소 (상위 5% 인입율 → 하위 5%). 환불 대응 불가한 PG사 등 대외 민원 80% 감소. 중요 대응 리소스를 확보했습니다.",
+    fullResult:
+      "해당 이슈 불만·문의 작년 대비 95% 감소 (상위 5% 인입율 → 하위 5%). 환불 대응 불가한 PG사 등 대외 민원 80% 감소. 중요 대응 리소스를 확보했습니다.",
     notionUrl: "https://app.notion.com/p/2108937a33b18017bc67ca551f9705a6",
+    en: {
+      title: "Resolving Service Trust Decline Issue",
+      summary:
+        "Pre-emptively resolved a long-standing known issue causing customers to misinterpret service transitions through SQL and KakaoTalk automation, reducing related inquiries by 95%.",
+      role: "Improvement planning and customer communication execution",
+      result: "95% reduction in related inquiries; 80% reduction in external payment processor complaints",
+      tags: ["Data Analysis", "SQL", "Customer Communication", "Automation"],
+      background:
+        "The service's seasonal close/reopen structure caused returning customers to appear as new users, leading them to believe they had been fraudulently charged — a recurring and damaging issue.",
+      problem:
+        "Service trust was declining and negative word-of-mouth was spreading, but a root code fix was blocked by resource constraints and side-effect concerns.",
+      process: [
+        "Defining the issue — Confirmed 90% of complaints came from customers who received non-target notifications after a service transition",
+        "Identifying affected users — Defined the affected population in query form using DB names and attribute names",
+        "Planning 3 improvement approaches — Comparing BE logic fix / FE screen improvement / operations-led workaround",
+        "Decision & execution — Chose FE improvement + proactive operations-led pre-notification in parallel; built user identification query logic via SQL; wired notification send triggers directly to the operations DB for automatic dispatch",
+        "FE deployment & notification operations — Exposed previous usage entry point on the non-target screen at end of May; ran real-time automatic KakaoTalk notifications starting end of April",
+      ],
+      fullResult:
+        "Complaints and inquiries for this issue dropped 95% YoY (from top 5% to bottom 5% of inbound). External complaints to payment processors dropped 80%. Recovered critical response capacity for the team.",
+    },
   },
 
   // MIDAS
@@ -194,75 +380,164 @@ export const projectsData: Project[] = [
     title: "기업서비스 신규 기능 기획",
     company: "midas",
     period: "2023.01 – 진행중",
-    summary: "채용 시장 조사를 바탕으로 공고 기반 채용 지원 기능을 기획했습니다. 기존 포지션 형태에 공채 기능을 추가해 이용자 확보를 목표로 했습니다.",
+    summary:
+      "채용 시장 조사를 바탕으로 공고 기반 채용 지원 기능을 기획했습니다. 기존 포지션 형태에 공채 기능을 추가해 이용자 확보를 목표로 했습니다.",
     role: "PM (2인 팀, 기여도 60%) — 전략 수립, 와이어프레임 구축, 개발 모니터링",
     result: "서비스 전체 기획 완료, 백엔드 데이터 처리 로직 구축 완료",
     tags: ["신규 기능", "서비스 기획", "채용"],
-    background: "기업 서비스 이용자들이 채용 시 주로 사용하는 공채 형태의 기능이 부재했고, 별도 플랫폼을 도입하는 기업도 있었습니다.",
-    problem: "채용 형태 조사 결과 포지션·공채 형태를 모두 활용하는 기업이 다수였으나, 서비스 내 공채 기능이 없어 초기 이용 장벽이 발생했습니다.",
+    background:
+      "기업 서비스 이용자들이 채용 시 주로 사용하는 공채 형태의 기능이 부재했고, 별도 플랫폼을 도입하는 기업도 있었습니다.",
+    problem:
+      "채용 형태 조사 결과 포지션·공채 형태를 모두 활용하는 기업이 다수였으나, 서비스 내 공채 기능이 없어 초기 이용 장벽이 발생했습니다.",
     process: [
       "기업 채용 선호 기능 조사 — 2021~2022년 채용 형태·채용 플랫폼 공고 형태 분석",
       "서비스 정책 기반 신규 기능 기획 — 포지션 형태 기반 공고 기능 추가 방법 기획, 기존 데이터 활용 CMS 및 개별 기능 투 트랙 기획",
       "개발 협업 및 배포 — CMS 포지션 묶음을 통한 공고 형성 기능 배포 완료, 기업 자체 공고 생성 기능 개발 진행",
     ],
-    fullResult: "CMS 포지션 묶음을 통한 공고 형성 기능 3월 배포 완료. 메인페이지 세팅을 통한 구직자 홍보 지원 시작. 기업 자체 공고 생성 기능 개발 진행 중.",
+    fullResult:
+      "CMS 포지션 묶음을 통한 공고 형성 기능 3월 배포 완료. 메인페이지 세팅을 통한 구직자 홍보 지원 시작. 기업 자체 공고 생성 기능 개발 진행 중.",
     notionUrl: "https://app.notion.com/p/1418937a33b181ff8657c1cc7e8c3926",
+    en: {
+      title: "Corporate Service New Feature Planning",
+      summary:
+        "Based on recruitment market research, planned a job-posting-based hiring feature — adding open recruitment capability to the existing position-based model to expand the user base.",
+      role: "PM (2-person team, 60% contribution) — strategy, wireframes, development monitoring",
+      result: "Full service plan completed; back-end data processing logic deployed",
+      tags: ["New Feature", "Service Planning", "Recruitment"],
+      background:
+        "Corporate service users lacked an open recruitment (공채) function they relied on, with some companies using separate platforms as a workaround.",
+      problem:
+        "Research showed most companies used both position-based and open recruitment formats, but the absence of an open recruitment feature created an initial onboarding barrier.",
+      process: [
+        "Corporate recruitment preference research — Analyzing 2021–2022 recruitment formats and job platform posting structures",
+        "New feature planning based on service policy — Planning how to add posting features on top of the existing position model; dual-track planning using existing data via CMS and a standalone feature",
+        "Dev collaboration & deployment — Deployed CMS position-bundled job posting feature; standalone job posting creation feature in development",
+      ],
+      fullResult:
+        "CMS position-bundled job posting feature deployed in March. Job seeker promotion support launched via main page setup. Corporate self-serve job posting creation in development.",
+    },
   },
   {
     id: "proj-midas-2",
     title: "기업서비스 UX 개선",
     company: "midas",
     period: "2023.02 – 진행중",
-    summary: "포지션 등록 과정을 20단계에서 간소화하고, 백엔드 데이터 처리 로직을 개선해 초기 이용 장벽을 낮췄습니다.",
+    summary:
+      "포지션 등록 과정을 20단계에서 간소화하고, 백엔드 데이터 처리 로직을 개선해 초기 이용 장벽을 낮췄습니다.",
     role: "개인 진행 PM — 이용자 관점 개선안 기획, 백엔드 데이터 이동 로직 변경 기획, 개발·디자인 반영 모니터링",
     result: "기획 완료, 개발 진행 중 (최우선 순위 반영)",
     tags: ["기능 개선", "UX", "서비스 기획"],
-    background: "기업의 채용 포지션 등록 과정이 20개의 스텝으로 구성되어 있어 서비스 초기 이용 시 불편함이 컸습니다.",
-    problem: "복잡한 등록 절차가 초기 이용 장벽으로 작용하며 서비스 이탈 요인이 되었고, 이용자 만족도 개선이 필요했습니다.",
+    background:
+      "기업의 채용 포지션 등록 과정이 20개의 스텝으로 구성되어 있어 서비스 초기 이용 시 불편함이 컸습니다.",
+    problem:
+      "복잡한 등록 절차가 초기 이용 장벽으로 작용하며 서비스 이탈 요인이 되었고, 이용자 만족도 개선이 필요했습니다.",
     process: [
       "이용자 관점 개선안 기획 — 등록 단계 간소화 방안, 백엔드 데이터 이동 로직 변경 기획",
       "서비스 기획팀·개발팀 리뷰 요청",
       "개발·디자인 반영 현황 모니터링 (사업팀 요구사항 추가 반영 포함)",
     ],
-    fullResult: "기획 완료 후 최우선순위로 개발 진행 중. 사업팀 이미지 정책 간소화 요구사항도 추가 반영됐습니다.",
+    fullResult:
+      "기획 완료 후 최우선순위로 개발 진행 중. 사업팀 이미지 정책 간소화 요구사항도 추가 반영됐습니다.",
     notionUrl: "https://app.notion.com/p/1418937a33b181f3a804d084e456a967",
+    en: {
+      title: "Corporate Service UX Improvement",
+      summary:
+        "Simplified the 20-step position registration flow and improved back-end data processing logic to lower the initial usage barrier.",
+      role: "Solo PM — user-perspective improvement planning, back-end data migration logic redesign, dev & design monitoring",
+      result: "Planning complete; in development (highest priority)",
+      tags: ["Feature Improvement", "UX", "Service Planning"],
+      background:
+        "The corporate position registration process consisted of 20 steps, making initial usage cumbersome for new customers.",
+      problem:
+        "The complex registration flow acted as an initial barrier causing churn, and user satisfaction improvements were critically needed.",
+      process: [
+        "User-centric improvement planning — Planning registration step simplification and back-end data migration logic changes",
+        "Review request to service planning team and engineering team",
+        "Monitoring dev & design progress (including additional business team requirements)",
+      ],
+      fullResult:
+        "Planning complete and in development at highest priority. Additional business team request for simplified image policies was also incorporated.",
+    },
   },
   {
     id: "proj-midas-3",
     title: "백오피스 CMS 기능 기획",
     company: "midas",
     period: "2023.01 – 2023.02",
-    summary: "운영 효율화를 위한 백오피스 기능을 기획하고, 포지션·기업채널·공고 관리 기능을 2개월 만에 배포했습니다.",
+    summary:
+      "운영 효율화를 위한 백오피스 기능을 기획하고, 포지션·기업채널·공고 관리 기능을 2개월 만에 배포했습니다.",
     role: "기획 (2인 팀 — 개발 1, 기획 1) — 추가 기능 기획, 작동 로직 설계",
     result: "포지션 등록·기업채널 관리·공고 관리 기능 3월 배포 완료",
     tags: ["백오피스", "기획", "운영 효율화"],
-    background: "백오피스가 다수 분리되어 있고 기능이 부족해 오퍼레이팅 문제가 발생했고, 콘텐츠·사이트 관리를 위한 기능 추가가 필요했습니다.",
+    background:
+      "백오피스가 다수 분리되어 있고 기능이 부족해 오퍼레이팅 문제가 발생했고, 콘텐츠·사이트 관리를 위한 기능 추가가 필요했습니다.",
     process: [
       "필요 기능 요구사항 정의 — 현 제공 기능 및 필요 기능 정의, 구현 방법 기획 (이전 서비스 레퍼런스 참고)",
       "기업 승인 알럿 기능, 포지션 승인 절차 추가, 콘텐츠 관리 기능 기획",
       "개발 진행·배포 — 3월 타겟 배포 완료, 메인페이지 개편 연계 진행",
     ],
-    fullResult: "포지션 등록·기업채널 관리·공고 관리 기능을 3월에 배포 완료했습니다. 백오피스 기능 기반 메인페이지 개편이 연계 진행됐습니다.",
+    fullResult:
+      "포지션 등록·기업채널 관리·공고 관리 기능을 3월에 배포 완료했습니다. 백오피스 기능 기반 메인페이지 개편이 연계 진행됐습니다.",
     notionUrl: "https://app.notion.com/p/1418937a33b181e990fbea7bb558e40d",
+    en: {
+      title: "Back-Office CMS Feature Planning",
+      summary:
+        "Planned back-office features for operational efficiency and deployed position, company channel, and job posting management functions within 2 months.",
+      role: "Planning (2-person team — 1 dev, 1 planner) — feature planning, operational logic design",
+      result: "Position registration, company channel management, and job posting management features deployed in March",
+      tags: ["Back-Office", "Planning", "Operations Efficiency"],
+      background:
+        "Multiple fragmented back-office systems with insufficient features caused operational problems, and feature additions for content and site management were needed.",
+      process: [
+        "Defining requirements — Identifying current features and needed additions; planning implementation (referencing legacy service)",
+        "Planning company approval alerts, position approval workflow, and content management features",
+        "Dev progress & deployment — Completed deployment targeting March; linked with main page redesign",
+      ],
+      fullResult:
+        "Position registration, company channel management, and job posting management deployed in March. Main page redesign linked to back-office features proceeded in parallel.",
+    },
   },
   {
     id: "proj-midas-4",
     title: "VOC 기반 대용량 엑셀 다운로드 개선",
     company: "midas",
     period: "2022.09 – 2022.12",
-    summary: "2000명 이상 지원자 데이터를 엑셀로 다운로드할 수 없다는 반복적인 VOC를 해결하기 위해 로직 개선을 기획하고, 파일함 기반 비동기 다운로드 기능을 추가했습니다.",
+    summary:
+      "2000명 이상 지원자 데이터를 엑셀로 다운로드할 수 없다는 반복적인 VOC를 해결하기 위해 로직 개선을 기획하고, 파일함 기반 비동기 다운로드 기능을 추가했습니다.",
     role: "VOC 기반 초기 기획·요구사항 정리 (4인 팀, 기여도 30%), 문제 원인 규명",
     result: "2020년부터 누적된 VOC 기능 반영 완료, 대용량 다운로드 로직 개선",
     tags: ["기능 개선", "VOC", "서비스 기획"],
-    background: "2000명 이상 지원자 데이터를 엑셀로 다운로드할 때 속도 문제로 정상 작동이 불가능하다는 VOC가 지속적으로 접수되었습니다.",
-    problem: "코딩 인수인계가 미흡해 전체 코드를 개별 분석해야 했고, 데이터 변환 중 특정 횟수 이상 시도 시 무한 루프가 발생하는 코드가 존재했습니다.",
+    background:
+      "2000명 이상 지원자 데이터를 엑셀로 다운로드할 때 속도 문제로 정상 작동이 불가능하다는 VOC가 지속적으로 접수되었습니다.",
+    problem:
+      "코딩 인수인계가 미흡해 전체 코드를 개별 분석해야 했고, 데이터 변환 중 특정 횟수 이상 시도 시 무한 루프가 발생하는 코드가 존재했습니다.",
     process: [
       "엑셀 다운로드 문제 발생 원인 추적 — 데이터 볼륨 무관하게 발생하는 문제에 대한 로그·로직 점검 개발자와 진행, 무한 루프 발생 코드 확인",
       "로직 개선 방향 및 UI 개선 기획 — 데이터 누락 방지 코드 요청, 다운로드 요청 시 타 작업 불가 문제 해결을 위한 파일함 UI 기획",
       "개발 진행 및 QA — 대용량 다운로드 로직 개선 완료, 파일함 기반 비동기 다운로드 기능 추가",
     ],
-    fullResult: "2020년부터 꾸준했던 VOC 기능 반영 성공. 엑셀 대용량 다운로드 로직 개선 완료. 파일함 기반 다운로드 요청 후 타 업무 진행 가능한 기능이 추가되었습니다.",
+    fullResult:
+      "2020년부터 꾸준했던 VOC 기능 반영 성공. 엑셀 대용량 다운로드 로직 개선 완료. 파일함 기반 다운로드 요청 후 타 업무 진행 가능한 기능이 추가되었습니다.",
     notionUrl: "https://app.notion.com/p/1418937a33b1811190c4fe8e1c1adf3a",
+    en: {
+      title: "VOC-Driven Bulk Excel Download Improvement",
+      summary:
+        "Resolved a recurring VOC issue where users couldn't download 2,000+ applicant records via Excel by planning logic improvements and adding an asynchronous file download feature.",
+      role: "Initial planning & requirements documentation (4-person team, 30% contribution); root cause identification",
+      result: "VOC accumulated since 2020 finally resolved; bulk download logic improved",
+      tags: ["Feature Improvement", "VOC", "Service Planning"],
+      background:
+        "A persistent VOC about being unable to download 2,000+ applicant records via Excel due to speed/timeout issues had been accumulating since 2020.",
+      problem:
+        "Poor code handover documentation required full analysis from scratch; an infinite loop bug was discovered in the data conversion code triggered above a certain number of attempts.",
+      process: [
+        "Tracing the download failure root cause — Working with engineers to check logs and logic for issues occurring regardless of data volume; confirming the infinite loop code",
+        "Logic improvement & UI redesign planning — Requesting data integrity safeguards; planning a file box UI to solve the issue of no other tasks being possible during download",
+        "Dev & QA — Bulk download logic improvement completed; asynchronous file box download feature added",
+      ],
+      fullResult:
+        "Successfully resolved a VOC that had been accumulating since 2020. Bulk Excel download logic improved. Added the ability to queue a download and continue other tasks via the file box.",
+    },
   },
 ];
 
@@ -276,10 +551,10 @@ export const skillsData: SkillItem[] = [
   { name: "JIRA", level: 80, category: "tool" },
   { name: "Zendesk", level: 75, category: "tool" },
   { name: "Slack", level: 90, category: "tool" },
-  { name: "서비스 기획", level: 85, category: "process" },
-  { name: "운영 정책 수립", level: 90, category: "process" },
-  { name: "VOC 분석", level: 88, category: "process" },
-  { name: "데이터 기반 의사결정", level: 82, category: "process" },
+  { name: "서비스 기획", nameEn: "Service Planning", level: 85, category: "process" },
+  { name: "운영 정책 수립", nameEn: "Operations Policy", level: 90, category: "process" },
+  { name: "VOC 분석", nameEn: "VOC Analysis", level: 88, category: "process" },
+  { name: "데이터 기반 의사결정", nameEn: "Data-Driven Decisions", level: 82, category: "process" },
 ];
 
 export const notionDatabaseIds: Record<CompanyKey, string> = {
@@ -297,4 +572,10 @@ export const companyLabels: Record<CompanyKey, string> = {
   flex: "플렉스",
   jarvis: "자비스앤빌런즈",
   midas: "마이다스인",
+};
+
+export const companyLabelsEn: Record<CompanyKey, string> = {
+  flex: "Flex",
+  jarvis: "Jarvis & Villains",
+  midas: "Midas-in",
 };

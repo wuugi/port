@@ -2,15 +2,21 @@
 
 import { useEffect } from "react";
 import type { Project } from "@/lib/types";
-import { companyLabels } from "@/lib/static-data";
+import { companyLabels, companyLabelsEn } from "@/lib/static-data";
+import { useLang } from "@/lib/lang-context";
+import { ui } from "@/lib/i18n";
 
 interface ProjectModalProps {
   project: Project | null;
+  rawProject?: Project | null;
   onClose: () => void;
-  theme?: "dark" | "light";
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const { lang } = useLang();
+  const t = ui[lang];
+  const labels = lang === "en" ? companyLabelsEn : companyLabels;
+
   useEffect(() => {
     if (project) {
       document.body.style.overflow = "hidden";
@@ -49,7 +55,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <span className={`px-2 py-1 text-xs rounded-full ${companyBadgeClass}`}>
-                  {companyLabels[project.company]}
+                  {labels[project.company]}
                 </span>
                 <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
               </div>
@@ -58,7 +64,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <button
               onClick={onClose}
               className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--accent-subtle)] transition-colors"
-              aria-label="닫기"
+              aria-label={t.close}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -87,7 +93,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <img
                   key={i}
                   src={img}
-                  alt={`${project.title} 이미지 ${i + 1}`}
+                  alt={`${project.title} ${i + 1}`}
                   className="w-full max-h-48 object-cover rounded-lg"
                 />
               ))}
@@ -98,11 +104,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <div className="bg-[var(--bg)] rounded-xl p-4">
             <div className="space-y-3">
               <div>
-                <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">요약</span>
+                <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">{t.summary}</span>
                 <p className="mt-1 text-sm leading-relaxed text-[var(--text)]">{project.summary}</p>
               </div>
               <div>
-                <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">역할</span>
+                <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">{t.role}</span>
                 <p className="mt-1 text-sm text-[var(--text)]">{project.role}</p>
               </div>
             </div>
@@ -111,7 +117,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Background */}
           {project.background && (
             <div>
-              <h3 className="text-[var(--accent)] font-semibold mb-3">배경</h3>
+              <h3 className="text-[var(--accent)] font-semibold mb-3">{t.background}</h3>
               <p className="text-sm leading-relaxed text-[var(--text)]">{project.background}</p>
             </div>
           )}
@@ -119,7 +125,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Problem */}
           {project.problem && (
             <div>
-              <h3 className="text-[var(--accent)] font-semibold mb-3">문제 인식</h3>
+              <h3 className="text-[var(--accent)] font-semibold mb-3">{t.problem}</h3>
               <p className="text-sm leading-relaxed text-[var(--text)]">{project.problem}</p>
             </div>
           )}
@@ -127,7 +133,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Process */}
           {project.process && project.process.length > 0 && (
             <div>
-              <h3 className="text-[var(--accent)] font-semibold mb-3">진행 과정</h3>
+              <h3 className="text-[var(--accent)] font-semibold mb-3">{t.process}</h3>
               <div className="space-y-3">
                 {project.process.map((step, i) => (
                   <div key={i} className="flex gap-3 text-sm text-[var(--text)]">
@@ -143,7 +149,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Result */}
           <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-xl p-4">
-            <h3 className="text-sm font-semibold mb-2 text-[var(--accent)]">결과</h3>
+            <h3 className="text-sm font-semibold mb-2 text-[var(--accent)]">{t.result}</h3>
             <p className="text-sm leading-relaxed text-[var(--text)]">
               {project.fullResult || project.result}
             </p>
@@ -161,7 +167,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                노션에서 보기
+                {t.viewInNotion}
               </a>
             </div>
           )}

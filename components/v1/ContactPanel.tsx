@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { personInfo } from "@/lib/static-data";
+import { useLang } from "@/lib/lang-context";
+import { ui } from "@/lib/i18n";
 
-function CopyButton({ value }: { value: string }) {
+function CopyButton({ value, copyLabel, copiedLabel }: { value: string; copyLabel: string; copiedLabel: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -20,14 +22,9 @@ function CopyButton({ value }: { value: string }) {
       {copied ? (
         <>
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          복사됨
+          {copiedLabel}
         </>
       ) : (
         <>
@@ -39,7 +36,7 @@ function CopyButton({ value }: { value: string }) {
               d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
             />
           </svg>
-          복사
+          {copyLabel}
         </>
       )}
     </button>
@@ -51,11 +48,15 @@ function ContactCard({
   label,
   value,
   href,
+  copyLabel,
+  copiedLabel,
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
   href: string;
+  copyLabel: string;
+  copiedLabel: string;
 }) {
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 flex items-center gap-4">
@@ -71,17 +72,20 @@ function ContactCard({
           {value}
         </a>
       </div>
-      <CopyButton value={value} />
+      <CopyButton value={value} copyLabel={copyLabel} copiedLabel={copiedLabel} />
     </div>
   );
 }
 
 export default function ContactPanel() {
+  const { lang } = useLang();
+  const t = ui[lang];
+
   return (
     <div className="panel-enter max-w-2xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-[var(--text)] mb-2">연락하기</h2>
-        <p className="text-[var(--text-muted)]">협업 제안이나 채용 문의는 아래 연락처로 연락주세요.</p>
+        <h2 className="text-2xl font-bold text-[var(--text)] mb-2">{t.contactHeading}</h2>
+        <p className="text-[var(--text-muted)]">{t.contactSubheading}</p>
       </div>
 
       <div className="space-y-4">
@@ -96,9 +100,11 @@ export default function ContactPanel() {
               />
             </svg>
           }
-          label="이메일"
+          label={t.email}
           value={personInfo.email}
           href={`mailto:${personInfo.email}`}
+          copyLabel={t.copy}
+          copiedLabel={t.copied}
         />
 
         <ContactCard
@@ -112,9 +118,11 @@ export default function ContactPanel() {
               />
             </svg>
           }
-          label="전화번호"
+          label={t.phone}
           value={personInfo.phone}
           href={`tel:${personInfo.phone}`}
+          copyLabel={t.copy}
+          copiedLabel={t.copied}
         />
       </div>
 
@@ -122,11 +130,9 @@ export default function ContactPanel() {
       <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-2xl p-6 text-center">
         <div className="inline-flex items-center gap-2 mb-3">
           <span className="w-2 h-2 bg-[#4ade80] rounded-full animate-pulse" />
-          <span className="text-[#4ade80] text-sm font-medium">현재 기회에 열려 있습니다</span>
+          <span className="text-[#4ade80] text-sm font-medium">{t.openToOpportunities}</span>
         </div>
-        <p className="text-[var(--text-muted)] text-sm">
-          서비스 운영, 고객 경험 개선, 데이터 기반 의사결정이 필요한 곳이라면 언제든지 연락주세요.
-        </p>
+        <p className="text-[var(--text-muted)] text-sm">{t.openToOpportunitiesDesc}</p>
       </div>
     </div>
   );
