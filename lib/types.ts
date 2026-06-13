@@ -21,6 +21,8 @@ export interface Project {
   problem?: string;
   process?: string[];
   fullResult?: string;
+  images?: string[];
+  notionUrl?: string;
 }
 
 export interface SkillItem {
@@ -39,6 +41,7 @@ export interface PersonInfo {
   educationPeriod: string;
   certifications: string[];
   languages: string[];
+  profileImage?: string;
 }
 
 export type ActivePanel = "about" | "career" | "projects" | "skills" | "contact";
