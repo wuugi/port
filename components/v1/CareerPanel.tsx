@@ -14,14 +14,14 @@ const colorMap: Record<
     badge: "bg-[#4ade80]/20 text-[#4ade80]",
   },
   amber: {
-    dot: "bg-[#f59e0b]",
-    text: "text-[#f59e0b]",
-    badge: "bg-[#f59e0b]/20 text-[#f59e0b]",
+    dot: "bg-[#38bdf8]",
+    text: "text-[#38bdf8]",
+    badge: "bg-[#38bdf8]/15 text-[#38bdf8]",
   },
   purple: {
-    dot: "bg-[var(--accent2)]",
-    text: "text-[var(--accent2)]",
-    badge: "bg-[var(--accent2-subtle)] text-[var(--accent2)]",
+    dot: "bg-[#64748b]",
+    text: "text-[#94a3b8]",
+    badge: "bg-[#64748b]/15 text-[#94a3b8]",
   },
 };
 

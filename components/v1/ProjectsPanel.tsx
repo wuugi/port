@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { CompanyKey, Project } from "@/lib/types";
 import { projectsData, companyLabels } from "@/lib/static-data";
 import ProjectModal from "@/components/shared/ProjectModal";
@@ -78,9 +78,19 @@ function ProjectCard({
 export default function ProjectsPanel() {
   const [activeCompany, setActiveCompany] = useState<CompanyKey>("flex");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [allProjects, setAllProjects] = useState<Project[]>(projectsData);
+
+  useEffect(() => {
+    fetch("/api/notion/projects")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.projects?.length) setAllProjects(data.projects);
+      })
+      .catch(() => {});
+  }, []);
 
   const companies: CompanyKey[] = ["flex", "jarvis", "midas"];
-  const filtered = projectsData.filter((p) => p.company === activeCompany);
+  const filtered = allProjects.filter((p) => p.company === activeCompany);
 
   return (
     <div className="panel-enter space-y-6">
@@ -91,7 +101,7 @@ export default function ProjectsPanel() {
             Notion으로 관리됨
           </span>
         </div>
-        <span className="text-[var(--text-muted)] text-sm">총 {projectsData.length}개 프로젝트</span>
+        <span className="text-[var(--text-muted)] text-sm">총 {allProjects.length}개 프로젝트</span>
       </div>
 
       {/* Company Filter */}
@@ -110,7 +120,7 @@ export default function ProjectsPanel() {
             >
               {companyLabels[company]}
               <span className={`ml-1.5 text-xs ${isActive ? "opacity-70" : "opacity-50"}`}>
-                ({projectsData.filter((p) => p.company === company).length})
+                ({allProjects.filter((p) => p.company === company).length})
               </span>
             </button>
           );

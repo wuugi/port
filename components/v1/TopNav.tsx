@@ -73,7 +73,7 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
               className="ml-3 p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
               aria-label="테마 전환"
             >
-              {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+              {theme === "dark" ? <MoonIcon /> : <SunIcon />}
             </button>
           </div>
         </div>
