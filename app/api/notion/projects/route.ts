@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { CompanyKey } from "@/lib/types";
-import { notionDatabaseIds, getStaticProjects } from "@/lib/static-data";
-import { fetchProjects } from "@/lib/notion";
+import { getStaticProjects } from "@/lib/static-data";
 
 async function fetchPageImages(pageId: string, token: string): Promise<string[]> {
   try {
@@ -27,6 +26,15 @@ async function fetchPageImages(pageId: string, token: string): Promise<string[]>
   }
 }
 
+function extractPageId(notionUrl: string): string | null {
+  try {
+    const match = notionUrl.match(/\/p\/([a-f0-9]{32})/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const company = searchParams.get("company") as CompanyKey | null;
@@ -36,40 +44,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid company parameter" }, { status: 400 });
   }
 
+  // Always use rich static data as the base
+  const staticProjects = getStaticProjects(company || undefined);
+
   if (!process.env.NOTION_TOKEN) {
-    return NextResponse.json(
-      { error: "Notion token not configured", fallback: true },
-      { status: 503 }
-    );
+    return NextResponse.json({ projects: staticProjects, source: "static" });
   }
 
   const token = process.env.NOTION_TOKEN;
 
-  try {
-    const companiesToFetch: CompanyKey[] = company ? [company] : validCompanies;
-    const allProjects = await Promise.all(
-      companiesToFetch.map((c) => fetchProjects(notionDatabaseIds[c], c))
-    );
-    const projects = allProjects.flat();
+  // Enrich static projects with images fetched from Notion page blocks
+  const enriched = await Promise.all(
+    staticProjects.map(async (project) => {
+      if (!project.notionUrl) return project;
+      const pageId = extractPageId(project.notionUrl);
+      if (!pageId) return project;
+      const images = await fetchPageImages(pageId, token);
+      return images.length > 0 ? { ...project, images } : project;
+    })
+  );
 
-    // Enrich each project with up to 3 image blocks from the Notion page
-    const enriched = await Promise.all(
-      projects.map(async (project) => {
-        if (!project.images || project.images.length === 0) {
-          const images = await fetchPageImages(project.id, token);
-          return { ...project, images };
-        }
-        return project;
-      })
-    );
-
-    return NextResponse.json({ projects: enriched, source: "notion" });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    const fallbackProjects = getStaticProjects(company || undefined);
-    return NextResponse.json(
-      { projects: fallbackProjects, source: "static", error: message },
-      { status: 200 }
-    );
-  }
+  return NextResponse.json({ projects: enriched, source: "notion" });
 }
