@@ -20,8 +20,16 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
       <div className="space-y-6">
         <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-20 h-20 rounded-2xl bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center flex-shrink-0">
-              <span className="text-[var(--accent)] text-2xl font-bold">김</span>
+            <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center flex-shrink-0">
+              {personInfo.profileImage ? (
+                <img
+                  src={personInfo.profileImage}
+                  alt={personInfo.name}
+                  className="w-full h-full object-cover object-top"
+                />
+              ) : (
+                <span className="text-[var(--accent)] text-2xl font-bold">김</span>
+              )}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-[var(--text)]">
