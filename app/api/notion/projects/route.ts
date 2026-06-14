@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import type { CompanyKey } from "@/lib/types";
 import { getStaticProjects } from "@/lib/static-data";
 
+export const dynamic = "force-dynamic";
+
 async function fetchPageImages(pageId: string, token: string): Promise<string[]> {
   try {
     const response = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children?page_size=20`, {
+      cache: "no-store",
       headers: {
         Authorization: `Bearer ${token}`,
         "Notion-Version": "2022-06-28",

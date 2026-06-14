@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const token = process.env.NOTION_TOKEN;
 
@@ -13,6 +15,7 @@ export async function GET() {
     const response = await fetch(
       `https://api.notion.com/v1/blocks/${pageId}/children?page_size=20`,
       {
+        cache: "no-store",
         headers: {
           Authorization: `Bearer ${token}`,
           "Notion-Version": "2022-06-28",
