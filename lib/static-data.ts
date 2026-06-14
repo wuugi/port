@@ -12,7 +12,7 @@ export const personInfo: PersonInfo = {
   educationPeriod: "2014.03 - 2020.02",
   certifications: ["SQLD (23.12.15)"],
   languages: ["영어 회화 베이직", "TOEIC 920 (2022.7 - 2024.7 만료)"],
-  profileImage: "/profile.jpg",
+  profileImage: "/profile.png",
   en: {
     title: "6-Year Operations Manager Focused on Customer Experience & Data",
     intro:
