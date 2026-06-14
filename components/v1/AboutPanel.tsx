@@ -24,7 +24,9 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
               <span className="text-[var(--accent)] text-2xl font-bold">김</span>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-[var(--text)]">{personInfo.name}</h2>
+              <h2 className="text-2xl font-bold text-[var(--text)]">
+                {lang === "en" && personInfo.nameEn ? personInfo.nameEn : personInfo.name}
+              </h2>
               <p className="text-[var(--accent)] text-sm mt-1">{p.title}</p>
             </div>
           </div>
@@ -125,8 +127,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
             </button>
             <button
               onClick={() => onNavigate("projects")}
-              className="flex-1 py-2.5 rounded-xl bg-[var(--accent)] text-sm font-medium hover:opacity-90 transition-all"
-              style={{ color: "#0a1a14" }}
+              className="flex-1 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition-all"
             >
               Projects →
             </button>

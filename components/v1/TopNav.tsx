@@ -71,18 +71,31 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
               </button>
             ))}
 
-            {/* Language toggle */}
-            <button
-              onClick={toggleLang}
-              className={`ml-2 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
-                lang === "en"
-                  ? "border-[var(--accent)] text-[var(--accent)] bg-[var(--accent-subtle)]"
-                  : "border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
-              }`}
-              aria-label="언어 전환"
-            >
-              {lang === "ko" ? "EN" : "KO"}
-            </button>
+            {/* Language toggle — KO/EN tabs */}
+            <div className="ml-2 flex items-center rounded-lg border border-[var(--border)] overflow-hidden text-xs font-semibold">
+              <button
+                onClick={() => lang !== "ko" && toggleLang()}
+                className={`px-2.5 py-1.5 transition-all duration-200 ${
+                  lang === "ko"
+                    ? "bg-[var(--accent)] text-white"
+                    : "text-[var(--text-muted)] hover:text-[var(--accent)]"
+                }`}
+                aria-label="한국어"
+              >
+                KO
+              </button>
+              <button
+                onClick={() => lang !== "en" && toggleLang()}
+                className={`px-2.5 py-1.5 transition-all duration-200 ${
+                  lang === "en"
+                    ? "bg-[var(--accent)] text-white"
+                    : "text-[var(--text-muted)] hover:text-[var(--accent)]"
+                }`}
+                aria-label="English"
+              >
+                EN
+              </button>
+            </div>
 
             {/* Theme toggle */}
             <button

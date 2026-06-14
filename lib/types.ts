@@ -61,6 +61,7 @@ export interface SkillItem {
 
 export interface PersonInfo {
   name: string;
+  nameEn?: string;
   title: string;
   email: string;
   phone: string;

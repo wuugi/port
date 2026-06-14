@@ -123,7 +123,7 @@ export default function ProjectsPanel() {
               onClick={() => setActiveCompany(company)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-[var(--accent)] text-[#0a1a14]"
+                  ? "bg-[var(--accent)] text-white"
                   : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50"
               }`}
             >

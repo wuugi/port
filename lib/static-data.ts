@@ -2,6 +2,7 @@ import type { CareerItem, Project, SkillItem, PersonInfo, CompanyKey } from "./t
 
 export const personInfo: PersonInfo = {
   name: "김현욱",
+  nameEn: "Kim Hyun Uk",
   title: "고객 경험과 데이터를 보는 Operation Manager (6년차)",
   email: "hyunuk1245@naver.com",
   phone: "010-2515-5238",
