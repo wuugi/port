@@ -9,8 +9,8 @@ import { ui, tProject } from "@/lib/i18n";
 
 const companyTagMap: Record<CompanyKey, string> = {
   flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/20",
-  jarvis: "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20",
-  midas: "bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20",
+  jarvis: "bg-[var(--color-amber-subtle)] text-[var(--color-amber)] border border-[var(--color-amber)]/20",
+  midas: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/20",
 };
 
 function ProjectCard({
@@ -106,9 +106,6 @@ export default function ProjectsPanel() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <h2 className="text-xl font-bold text-[var(--text)]">{t.projectsHeading}</h2>
-          <span className="px-2 py-0.5 text-xs bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30 rounded-full">
-            {t.managedViaNotion}
-          </span>
         </div>
         <span className="text-[var(--text-muted)] text-sm">{t.totalProjects(rawProjects.length)}</span>
       </div>

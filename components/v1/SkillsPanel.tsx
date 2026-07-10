@@ -21,7 +21,7 @@ function SkillBar({ skill, animate, lang }: { skill: SkillItem; animate: boolean
         <span className="text-[var(--text)] text-sm font-medium">{displayName}</span>
         <span className="text-[var(--text-muted)] text-xs">{skill.level}%</span>
       </div>
-      <div className="h-2 bg-[var(--bg)] rounded-full overflow-hidden">
+      <div className="h-2 bg-[var(--skill-track)] rounded-full overflow-hidden">
         <div
           className={`h-full ${config.barClass} rounded-full transition-all duration-1000 ease-out`}
           style={{ width: animate ? `${skill.level}%` : "0%" }}

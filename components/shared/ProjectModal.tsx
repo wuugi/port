@@ -40,8 +40,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   const companyTagMap: Record<string, string> = {
     flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/30",
-    jarvis: "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/30",
-    midas: "bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/30",
+    jarvis: "bg-[var(--color-amber-subtle)] text-[var(--color-amber)] border border-[var(--color-amber)]/30",
+    midas: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/30",
   };
   const companyBadgeClass = companyTagMap[project.company] || "bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30";
 

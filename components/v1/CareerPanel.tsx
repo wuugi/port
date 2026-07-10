@@ -11,19 +11,19 @@ const colorMap: Record<
   { dot: string; text: string; badge: string }
 > = {
   green: {
-    dot: "bg-[#4ade80]",
-    text: "text-[#4ade80]",
-    badge: "bg-[#4ade80]/20 text-[#4ade80]",
+    dot: "bg-[var(--color-green)]",
+    text: "text-[var(--color-green)]",
+    badge: "bg-[var(--color-green-subtle)] text-[var(--color-green)]",
   },
   amber: {
-    dot: "bg-[#38bdf8]",
-    text: "text-[#38bdf8]",
-    badge: "bg-[#38bdf8]/15 text-[#38bdf8]",
+    dot: "bg-[var(--color-blue)]",
+    text: "text-[var(--color-blue)]",
+    badge: "bg-[var(--color-blue-subtle)] text-[var(--color-blue)]",
   },
   purple: {
-    dot: "bg-[#64748b]",
-    text: "text-[#94a3b8]",
-    badge: "bg-[#64748b]/15 text-[#94a3b8]",
+    dot: "bg-[var(--accent)]",
+    text: "text-[var(--accent)]",
+    badge: "bg-[var(--accent-subtle)] text-[var(--accent)]",
   },
 };
 

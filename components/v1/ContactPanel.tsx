@@ -129,8 +129,8 @@ export default function ContactPanel() {
       {/* Availability */}
       <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-2xl p-6 text-center">
         <div className="inline-flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 bg-[#4ade80] rounded-full animate-pulse" />
-          <span className="text-[#4ade80] text-sm font-medium">{t.openToOpportunities}</span>
+          <span className="w-2 h-2 bg-[var(--color-green)] rounded-full animate-pulse" />
+          <span className="text-[var(--color-green)] text-sm font-medium">{t.openToOpportunities}</span>
         </div>
         <p className="text-[var(--text-muted)] text-sm">{t.openToOpportunitiesDesc}</p>
       </div>
