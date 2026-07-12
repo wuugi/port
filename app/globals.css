@@ -32,10 +32,10 @@
   --accent-subtle: rgba(198,40,40,0.08);
   --accent2-subtle: rgba(191,54,12,0.08);
   --skill-track: rgba(0,0,0,0.10);
-  --color-green: #2E7D32;
-  --color-green-subtle: rgba(46,125,50,0.10);
-  --color-blue: #1565C0;
-  --color-blue-subtle: rgba(21,101,192,0.10);
+  --color-green: #7B5E3A;
+  --color-green-subtle: rgba(123,94,58,0.10);
+  --color-blue: #C97D2C;
+  --color-blue-subtle: rgba(201,125,44,0.10);
   --color-amber: #E65100;
   --color-amber-subtle: rgba(230,81,0,0.10);
 }
