@@ -27,11 +27,11 @@ function ProjectCard({
   return (
     <button
       onClick={onClick}
-      className="text-left bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 hover:border-[var(--accent)]/40 hover:shadow-lg transition-all duration-200 group"
+      className="text-left bg-[var(--bg-card)] border border-[var(--border)] p-5 hover:border-[var(--accent)]/50 transition-all duration-200 group"
     >
       <div className="flex items-start justify-between gap-2 mb-3">
         <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
-        <span className={`text-xs px-2 py-0.5 rounded-full ${tagClass}`}>
+        <span className={`text-xs px-2 py-0.5 ${tagClass}`}>
           {companyLabel}
         </span>
       </div>
@@ -49,7 +49,7 @@ function ProjectCard({
           {project.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 rounded-full"
+              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20"
             >
               {tag}
             </span>
@@ -61,12 +61,7 @@ function ProjectCard({
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </div>
 
@@ -104,13 +99,10 @@ export default function ProjectsPanel() {
   return (
     <div className="panel-enter space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold text-[var(--text)]">{t.projectsHeading}</h2>
-        </div>
+        <h2 className="text-xl font-bold text-[var(--text)]">{t.projectsHeading}</h2>
         <span className="text-[var(--text-muted)] text-sm">{t.totalProjects(rawProjects.length)}</span>
       </div>
 
-      {/* Company Filter */}
       <div className="flex gap-2 flex-wrap">
         {companies.map((company) => {
           const isActive = activeCompany === company;
@@ -118,10 +110,10 @@ export default function ProjectsPanel() {
             <button
               key={company}
               onClick={() => setActiveCompany(company)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+              className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-[var(--accent)] text-white"
-                  : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50"
+                  ? "bg-[var(--accent)] text-[var(--bg)] border border-[var(--accent)]"
+                  : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
               }`}
             >
               {labels[company]}
@@ -133,7 +125,6 @@ export default function ProjectsPanel() {
         })}
       </div>
 
-      {/* Project Grid */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((project) => (

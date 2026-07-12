@@ -50,7 +50,7 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full border-2 border-[var(--accent)] flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-[var(--accent)] flex items-center justify-center">
               <span className="text-[var(--accent)] font-bold text-sm">김</span>
             </div>
             <span className="text-[var(--text)] font-semibold hidden sm:block">김현욱</span>
@@ -71,13 +71,12 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
               </button>
             ))}
 
-            {/* Language toggle — KO/EN tabs */}
-            <div className="ml-2 flex items-center rounded-lg border border-[var(--border)] overflow-hidden text-xs font-semibold">
+            <div className="ml-2 flex items-center border border-[var(--border)] overflow-hidden text-xs font-semibold">
               <button
                 onClick={() => lang !== "ko" && toggleLang()}
                 className={`px-2.5 py-1.5 transition-all duration-200 ${
                   lang === "ko"
-                    ? "bg-[var(--accent)] text-white"
+                    ? "bg-[var(--accent)] text-[var(--bg)]"
                     : "text-[var(--text-muted)] hover:text-[var(--accent)]"
                 }`}
                 aria-label="한국어"
@@ -88,7 +87,7 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
                 onClick={() => lang !== "en" && toggleLang()}
                 className={`px-2.5 py-1.5 transition-all duration-200 ${
                   lang === "en"
-                    ? "bg-[var(--accent)] text-white"
+                    ? "bg-[var(--accent)] text-[var(--bg)]"
                     : "text-[var(--text-muted)] hover:text-[var(--accent)]"
                 }`}
                 aria-label="English"
@@ -97,10 +96,9 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
               </button>
             </div>
 
-            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="ml-1 p-2 rounded-lg border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
+              className="ml-1 p-2 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
               aria-label="테마 전환"
             >
               {theme === "dark" ? <MoonIcon /> : <SunIcon />}
