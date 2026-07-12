@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --bg: #100C06;
-  --bg-card: #1F150C;
-  --border: #3D2810;
-  --text: #E1DCC9;
-  --text-muted: #9B8574;
-  --accent: #C8923E;
-  --accent2: #A07030;
-  --accent-subtle: rgba(200,146,62,0.12);
-  --accent2-subtle: rgba(160,112,48,0.10);
+  --bg: #0A2947;
+  --bg-card: #0F3358;
+  --border: rgba(243,228,201,0.15);
+  --text: #F3E4C9;
+  --text-muted: #D3D4C0;
+  --accent: #E0A87E;
+  --accent2: #C48B5E;
+  --accent-subtle: rgba(224,168,126,0.14);
+  --accent2-subtle: rgba(196,139,94,0.12);
   --skill-track: rgba(255,255,255,0.10);
-  --color-green: #8BC34A;
-  --color-green-subtle: rgba(139,195,74,0.12);
-  --color-blue: #4FC3F7;
-  --color-blue-subtle: rgba(79,195,247,0.10);
-  --color-amber: #C8923E;
-  --color-amber-subtle: rgba(200,146,62,0.12);
+  --color-green: #BFA87A;
+  --color-green-subtle: rgba(191,168,122,0.14);
+  --color-blue: #A8B490;
+  --color-blue-subtle: rgba(168,180,144,0.14);
+  --color-amber: #E0A87E;
+  --color-amber-subtle: rgba(224,168,126,0.14);
 }
 
 .light {
