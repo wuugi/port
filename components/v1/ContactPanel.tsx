@@ -17,7 +17,7 @@ function CopyButton({ value, copyLabel, copiedLabel }: { value: string; copyLabe
   return (
     <button
       onClick={handleCopy}
-      className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[var(--accent-subtle)] text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors flex items-center gap-1.5"
+      className="px-3 py-1.5 text-xs font-medium bg-[var(--accent-subtle)] text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors flex items-center gap-1.5"
     >
       {copied ? (
         <>
@@ -59,8 +59,8 @@ function ContactCard({
   copiedLabel: string;
 }) {
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 flex items-center gap-4">
-      <div className="w-12 h-12 bg-[var(--accent-subtle)] rounded-xl flex items-center justify-center text-[var(--accent)] flex-shrink-0">
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5 flex items-center gap-4">
+      <div className="w-12 h-12 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] flex-shrink-0">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -127,10 +127,10 @@ export default function ContactPanel() {
       </div>
 
       {/* Availability */}
-      <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-2xl p-6 text-center">
+      <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 p-6 text-center">
         <div className="inline-flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 bg-[#4ade80] rounded-full animate-pulse" />
-          <span className="text-[#4ade80] text-sm font-medium">{t.openToOpportunities}</span>
+          <span className="w-2 h-2 bg-[var(--color-green)] rounded-full animate-pulse" />
+          <span className="text-[var(--color-green)] text-sm font-medium">{t.openToOpportunities}</span>
         </div>
         <p className="text-[var(--text-muted)] text-sm">{t.openToOpportunitiesDesc}</p>
       </div>

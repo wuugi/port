@@ -9,8 +9,8 @@ import { ui, tProject } from "@/lib/i18n";
 
 const companyTagMap: Record<CompanyKey, string> = {
   flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/20",
-  jarvis: "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20",
-  midas: "bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20",
+  jarvis: "bg-[var(--color-amber-subtle)] text-[var(--color-amber)] border border-[var(--color-amber)]/20",
+  midas: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/20",
 };
 
 function ProjectCard({
@@ -27,11 +27,11 @@ function ProjectCard({
   return (
     <button
       onClick={onClick}
-      className="text-left bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 hover:border-[var(--accent)]/40 hover:shadow-lg transition-all duration-200 group"
+      className="text-left bg-[var(--bg-card)] border border-[var(--border)] p-5 hover:border-[var(--accent)]/40 hover:shadow-lg transition-all duration-200 group"
     >
       <div className="flex items-start justify-between gap-2 mb-3">
         <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
-        <span className={`text-xs px-2 py-0.5 rounded-full ${tagClass}`}>
+        <span className={`text-xs px-2 py-0.5 ${tagClass}`}>
           {companyLabel}
         </span>
       </div>
@@ -49,7 +49,7 @@ function ProjectCard({
           {project.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 rounded-full"
+              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20"
             >
               {tag}
             </span>
@@ -106,9 +106,6 @@ export default function ProjectsPanel() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <h2 className="text-xl font-bold text-[var(--text)]">{t.projectsHeading}</h2>
-          <span className="px-2 py-0.5 text-xs bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30 rounded-full">
-            {t.managedViaNotion}
-          </span>
         </div>
         <span className="text-[var(--text-muted)] text-sm">{t.totalProjects(rawProjects.length)}</span>
       </div>
@@ -121,7 +118,7 @@ export default function ProjectsPanel() {
             <button
               key={company}
               onClick={() => setActiveCompany(company)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+              className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
                   ? "bg-[var(--accent)] text-white"
                   : "bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]/50"

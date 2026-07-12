@@ -16,11 +16,10 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
 
   return (
     <div className="panel-enter grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Left: Profile Info */}
       <div className="space-y-6">
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center flex-shrink-0">
+            <div className="w-20 h-20 overflow-hidden bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center flex-shrink-0">
               {personInfo.profileImage ? (
                 <img
                   src={personInfo.profileImage}
@@ -61,8 +60,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
           </div>
         </div>
 
-        {/* Education */}
-        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
           <h3 className="text-[var(--text)] font-semibold mb-4 flex items-center gap-2">
             <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -76,9 +74,8 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
           </div>
         </div>
 
-        {/* Certifications & Languages */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5">
             <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">{t.certifications}</h3>
             <div className="space-y-1">
               {p.certifications.map((cert) => (
@@ -86,7 +83,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
               ))}
             </div>
           </div>
-          <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5">
             <h3 className="text-[var(--text)] font-semibold mb-3 text-sm">{t.languages}</h3>
             <div className="space-y-1">
               {p.languages.map((langItem) => (
@@ -97,8 +94,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
         </div>
       </div>
 
-      {/* Right: Intro */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 flex flex-col">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col">
         <h3 className="text-[var(--text)] font-semibold mb-4 flex items-center gap-2">
           <svg className="w-4 h-4 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -109,33 +105,31 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
           {p.intro}
         </p>
 
-        {/* Key Highlights */}
         <div className="mt-6 grid grid-cols-3 gap-3">
           {[
             { label: t.experienceLabel, value: t.experienceValue },
             { label: t.certLabel, value: "SQLD" },
             { label: t.toeicLabel, value: "920" },
           ].map((item) => (
-            <div key={item.label} className="bg-[var(--accent-subtle)] rounded-xl p-3 text-center">
+            <div key={item.label} className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 p-3 text-center">
               <p className="text-[var(--accent)] font-bold text-lg">{item.value}</p>
               <p className="text-[var(--text-muted)] text-xs mt-0.5">{item.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Navigation CTAs */}
         <div className="mt-6 pt-5 border-t border-[var(--border)]">
           <p className="text-[var(--text-muted)] text-xs mb-3">{t.exploreMore}</p>
           <div className="flex gap-3">
             <button
               onClick={() => onNavigate("career")}
-              className="flex-1 py-2.5 rounded-xl border border-[var(--accent)]/40 text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-all"
+              className="flex-1 py-2.5 border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-all"
             >
               Career →
             </button>
             <button
               onClick={() => onNavigate("projects")}
-              className="flex-1 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition-all"
+              className="flex-1 py-2.5 bg-[var(--accent)] text-[var(--bg)] text-sm font-medium hover:opacity-90 transition-all"
             >
               Projects →
             </button>
@@ -157,7 +151,7 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 bg-[var(--accent-subtle)] rounded-lg flex items-center justify-center text-[var(--accent)] flex-shrink-0">
+      <div className="w-8 h-8 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] flex-shrink-0">
         {icon}
       </div>
       <div>

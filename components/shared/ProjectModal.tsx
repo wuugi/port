@@ -40,21 +40,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   const companyTagMap: Record<string, string> = {
     flex: "bg-[var(--accent2-subtle)] text-[var(--accent2)] border border-[var(--accent2)]/30",
-    jarvis: "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/30",
-    midas: "bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/30",
+    jarvis: "bg-[var(--color-amber-subtle)] text-[var(--color-amber)] border border-[var(--color-amber)]/30",
+    midas: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/30",
   };
   const companyBadgeClass = companyTagMap[project.company] || "bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-2xl scrollbar-thin">
+      <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[var(--bg-card)] border border-[var(--border)] shadow-2xl scrollbar-thin">
         {/* Header */}
         <div className="sticky top-0 z-10 px-6 pt-6 pb-4 bg-[var(--bg-card)] border-b border-[var(--border)]/50">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
-                <span className={`px-2 py-1 text-xs rounded-full ${companyBadgeClass}`}>
+                <span className={`px-2 py-1 text-xs ${companyBadgeClass}`}>
                   {labels[project.company]}
                 </span>
                 <span className="text-xs text-[var(--text-muted)]">{project.period}</span>
@@ -63,7 +63,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--accent-subtle)] transition-colors"
+              className="p-2 text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--accent-subtle)] transition-colors"
               aria-label={t.close}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +76,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 text-xs rounded-full"
+                className="px-2 py-1 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 text-xs"
               >
                 {tag}
               </span>
@@ -94,14 +94,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   key={i}
                   src={img}
                   alt={`${project.title} ${i + 1}`}
-                  className="w-full max-h-48 object-cover rounded-lg"
+                  className="w-full max-h-48 object-cover"
                 />
               ))}
             </div>
           )}
 
           {/* Summary + Role */}
-          <div className="bg-[var(--bg)] rounded-xl p-4">
+          <div className="bg-[var(--bg)] p-4">
             <div className="space-y-3">
               <div>
                 <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">{t.summary}</span>
@@ -137,7 +137,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               <div className="space-y-3">
                 {project.process.map((step, i) => (
                   <div key={i} className="flex gap-3 text-sm text-[var(--text)]">
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 bg-[var(--accent-subtle)] text-[var(--accent)]">
+                    <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 bg-[var(--accent-subtle)] text-[var(--accent)]">
                       {i + 1}
                     </span>
                     <p className="leading-relaxed flex-1">{step}</p>
@@ -148,7 +148,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           )}
 
           {/* Result */}
-          <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-xl p-4">
+          <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 p-4">
             <h3 className="text-sm font-semibold mb-2 text-[var(--accent)]">{t.result}</h3>
             <p className="text-sm leading-relaxed text-[var(--text)]">
               {project.fullResult || project.result}
@@ -162,7 +162,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.notionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[var(--accent)]/40 text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--accent)]/40 text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-all"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

@@ -21,9 +21,9 @@ function SkillBar({ skill, animate, lang }: { skill: SkillItem; animate: boolean
         <span className="text-[var(--text)] text-sm font-medium">{displayName}</span>
         <span className="text-[var(--text-muted)] text-xs">{skill.level}%</span>
       </div>
-      <div className="h-2 bg-[var(--bg)] rounded-full overflow-hidden">
+      <div className="h-1.5 bg-[var(--skill-track)] overflow-hidden">
         <div
-          className={`h-full ${config.barClass} rounded-full transition-all duration-1000 ease-out`}
+          className={`h-full ${config.barClass} transition-all duration-1000 ease-out`}
           style={{ width: animate ? `${skill.level}%` : "0%" }}
         />
       </div>
@@ -79,7 +79,7 @@ export default function SkillsPanel() {
           return (
             <div
               key={category}
-              className={`${config.bg} border ${config.border} rounded-2xl p-6`}
+              className={`${config.bg} border ${config.border} p-6`}
             >
               <h3 className="text-[var(--text)] font-semibold mb-5">{t.categoryLabels[category]}</h3>
               <div className="space-y-4">
@@ -93,7 +93,7 @@ export default function SkillsPanel() {
       </div>
 
       {/* Top Skills Summary */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
         <h3 className="text-[var(--text)] font-semibold mb-4">{t.topSkills}</h3>
         <div className="flex flex-wrap gap-2">
           {[...skillsData]
@@ -105,7 +105,7 @@ export default function SkillsPanel() {
               return (
                 <div
                   key={skill.name}
-                  className={`flex items-center gap-2 px-3 py-2 ${config.bg} border ${config.border} rounded-xl`}
+                  className={`flex items-center gap-2 px-3 py-2 ${config.bg} border ${config.border}`}
                 >
                   <span className={`w-2 h-2 ${config.dot} rounded-full`} />
                   <span className="text-[var(--text)] text-sm font-medium">{displayName}</span>

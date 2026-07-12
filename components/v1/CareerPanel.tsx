@@ -11,19 +11,19 @@ const colorMap: Record<
   { dot: string; text: string; badge: string }
 > = {
   green: {
-    dot: "bg-[#4ade80]",
-    text: "text-[#4ade80]",
-    badge: "bg-[#4ade80]/20 text-[#4ade80]",
+    dot: "bg-[var(--color-green)]",
+    text: "text-[var(--color-green)]",
+    badge: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/20",
   },
   amber: {
-    dot: "bg-[#38bdf8]",
-    text: "text-[#38bdf8]",
-    badge: "bg-[#38bdf8]/15 text-[#38bdf8]",
+    dot: "bg-[var(--color-blue)]",
+    text: "text-[var(--color-blue)]",
+    badge: "bg-[var(--color-blue-subtle)] text-[var(--color-blue)] border border-[var(--color-blue)]/20",
   },
   purple: {
-    dot: "bg-[#64748b]",
-    text: "text-[#94a3b8]",
-    badge: "bg-[#64748b]/15 text-[#94a3b8]",
+    dot: "bg-[var(--accent)]",
+    text: "text-[var(--accent)]",
+    badge: "bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20",
   },
 };
 
@@ -44,13 +44,13 @@ function CareerCard({
   const colors = colorMap[item.color];
 
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 transition-all duration-300 hover:shadow-lg">
+    <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 transition-all duration-300 hover:border-[var(--accent)]/40">
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className={`text-lg font-bold ${colors.text}`}>{item.company}</h3>
           <p className="text-[var(--accent)] text-sm mt-1">{item.period}</p>
         </div>
-        <span className={`px-2 py-1 text-xs rounded-full ${colors.badge}`}>
+        <span className={`px-2 py-0.5 text-xs ${colors.badge}`}>
           {item.color === "purple" ? currentLabel : formerLabel}
         </span>
       </div>
@@ -114,8 +114,7 @@ export default function CareerPanel() {
         ))}
       </div>
 
-      {/* Timeline summary */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
         <h3 className="text-[var(--text)] font-semibold mb-4">{t.careerTimeline}</h3>
         <div className="relative">
           <div className="absolute left-3 top-0 bottom-0 w-px bg-[var(--border)]" />
