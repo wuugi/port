@@ -30,13 +30,11 @@ const colorMap: Record<
 function CareerCard({
   item,
   currentLabel,
-  formerLabel,
   expandLabel,
   collapseLabel,
 }: {
   item: CareerItem;
   currentLabel: string;
-  formerLabel: string;
   expandLabel: (n: number) => string;
   collapseLabel: string;
 }) {
@@ -50,9 +48,11 @@ function CareerCard({
           <h3 className={`text-lg font-bold ${colors.text}`}>{item.company}</h3>
           <p className="text-[var(--accent)] text-sm mt-1">{item.period}</p>
         </div>
-        <span className={`px-2 py-0.5 text-xs ${colors.badge}`}>
-          {item.color === "purple" ? currentLabel : formerLabel}
-        </span>
+        {item.color === "purple" && (
+          <span className={`px-2 py-0.5 text-xs ${colors.badge}`}>
+            {currentLabel}
+          </span>
+        )}
       </div>
 
       <div className="space-y-1.5">
@@ -107,7 +107,6 @@ export default function CareerPanel() {
             key={item.companyKey}
             item={item}
             currentLabel={t.current}
-            formerLabel={t.former}
             expandLabel={expandLabel}
             collapseLabel={collapseLabel}
           />
