@@ -374,170 +374,248 @@ export const projectsData: Project[] = [
         "Complaints and inquiries for this issue dropped 95% YoY (from top 5% to bottom 5% of inbound). External complaints to payment processors dropped 80%. Recovered critical response capacity for the team.",
     },
   },
+  {
+    id: "proj-jarvis-5",
+    title: "크리티컬 노운 이슈 해결 (오신고 문제 해결)",
+    company: "jarvis",
+    period: "2025.04 – 2025.05",
+    summary:
+      "부양가족 오신고 장기 노운 이슈에 대해 SQL 쿼리 기반 대상자 추출 및 알림톡 자동 발송 체계를 구축해 선제적으로 대응했습니다.",
+    role: "이슈 원인 분석, SQL 쿼리 빌드, 알림톡 자동화 구축, 이슈 처리 프로세스 설정",
+    result: "이슈 후처리 대상 25% 감소, 재정 리스크 약 10억 감소",
+    tags: ["데이터 분석", "SQL", "알림톡 자동화", "운영 프로세스"],
+    background:
+      "삼쩜삼 이용 중 요건에 맞지 않은 부양가족을 포함해 신고하는 오신고 케이스가 지속 발생, 귀책 주장으로 서비스 신뢰도 하락 및 대외 민원이 발생했습니다.",
+    problem:
+      "부양가족 소득 요건 사전 확인이 불가한 구조적 한계로 근본적 해결이 어려웠고 재정 손실·민원이 반복됐습니다.",
+    process: [
+      "데이터 확인 및 DB 적재 요청 — 모니터링용 신규 테이블 요청, 경고 메시지 추출, 연결 키 세팅",
+      "이상 데이터 추출 쿼리 빌드 — 경고 메시지 발송 대상·연도·유형 추출",
+      "오신고 대상자 안내 메시지 설정 — 신고 유형별 3가지 버전 알림톡 기획",
+      "API 활용 알림톡 자동 발송 세팅 — 대상자 발생 시 자동 알림톡 발송 API 트리거",
+      "환불·상담 처리 방향 결정 — 환불 불가 케이스 정책, 고객센터 처리 방향 정의",
+      "이슈 발생 및 환불율 모니터링 대시보드 제작 — 대상자 발생율·환불 여부 모니터링",
+    ],
+    fullResult:
+      "오신고에 따른 이슈 후처리 대상 25% 감소. 재정 리스크 약 10억 감소 (환불 + 대납 비용). 안정적 서비스 운영 기반 마련.",
+    notionUrl: "https://app.notion.com/p/1fc8937a33b180d59937f2a226db9d5d",
+    en: {
+      title: "Critical Known Issue Resolution (Erroneous Tax Filing)",
+      summary:
+        "Built a proactive response system for a long-standing erroneous dependent declaration issue using SQL-based automated user extraction and KakaoTalk notification automation.",
+      role: "Root cause analysis, SQL query build, notification automation setup, issue processing workflow design",
+      result: "25% reduction in post-issue processing targets; ~1B KRW financial risk reduction",
+      tags: ["Data Analysis", "SQL", "Notification Automation", "Operations Process"],
+      background:
+        "Recurring cases of users filing with ineligible dependents on 삼쩜삼 led to blame disputes, eroding service trust and generating external complaints.",
+      problem:
+        "Structural inability to pre-verify dependent income eligibility made root-cause fixes impossible, leading to repeated financial losses and complaints.",
+      process: [
+        "Data verification & DB table request — Requested new monitoring table, extracted warning messages, configured join keys",
+        "Anomaly extraction query build — Queried affected users, filing years, and error types",
+        "Notification message setup — Planned 3 KakaoTalk message versions by filing type",
+        "Automated notification via API — Configured API trigger to auto-send notifications when affected users appear",
+        "Refund & counseling policy decision — Defined no-refund case policy and customer support handling direction",
+        "Monitoring dashboard creation — Built dashboard to track issue occurrence rate and refund status",
+      ],
+      fullResult:
+        "25% reduction in post-issue processing targets. ~1B KRW financial risk reduction (refunds + tax payment coverage). Established a stable service operations foundation.",
+    },
+  },
+  {
+    id: "proj-jarvis-6",
+    title: "서비스 모니터링 대시보드 제작",
+    company: "jarvis",
+    period: "2025.04 –",
+    summary:
+      "삼쩜삼 서비스 주요 지표를 실시간으로 확인할 수 있는 SQL 기반 모니터링 대시보드를 구축해 이슈 대응 속도와 운영 안정성을 높였습니다.",
+    role: "운영 지표 선정, SQL 쿼리 빌드, 대시보드 제작 및 알럿 설정",
+    result: "메인 시즌 안정적 운영, 실시간 이슈 모니터링 기반 마련",
+    tags: ["SQL", "대시보드", "서비스 모니터링", "데이터 분석"],
+    process: [
+      "서비스 운영 필요 지표 선정 — 결제·환불 금액, 처리 필요 건 실시간 데이터, 탈퇴 유저 추이, 노운 이슈 모니터링 지표 정의",
+      "필요 지표 SQL 쿼리 빌드 — 일반 운영 지표 및 노운 이슈 모니터링용 쿼리 작성",
+      "대시보드 제작 및 알럿 설정 — 목적별 탭 분류, 크리티컬 이슈 자동 알럿, 자동 리프레시 적용",
+    ],
+    fullResult:
+      "메인 시즌 안정적인 서비스 운영 및 서비스 개선 사항 실시간 파악. 대시보드를 통한 처리 필요 건 확인 및 이슈 모니터링으로 개선 방향성 결정 데이터 기반 마련.",
+    notionUrl: "https://app.notion.com/p/1f68937a33b1802a8c58f68718854059",
+    en: {
+      title: "Service Monitoring Dashboard Build",
+      summary:
+        "Built an SQL-based real-time monitoring dashboard for 삼쩜삼's key service metrics, improving issue response speed and operational stability.",
+      role: "Metric selection, SQL query build, dashboard creation, alert setup",
+      result: "Stable operations during main season; real-time issue monitoring foundation established",
+      tags: ["SQL", "Dashboard", "Service Monitoring", "Data Analysis"],
+      process: [
+        "Metric selection — Defined KPIs: payment/refund amounts, real-time pending items, churned user trends, and known issue monitoring metrics",
+        "SQL query build — Wrote queries for general operations metrics and known issue monitoring",
+        "Dashboard creation & alert setup — Organized tabs by purpose; configured critical issue auto-alerts and auto-refresh",
+      ],
+      fullResult:
+        "Enabled stable service operations during peak season and real-time visibility into service improvements. Dashboard-driven monitoring of pending items and issues established a data foundation for improvement decisions.",
+    },
+  },
+  {
+    id: "proj-jarvis-7",
+    title: "고객 만족도 조사 개선 및 대시보드 제작",
+    company: "jarvis",
+    period: "2023.06",
+    summary:
+      "고객 만족도 조사 문항을 간소화하고 R 기반 대시보드를 구축해, 응답률을 높이고 고객 페인포인트 해결 처리율을 50% 향상시켰습니다.",
+    role: "설문 문항 검토·개선, 지표 선정, R shinydashboard 대시보드 개발 및 배포",
+    result: "설문 응답률 개선, 고객 Pain Point 해결 처리율 50% 향상",
+    tags: ["운영 모니터링", "R", "대시보드", "고객 만족도"],
+    process: [
+      "기존 고객 만족도 조사 문항 검토 — 수집 및 관리 지표 정의, 불필요한 문항 삭제, 유관 부서 의견 수렴 후 간소화",
+      "고객 만족도 조사 지표 선정 — NPS(고객 추천 점수), CES(고객 서비스 편의성 점수), 재이용 여부 지표 확정",
+      "대시보드 기획 및 R 코딩 — R shinydashboard 모듈 활용 대시보드 제작, 전사 관리용 사이트 배포",
+    ],
+    fullResult:
+      "고객 만족도 설문 간소화(평균 10문항 → 5문항)를 통한 응답률 개선. 고객 만족도 대시보드를 통한 페인포인트 확인으로 해결 처리율 작년 대비 50% 상승.",
+    notionUrl: "https://app.notion.com/p/6813c9f7691540aeb5bad0b7a7902033",
+    en: {
+      title: "Customer Satisfaction Survey Improvement & Dashboard Build",
+      summary:
+        "Streamlined the customer satisfaction survey and built an R-based dashboard, improving response rates and boosting pain point resolution rate by 50%.",
+      role: "Survey question review & improvement, metric selection, R shinydashboard development and deployment",
+      result: "Improved survey response rate; 50% YoY improvement in customer pain point resolution rate",
+      tags: ["Operations Monitoring", "R", "Dashboard", "Customer Satisfaction"],
+      process: [
+        "Survey review — Defined key metrics, removed redundant questions, simplified based on cross-team input",
+        "Metric selection — Finalized NPS (Net Promoter Score), CES (Customer Effort Score), and repurchase intent metrics",
+        "Dashboard planning & R coding — Built dashboard using R shinydashboard; deployed as a company-wide management site",
+      ],
+      fullResult:
+        "Simplified survey from avg. 10 to 5 questions, improving response rates. Dashboard-driven pain point visibility raised resolution rate 50% YoY.",
+    },
+  },
 
   // MIDAS
   {
     id: "proj-midas-1",
-    title: "기업서비스 신규 기능 기획",
+    title: "고객 요구사항 기반 기능 개선 및 백로그 해소",
     company: "midas",
-    period: "2023.01 – 진행중",
+    period: "2022.05 – 2022.12",
     summary:
-      "채용 시장 조사를 바탕으로 공고 기반 채용 지원 기능을 기획했습니다. 기존 포지션 형태에 공채 기능을 추가해 이용자 확보를 목표로 했습니다.",
-    role: "PM (2인 팀, 기여도 60%) — 전략 수립, 와이어프레임 구축, 개발 모니터링",
-    result: "서비스 전체 기획 완료, 백엔드 데이터 처리 로직 구축 완료",
-    tags: ["신규 기능", "서비스 기획", "채용"],
+      "누적된 고객 요구사항을 개선 항목으로 정의하고 우선순위를 세워 기능 개선까지 반영, 기존 고객 재계약 기반을 마련했습니다.",
+    role: "개선 항목 정의 및 우선순위 수립, 기능 기획, 개발 협업, QA",
+    result: "누적 백로그 5건 해소, 기존 고객 재계약 기반 마련",
+    tags: ["서비스 개선", "VOC", "백로그 해소", "QA"],
     background:
-      "기업 서비스 이용자들이 채용 시 주로 사용하는 공채 형태의 기능이 부재했고, 별도 플랫폼을 도입하는 기업도 있었습니다.",
+      "고객사에서 지속적으로 요청해온 개선 항목이 처리되지 못한 채 누적되어 재계약 시점의 리스크로 이어졌습니다.",
     problem:
-      "채용 형태 조사 결과 포지션·공채 형태를 모두 활용하는 기업이 다수였으나, 서비스 내 공채 기능이 없어 초기 이용 장벽이 발생했습니다.",
+      "미해결 상태가 길어지면서 고객 불만이 지속적으로 쌓이고 재계약 리스크가 높아졌습니다.",
     process: [
-      "기업 채용 선호 기능 조사 — 2021~2022년 채용 형태·채용 플랫폼 공고 형태 분석",
-      "서비스 정책 기반 신규 기능 기획 — 포지션 형태 기반 공고 기능 추가 방법 기획, 기존 데이터 활용 CMS 및 개별 기능 투 트랙 기획",
-      "개발 협업 및 배포 — CMS 포지션 묶음을 통한 공고 형성 기능 배포 완료, 기업 자체 공고 생성 기능 개발 진행",
+      "요구사항 분류 및 우선순위 수립 — VOC와 고객사 요청을 성격별로 분류, 영향 범위와 처리 난이도를 기준으로 순서 결정",
+      "기능 개선 기획 — 개선 항목별 요구사항 정의, 개발 조직과 구현 범위 협의",
+      "QA 및 반영 — 개발 완료 건 검증 후 서비스 반영, 고객사 안내",
     ],
     fullResult:
-      "CMS 포지션 묶음을 통한 공고 형성 기능 3월 배포 완료. 메인페이지 세팅을 통한 구직자 홍보 지원 시작. 기업 자체 공고 생성 기능 개발 진행 중.",
-    notionUrl: "https://app.notion.com/p/1418937a33b181ff8657c1cc7e8c3926",
+      "오래 남아 있던 요구사항을 정리하고 주요 고객의 백로그 5건을 해소했습니다. 기능 개선 건에 대한 검토-기획-제품 개발 프로세스를 구축하고 기존 고객 재계약 기반을 마련했습니다.",
+    notionUrl: "https://app.notion.com/p/3b18937a33b1811f842bc7566475919f",
     en: {
-      title: "Corporate Service New Feature Planning",
+      title: "Customer Requirement–Based Feature Improvement & Backlog Resolution",
       summary:
-        "Based on recruitment market research, planned a job-posting-based hiring feature — adding open recruitment capability to the existing position-based model to expand the user base.",
-      role: "PM (2-person team, 60% contribution) — strategy, wireframes, development monitoring",
-      result: "Full service plan completed; back-end data processing logic deployed",
-      tags: ["New Feature", "Service Planning", "Recruitment"],
+        "Defined accumulated customer requests as improvement items, prioritized them, and drove them to completion — laying the groundwork for existing customer renewals.",
+      role: "Improvement item definition and prioritization, feature planning, dev collaboration, QA",
+      result: "5 accumulated backlogs resolved; foundation laid for existing customer renewals",
+      tags: ["Service Improvement", "VOC", "Backlog Resolution", "QA"],
       background:
-        "Corporate service users lacked an open recruitment (공채) function they relied on, with some companies using separate platforms as a workaround.",
+        "Improvement requests repeatedly submitted by customers had gone unaddressed, accumulating as a risk factor at contract renewal time.",
       problem:
-        "Research showed most companies used both position-based and open recruitment formats, but the absence of an open recruitment feature created an initial onboarding barrier.",
+        "Prolonged unresolved status caused customer dissatisfaction to compound and renewal risk to rise.",
       process: [
-        "Corporate recruitment preference research — Analyzing 2021–2022 recruitment formats and job platform posting structures",
-        "New feature planning based on service policy — Planning how to add posting features on top of the existing position model; dual-track planning using existing data via CMS and a standalone feature",
-        "Dev collaboration & deployment — Deployed CMS position-bundled job posting feature; standalone job posting creation feature in development",
+        "Requirement classification & prioritization — Categorized VOC and customer requests by nature; prioritized by impact scope and resolution complexity",
+        "Feature improvement planning — Defined requirements per improvement item; negotiated implementation scope with engineering",
+        "QA & deployment — Verified completed items and deployed to production; communicated updates to customers",
       ],
       fullResult:
-        "CMS position-bundled job posting feature deployed in March. Job seeker promotion support launched via main page setup. Corporate self-serve job posting creation in development.",
+        "Cleared long-standing backlog items and resolved 5 major customer requests. Established a review-planning-development process for improvements and laid the foundation for existing customer renewals.",
     },
   },
   {
     id: "proj-midas-2",
-    title: "기업서비스 UX 개선",
+    title: "VOC 기반 개선 운영 및 시나리오봇 응대율 개선",
     company: "midas",
-    period: "2023.02 – 진행중",
+    period: "2021.01 – 2023.05",
     summary:
-      "포지션 등록 과정을 20단계에서 간소화하고, 백엔드 데이터 처리 로직을 개선해 초기 이용 장벽을 낮췄습니다.",
-    role: "개인 진행 PM — 이용자 관점 개선안 기획, 백엔드 데이터 이동 로직 변경 기획, 개발·디자인 반영 모니터링",
-    result: "기획 완료, 개발 진행 중 (최우선 순위 반영)",
-    tags: ["기능 개선", "UX", "서비스 기획"],
+      "VOC를 데이터 기반으로 추출·분류하고 제품 개선으로 연결하는 체계를 구축했으며, 시나리오봇 응대 구조 개선으로 처리율 13%를 향상시켰습니다.",
+    role: "VOC 추출 및 분류, 개선 항목 정의, 업그레이드 플래닝 반영 관리, 시나리오봇 개선",
+    result: "상반기 VOC 반영률 62% 달성, 시나리오봇 처리율 13% 개선",
+    tags: ["VOC 분석", "시나리오봇", "운영 개선", "데이터 분석"],
     background:
-      "기업의 채용 포지션 등록 과정이 20개의 스텝으로 구성되어 있어 서비스 초기 이용 시 불편함이 컸습니다.",
+      "시나리오봇으로 상세하게 답변이 제공되는 문의에도 고객이 계속 인입했고, VOC가 응대 단계에서 소진되어 제품 개선으로 이어지지 않는 구조적 문제가 있었습니다.",
     problem:
-      "복잡한 등록 절차가 초기 이용 장벽으로 작용하며 서비스 이탈 요인이 되었고, 이용자 만족도 개선이 필요했습니다.",
+      "VOC가 개선 항목으로 연결되지 않으며, 시나리오봇이 처리하지 못하고 상담으로 넘어가는 문의가 많아 운영 효율이 저하됐습니다.",
     process: [
-      "이용자 관점 개선안 기획 — 등록 단계 간소화 방안, 백엔드 데이터 이동 로직 변경 기획",
-      "서비스 기획팀·개발팀 리뷰 요청",
-      "개발·디자인 반영 현황 모니터링 (사업팀 요구사항 추가 반영 포함)",
+      "VOC 데이터 추출 및 분류 — 문의 데이터를 분석해 반복 유형 정리",
+      "개선 항목 정의 및 반영 관리 — 제품 개선 항목 도출, 업그레이드 플래닝에 전달 및 반영 여부 추적",
+      "시나리오봇 구조 개선 — 봇이 놓치던 문의 유형을 확인하고 응답 시나리오 보완",
     ],
     fullResult:
-      "기획 완료 후 최우선순위로 개발 진행 중. 사업팀 이미지 정책 간소화 요구사항도 추가 반영됐습니다.",
-    notionUrl: "https://app.notion.com/p/1418937a33b181f3a804d084e456a967",
+      "문의 데이터가 제품 개선으로 연결되는 흐름 구축. 시나리오봇 답변 해결율 향상으로 운영 시간 외에도 고객이 정보를 얻을 수 있는 환경 조성. 상반기 VOC 반영률 62% 달성, 시나리오봇 처리율 13% 개선.",
+    notionUrl: "https://app.notion.com/p/3b18937a33b181d6a9deec4cc34ffba9",
     en: {
-      title: "Corporate Service UX Improvement",
+      title: "VOC-Based Improvement Operations & Chatbot Response Rate Improvement",
       summary:
-        "Simplified the 20-step position registration flow and improved back-end data processing logic to lower the initial usage barrier.",
-      role: "Solo PM — user-perspective improvement planning, back-end data migration logic redesign, dev & design monitoring",
-      result: "Planning complete; in development (highest priority)",
-      tags: ["Feature Improvement", "UX", "Service Planning"],
+        "Built a system to extract, classify, and route VOC data into product improvements, and improved the scenario bot's handling structure to increase resolution rate by 13%.",
+      role: "VOC extraction and classification, improvement item definition, upgrade planning tracking, chatbot improvement",
+      result: "62% VOC incorporation rate achieved H1; scenario bot resolution rate improved by 13%",
+      tags: ["VOC Analysis", "Scenario Bot", "Operations Improvement", "Data Analysis"],
       background:
-        "The corporate position registration process consisted of 20 steps, making initial usage cumbersome for new customers.",
+        "Customers kept contacting support even for inquiries the scenario bot already answered in detail, and VOC was being consumed at the support layer without flowing into product improvements.",
       problem:
-        "The complex registration flow acted as an initial barrier causing churn, and user satisfaction improvements were critically needed.",
+        "VOC was not reaching product improvement cycles, and high bot-to-human handoff rates were degrading operational efficiency.",
       process: [
-        "User-centric improvement planning — Planning registration step simplification and back-end data migration logic changes",
-        "Review request to service planning team and engineering team",
-        "Monitoring dev & design progress (including additional business team requirements)",
+        "VOC data extraction & classification — Analyzed inquiry data to organize recurring issue types",
+        "Improvement item definition & tracking — Identified product improvement items; delivered to upgrade planning and tracked incorporation",
+        "Scenario bot restructuring — Identified inquiry types the bot was missing and supplemented response scenarios",
       ],
       fullResult:
-        "Planning complete and in development at highest priority. Additional business team request for simplified image policies was also incorporated.",
+        "Established a pipeline from inquiry data to product improvement. Improved bot resolution rate enabled customers to get information outside operating hours. H1 VOC incorporation rate: 62%; scenario bot resolution rate improved by 13%.",
     },
   },
   {
     id: "proj-midas-3",
-    title: "백오피스 CMS 기능 기획",
+    title: "대규모 채용 프로젝트 사전 안정성 점검 (QA)",
     company: "midas",
-    period: "2023.01 – 2023.02",
+    period: "2021.01 – 2023.05",
     summary:
-      "운영 효율화를 위한 백오피스 기능을 기획하고, 포지션·기업채널·공고 관리 기능을 2개월 만에 배포했습니다.",
-    role: "기획 (2인 팀 — 개발 1, 기획 1) — 추가 기능 기획, 작동 로직 설계",
-    result: "포지션 등록·기업채널 관리·공고 관리 기능 3월 배포 완료",
-    tags: ["백오피스", "기획", "운영 효율화"],
+      "대기업 대규모 채용 오픈 전 QA 시나리오를 설계하고 직접 수행해, 동시 접속 1,000명 이상 규모 채용 프로젝트를 오류 없이 완료했습니다.",
+    role: "QA 시나리오 설계 및 수행, 오픈 전 안정성 점검 리드",
+    result: "동시 접속 1,000명 이상 채용 프로젝트 오류 없이 종료",
+    tags: ["QA", "서비스 안정성", "채용"],
     background:
-      "백오피스가 다수 분리되어 있고 기능이 부족해 오퍼레이팅 문제가 발생했고, 콘텐츠·사이트 관리를 위한 기능 추가가 필요했습니다.",
-    process: [
-      "필요 기능 요구사항 정의 — 현 제공 기능 및 필요 기능 정의, 구현 방법 기획 (이전 서비스 레퍼런스 참고)",
-      "기업 승인 알럿 기능, 포지션 승인 절차 추가, 콘텐츠 관리 기능 기획",
-      "개발 진행·배포 — 3월 타겟 배포 완료, 메인페이지 개편 연계 진행",
-    ],
-    fullResult:
-      "포지션 등록·기업채널 관리·공고 관리 기능을 3월에 배포 완료했습니다. 백오피스 기능 기반 메인페이지 개편이 연계 진행됐습니다.",
-    notionUrl: "https://app.notion.com/p/1418937a33b181e990fbea7bb558e40d",
-    en: {
-      title: "Back-Office CMS Feature Planning",
-      summary:
-        "Planned back-office features for operational efficiency and deployed position, company channel, and job posting management functions within 2 months.",
-      role: "Planning (2-person team — 1 dev, 1 planner) — feature planning, operational logic design",
-      result: "Position registration, company channel management, and job posting management features deployed in March",
-      tags: ["Back-Office", "Planning", "Operations Efficiency"],
-      background:
-        "Multiple fragmented back-office systems with insufficient features caused operational problems, and feature additions for content and site management were needed.",
-      process: [
-        "Defining requirements — Identifying current features and needed additions; planning implementation (referencing legacy service)",
-        "Planning company approval alerts, position approval workflow, and content management features",
-        "Dev progress & deployment — Completed deployment targeting March; linked with main page redesign",
-      ],
-      fullResult:
-        "Position registration, company channel management, and job posting management deployed in March. Main page redesign linked to back-office features proceeded in parallel.",
-    },
-  },
-  {
-    id: "proj-midas-4",
-    title: "VOC 기반 대용량 엑셀 다운로드 개선",
-    company: "midas",
-    period: "2022.09 – 2022.12",
-    summary:
-      "2000명 이상 지원자 데이터를 엑셀로 다운로드할 수 없다는 반복적인 VOC를 해결하기 위해 로직 개선을 기획하고, 파일함 기반 비동기 다운로드 기능을 추가했습니다.",
-    role: "VOC 기반 초기 기획·요구사항 정리 (4인 팀, 기여도 30%), 문제 원인 규명",
-    result: "2020년부터 누적된 VOC 기능 반영 완료, 대용량 다운로드 로직 개선",
-    tags: ["기능 개선", "VOC", "서비스 기획"],
-    background:
-      "2000명 이상 지원자 데이터를 엑셀로 다운로드할 때 속도 문제로 정상 작동이 불가능하다는 VOC가 지속적으로 접수되었습니다.",
+      "대기업 채용 과정에서 대규모 인원이 동시 접속할 예정이었으나, 배포 전 검증 시간 부족으로 PRD 환경의 안정성 체크가 진행되지 못했습니다.",
     problem:
-      "코딩 인수인계가 미흡해 전체 코드를 개별 분석해야 했고, 데이터 변환 중 특정 횟수 이상 시도 시 무한 루프가 발생하는 코드가 존재했습니다.",
+      "오픈 직후 오류가 발생하면 지원자 이탈과 고객사 신뢰 훼손이 우려되는 상황에서 사전 검증 프로세스가 부재했습니다.",
     process: [
-      "엑셀 다운로드 문제 발생 원인 추적 — 데이터 볼륨 무관하게 발생하는 문제에 대한 로그·로직 점검 개발자와 진행, 무한 루프 발생 코드 확인",
-      "로직 개선 방향 및 UI 개선 기획 — 데이터 누락 방지 코드 요청, 다운로드 요청 시 타 작업 불가 문제 해결을 위한 파일함 UI 기획",
-      "개발 진행 및 QA — 대용량 다운로드 로직 개선 완료, 파일함 기반 비동기 다운로드 기능 추가",
+      "사용 흐름 기준 시나리오 설계 — 지원자와 기업 담당자가 실제로 거치는 단계를 기준으로 점검 항목 정리, 영향도가 큰 구간을 우선순위로 배치",
+      "QA 수행 및 이슈 정리 — 기능별 검증 진행, 발견한 이슈를 재현 조건과 함께 정리해 개발 조직에 전달",
+      "수정 반영 확인 및 오픈 전 최종 점검 — 수정 건 재검증, 오픈 직전 전체 흐름 재확인",
     ],
     fullResult:
-      "2020년부터 꾸준했던 VOC 기능 반영 성공. 엑셀 대용량 다운로드 로직 개선 완료. 파일함 기반 다운로드 요청 후 타 업무 진행 가능한 기능이 추가되었습니다.",
-    notionUrl: "https://app.notion.com/p/1418937a33b1811190c4fe8e1c1adf3a",
+      "오픈 전 이슈를 사전에 발견하고 처리하여 서비스 영향 차단. 동시 접속 1,000명 이상 규모의 대기업 채용 프로젝트를 오류 없이 성공적으로 마무리.",
+    notionUrl: "https://app.notion.com/p/3b18937a33b181f18940efddfb3c2fd6",
     en: {
-      title: "VOC-Driven Bulk Excel Download Improvement",
+      title: "Large-Scale Recruitment Project Pre-Launch Stability Check (QA)",
       summary:
-        "Resolved a recurring VOC issue where users couldn't download 2,000+ applicant records via Excel by planning logic improvements and adding an asynchronous file download feature.",
-      role: "Initial planning & requirements documentation (4-person team, 30% contribution); root cause identification",
-      result: "VOC accumulated since 2020 finally resolved; bulk download logic improved",
-      tags: ["Feature Improvement", "VOC", "Service Planning"],
+        "Designed and executed QA scenarios before a large enterprise recruitment launch, completing the project error-free with 1,000+ concurrent users.",
+      role: "QA scenario design and execution, pre-launch stability check lead",
+      result: "Large-scale recruitment project with 1,000+ concurrent users completed without errors",
+      tags: ["QA", "Service Stability", "Recruitment"],
       background:
-        "A persistent VOC about being unable to download 2,000+ applicant records via Excel due to speed/timeout issues had been accumulating since 2020.",
+        "A major enterprise client expected large simultaneous user traffic during recruitment, but insufficient pre-deployment verification time meant production stability had not been tested.",
       problem:
-        "Poor code handover documentation required full analysis from scratch; an infinite loop bug was discovered in the data conversion code triggered above a certain number of attempts.",
+        "Errors immediately after launch would risk applicant dropout and damage client trust, yet no pre-verification process existed.",
       process: [
-        "Tracing the download failure root cause — Working with engineers to check logs and logic for issues occurring regardless of data volume; confirming the infinite loop code",
-        "Logic improvement & UI redesign planning — Requesting data integrity safeguards; planning a file box UI to solve the issue of no other tasks being possible during download",
-        "Dev & QA — Bulk download logic improvement completed; asynchronous file box download feature added",
+        "Scenario design based on user flow — Mapped actual steps taken by applicants and HR staff; prioritized high-impact checkpoints",
+        "QA execution & issue documentation — Verified each function; compiled discovered issues with reproduction conditions and handed off to engineering",
+        "Fix verification & final pre-launch check — Re-verified fixes; ran full end-to-end flow confirmation immediately before launch",
       ],
       fullResult:
-        "Successfully resolved a VOC that had been accumulating since 2020. Bulk Excel download logic improved. Added the ability to queue a download and continue other tasks via the file box.",
+        "Pre-launch issues were caught and resolved before they could affect the service. Successfully completed a 1,000+ concurrent user enterprise recruitment project without a single error.",
     },
   },
 ];
@@ -561,7 +639,7 @@ export const skillsData: SkillItem[] = [
 export const notionDatabaseIds: Record<CompanyKey, string> = {
   flex: "2c18937a-33b1-8062-9bb7-f6b87d2c07d0",
   jarvis: "e53d13ad-2b54-4e91-8762-b1ed55ae8dc1",
-  midas: "1418937a-33b1-8095-a29c-e7d62223648d",
+  midas: "4ee459a1-7b7f-4506-b438-481f29908326",
 };
 
 export function getStaticProjects(company?: CompanyKey): Project[] {
