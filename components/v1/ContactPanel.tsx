@@ -56,7 +56,7 @@ function ContactRow({
   numeric?: boolean;
 }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[6rem_1fr_auto] gap-1 sm:gap-6 items-baseline py-4 border-t border-[var(--border)] first:border-t-0">
+    <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr_auto] gap-1 sm:gap-6 items-baseline py-4 border-b border-[var(--border)]">
       <dt className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{label}</dt>
       <dd className="min-w-0">
         <a
@@ -78,10 +78,10 @@ export default function ContactPanel() {
   const t = ui[lang];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
-      <h2 className="text-2xl font-bold text-[var(--text)] text-center">{t.contactHeading}</h2>
+    <div className="space-y-8">
+      <h2 className="text-xl font-bold text-[var(--text)]">{t.contactHeading}</h2>
 
-      <dl className="bg-[var(--bg-card)] border border-[var(--border)] px-6 py-2 sm:px-8">
+      <dl className="border-t border-[var(--border)] max-w-3xl">
         <ContactRow
           label={t.email}
           value={personInfo.email}
