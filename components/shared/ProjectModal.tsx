@@ -7,7 +7,6 @@ import type { Project } from "@/lib/types";
 import { companyLabels, companyLabelsEn } from "@/lib/static-data";
 import { useLang } from "@/lib/lang-context";
 import { ui } from "@/lib/i18n";
-import { companyColors } from "@/lib/palette";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -75,11 +74,19 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   if (!shown || !mounted) return null;
 
-  const colors = companyColors[shown.company];
+  const meta = [labels[shown.company], shown.period].filter(Boolean).join("  ·  ");
 
-  // Portalled to the body: the panel wrapper animates a transform, which would
-  // otherwise become the containing block and clip this fixed overlay to the
-  // panel instead of the viewport.
+  /**
+   * One surface. The dialog previously stacked ten kinds of rectangle inside its
+   * own frame — an accent strip, a boxed close button, a header on its own
+   * background, a chip per tag, a bordered summary panel, a bordered numeral per
+   * process step, a tinted result panel. Cards inside cards is the tell. Here the
+   * frame belongs to the dialog alone and everything within is separated by
+   * hairlines, indentation and space.
+   *
+   * Portalled to the body: the animated panel wrapper would otherwise become the
+   * containing block and clip this fixed overlay to the panel.
+   */
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
@@ -99,127 +106,117 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           closing ? "modal-panel-out" : "modal-panel"
         }`}
       >
-        <span className="absolute inset-x-0 top-0 h-1 z-20 bg-[var(--accent)]" />
-
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2 bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--accent-line)] hover:bg-[var(--accent-subtle)] transition-colors"
+          className="absolute top-5 right-5 z-20 p-1 text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
           aria-label={t.close}
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <div className="overflow-y-auto scrollbar-thin">
-          {/* Peak: company identity, the title at the system's full scale, the outcome as evidence. */}
-          <header className="border-b border-[var(--border)] px-6 pt-8 pb-6 pr-16 bg-[var(--bg)]">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 text-xs bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border)]">{labels[shown.company]}</span>
-              <span className="text-xs text-[var(--text-muted)] tabular-nums">{shown.period}</span>
-            </div>
+        <div className="overflow-y-auto scrollbar-thin px-7 sm:px-10 py-9">
+          <header className="pr-10">
+            <p className="text-xs text-[var(--text-muted)] tabular-nums">{meta}</p>
 
             <h2
               id="project-modal-title"
-              className="text-2xl sm:text-3xl font-bold text-[var(--text)] leading-tight tracking-tight text-balance"
+              className="mt-3 text-2xl sm:text-3xl font-bold text-[var(--text)] leading-tight tracking-tight text-balance"
             >
               {shown.title}
             </h2>
 
             <p className="mt-4 flex items-start gap-2 text-[var(--success)] text-base sm:text-lg font-medium leading-snug text-balance">
-              <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              {shown.result}
+              <span className="min-w-0">{shown.result}</span>
             </p>
 
+            {/* Tags read as a line of keywords, not a row of chips. */}
             {shown.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-5">
-                {shown.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent-line)] text-xs">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <p className="mt-4 text-xs text-[var(--text-muted)]">
+                {shown.tags.join("  ·  ")}
+              </p>
             )}
           </header>
 
-          <div className="px-6 pb-8 pt-6 space-y-7">
-            {shown.images && shown.images.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {shown.images.map((img, i) => (
-                  // Notion serves originals at full camera resolution. These sit
-                  // below the fold inside a dialog, so they stay lazy; the box is
-                  // reserved by aspect-ratio so nothing reflows as they arrive.
-                  <div
-                    key={i}
-                    className="relative w-full aspect-[4/3] max-h-48 overflow-hidden border border-[var(--border)] bg-[var(--bg)]"
-                  >
-                    <Image
-                      src={img}
-                      alt={`${shown.title} ${i + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 90vw, 320px"
-                      loading="lazy"
-                      className="object-cover"
-                      // Signed Notion URLs expire; a broken one must not leave a
-                      // torn frame behind in the middle of the case study.
-                      onError={(e) => {
-                        (e.currentTarget.parentElement as HTMLElement).style.display = "none";
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="bg-[var(--bg)] border border-[var(--border)] p-4 space-y-3">
-              <div>
-                <Label>{t.summary}</Label>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--text)]">{shown.summary}</p>
-              </div>
-              <div>
-                <Label>{t.role}</Label>
-                <p className="mt-1 text-sm text-[var(--text)]">{shown.role}</p>
-              </div>
+          {shown.images && shown.images.length > 0 && (
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {shown.images.map((img, i) => (
+                // The image is its own edge; a border around it would be another
+                // rectangle. aspect-ratio still reserves the box so nothing reflows.
+                <div key={i} className="relative w-full aspect-[4/3] max-h-48 overflow-hidden bg-[var(--bg)]">
+                  <Image
+                    src={img}
+                    alt={`${shown.title} ${i + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 90vw, 320px"
+                    loading="lazy"
+                    className="object-cover"
+                    // Signed Notion URLs expire; a broken one must not leave a
+                    // torn frame behind in the middle of the case study.
+                    onError={(e) => {
+                      (e.currentTarget.parentElement as HTMLElement).style.display = "none";
+                    }}
+                  />
+                </div>
+              ))}
             </div>
+          )}
 
+          {/* Summary and role are a definition list, matching the About facts. */}
+          <dl className="mt-8 border-t border-[var(--border)]">
+            <div className="grid grid-cols-1 sm:grid-cols-[7rem_1fr] gap-1 sm:gap-6 py-4 border-b border-[var(--border)]">
+              <dt><Label>{t.summary}</Label></dt>
+              <dd className="text-sm leading-relaxed text-[var(--text)]">{shown.summary}</dd>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[7rem_1fr] gap-1 sm:gap-6 py-4 border-b border-[var(--border)]">
+              <dt><Label>{t.role}</Label></dt>
+              <dd className="text-sm leading-relaxed text-[var(--text)]">{shown.role}</dd>
+            </div>
+          </dl>
+
+          <div className="mt-8 space-y-8">
             {shown.background && (
-              <div>
+              <section>
                 <Label>{t.background}</Label>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--text)]">{shown.background}</p>
-              </div>
+                <p className="mt-2 text-[15px] leading-[1.85] text-[var(--text)]">{shown.background}</p>
+              </section>
             )}
 
             {shown.problem && (
-              <div>
+              <section>
                 <Label>{t.problem}</Label>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--text)]">{shown.problem}</p>
-              </div>
+                <p className="mt-2 text-[15px] leading-[1.85] text-[var(--text)]">{shown.problem}</p>
+              </section>
             )}
 
             {shown.process && shown.process.length > 0 && (
-              <div>
+              <section>
                 <Label>{t.process}</Label>
-                <div className="mt-3 space-y-3">
+                {/* Hanging numerals rather than a boxed chip per step. */}
+                <ol className="mt-3 space-y-3">
                   {shown.process.map((step, i) => (
-                    <div key={i} className="flex gap-3 text-sm text-[var(--text)]">
-                      <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5 tabular-nums bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent-line)]">
-                        {i + 1}
+                    <li key={i} className="grid grid-cols-[1.75rem_1fr] text-[15px] text-[var(--text)]">
+                      <span className="tabular-nums text-[var(--text-muted)] leading-[1.85]">
+                        {String(i + 1).padStart(2, "0")}
                       </span>
-                      <p className="leading-relaxed flex-1">{step}</p>
-                    </div>
+                      <p className="leading-[1.85]">{step}</p>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ol>
+              </section>
             )}
 
-            {/* The header already carries `result`; this panel exists only for the fuller account. */}
+            {/* The header already carries `result`; this is the fuller account, and
+                the outcome colour marks it without another tinted box. */}
             {shown.fullResult && (
-              <div className="bg-[var(--success-subtle)] border border-[var(--success-line)] p-5">
+              <section className="border-t border-[var(--success-line)] pt-6">
                 <Label>{t.result}</Label>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--text)]">{shown.fullResult}</p>
-              </div>
+                <p className="mt-2 text-[15px] leading-[1.85] text-[var(--text)]">{shown.fullResult}</p>
+              </section>
             )}
           </div>
         </div>
