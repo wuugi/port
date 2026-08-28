@@ -64,8 +64,7 @@ export default function ContactPanel() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-[var(--text)] mb-2">{t.contactHeading}</h2>
-        <p className="text-[var(--text-muted)]">{t.contactSubheading}</p>
+        <h2 className="text-2xl font-bold text-[var(--text)]">{t.contactHeading}</h2>
       </div>
 
       <div className="space-y-4">

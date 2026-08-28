@@ -24,7 +24,7 @@ function CareerEntry({
   return (
     <li className="py-8 first:pt-0 last:pb-0 border-t border-[var(--border)] first:border-t-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className={`text-lg sm:text-xl font-bold ${colors.text}`}>{companyName}</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-[var(--text)]">{companyName}</h3>
         {isCurrent && (
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs bg-[var(--success-subtle)] text-[var(--success)] border border-[var(--success-line)]">
             <span className="w-1.5 h-1.5 bg-[var(--success)] rounded-full" />
@@ -44,7 +44,7 @@ function CareerEntry({
       <ul className="mt-2.5 space-y-2">
         {(expanded ? item.tasks : item.tasks.slice(0, 3)).map((task, i) => (
           <li key={i} className="flex items-start gap-2.5">
-            <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${colors.dot}`} />
+            <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 bg-[var(--text-muted)]" />
             <p className="text-[var(--text-muted)] text-sm leading-relaxed">{task}</p>
           </li>
         ))}
@@ -61,7 +61,7 @@ function CareerEntry({
               ? t.showLessTasksFor(companyName)
               : t.showMoreTasksFor(companyName, hidden)
           }
-          className={`mt-4 text-xs font-medium hover:opacity-80 transition-opacity flex items-center gap-1 ${colors.text}`}
+          className="mt-4 text-xs font-medium text-[var(--accent)] hover:opacity-80 transition-opacity flex items-center gap-1"
         >
           {expanded ? t.showLessTasks : t.showMoreTasks(hidden)}
           <svg

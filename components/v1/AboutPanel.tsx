@@ -10,11 +10,15 @@ interface AboutPanelProps {
   onNavigate: (panel: ActivePanel) => void;
 }
 
+/** Label beside value, not four equal boxes: these facts differ in length and in
+ *  kind, and forcing them into one shape is what made the row read uneven. */
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[var(--bg-card)] px-5 py-4 sm:px-6 sm:py-5">
-      <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{label}</p>
-      <div className="mt-1.5 space-y-0.5">{children}</div>
+    <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-6 py-3.5 first:pt-0 last:pb-0 border-t border-[var(--border)] first:border-t-0">
+      <dt className="text-xs uppercase tracking-wide text-[var(--text-muted)] sm:pt-0.5">
+        {label}
+      </dt>
+      <dd className="space-y-0.5 min-w-0">{children}</dd>
     </div>
   );
 }
@@ -59,10 +63,9 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
             </h2>
             <p className="mt-2 text-[var(--accent)] text-base sm:text-lg text-balance">{p.title}</p>
 
-            {/* A fixed measure, not `ch`: the ch unit is sized from the Latin "0",
-                so 68ch is far wider in Korean than it looks. 34rem lands near 40
-                Korean characters and ~70 Latin ones — a comfortable line in both. */}
-            <p className="mt-6 text-[var(--text-muted)] leading-[1.9] text-[15px] max-w-[34rem] text-pretty">
+            {/* No artificial cap: the paragraph fills the column the photo leaves,
+                so lines break on their own rhythm instead of against a narrow gutter. */}
+            <p className="mt-6 text-[var(--text-muted)] leading-[1.9] text-[15px] text-pretty">
               {p.intro}
             </p>
 
@@ -98,37 +101,47 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
         </div>
       </section>
 
-      {/* Supporting facts: one region split by hairlines, not four competing boxes.
-          gap-px over a border-colored ground draws the rules at every breakpoint. */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[var(--border)] border border-[var(--border)]">
-        <Fact label={t.email}>
-          <a
-            href={`mailto:${personInfo.email}`}
-            className="text-[var(--text)] text-sm font-medium hover:text-[var(--accent)] transition-colors break-all"
-          >
-            {personInfo.email}
-          </a>
-        </Fact>
+      {/* 자격증 and 어학 are separate facts and now say so, instead of sharing one
+          merged label above three flat lines. */}
+      <section className="bg-[var(--bg-card)] border border-[var(--border)] px-6 py-5 sm:px-8 sm:py-6">
+        <dl>
+          <Fact label={t.email}>
+            <a
+              href={`mailto:${personInfo.email}`}
+              className="text-[var(--text)] text-sm font-medium hover:text-[var(--accent)] transition-colors break-all"
+            >
+              {personInfo.email}
+            </a>
+          </Fact>
 
-        <Fact label={t.phone}>
-          <a
-            href={`tel:${personInfo.phone}`}
-            className="text-[var(--text)] text-sm font-medium tabular-nums hover:text-[var(--accent)] transition-colors"
-          >
-            {personInfo.phone}
-          </a>
-        </Fact>
+          <Fact label={t.phone}>
+            <a
+              href={`tel:${personInfo.phone}`}
+              className="text-[var(--text)] text-sm font-medium tabular-nums hover:text-[var(--accent)] transition-colors"
+            >
+              {personInfo.phone}
+            </a>
+          </Fact>
 
-        <Fact label={t.education}>
-          <p className="text-[var(--text)] text-sm font-medium">{p.education}</p>
-          <p className="text-[var(--text-muted)] text-xs tabular-nums">{personInfo.educationPeriod}</p>
-        </Fact>
+          <Fact label={t.education}>
+            <p className="text-[var(--text)] text-sm font-medium">{p.education}</p>
+            <p className="text-[var(--text-muted)] text-xs tabular-nums">
+              {personInfo.educationPeriod}
+            </p>
+          </Fact>
 
-        <Fact label={`${t.certifications} · ${t.languages}`}>
-          {[...p.certifications, ...p.languages].map((item) => (
-            <p key={item} className="text-[var(--text)] text-sm">{item}</p>
-          ))}
-        </Fact>
+          <Fact label={t.certifications}>
+            {p.certifications.map((item) => (
+              <p key={item} className="text-[var(--text)] text-sm">{item}</p>
+            ))}
+          </Fact>
+
+          <Fact label={t.languages}>
+            {p.languages.map((item) => (
+              <p key={item} className="text-[var(--text)] text-sm">{item}</p>
+            ))}
+          </Fact>
+        </dl>
       </section>
     </div>
   );

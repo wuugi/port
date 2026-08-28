@@ -21,7 +21,13 @@ function loadRemoteProjects(): Promise<Project[] | null> {
   return projectsRequest;
 }
 
-function ProjectCard({
+/**
+ * An index of work, not a card grid. Equal-size bordered cards are the framework
+ * default for "a list of things" and read as templated; a hairline-separated
+ * register lets each entry be as long as it is and puts the outcome on the
+ * same line of sight as the title.
+ */
+function ProjectRow({
   project,
   companyLabel,
   onClick,
@@ -33,57 +39,47 @@ function ProjectCard({
   const colors = companyColors[project.company];
 
   return (
-    <button
-      onClick={onClick}
-      className="text-left bg-[var(--bg-card)] border border-[var(--border)] p-5 hover:border-[var(--accent-line)] transition-colors duration-200 group relative"
-    >
-      <span className={`absolute inset-x-0 top-0 h-px ${colors.dot}`} />
-
-      <div className="flex items-start justify-between gap-2 mb-3">
-        <span className="text-xs text-[var(--text-muted)] tabular-nums">{project.period}</span>
-        <span className={`text-xs px-2 py-0.5 ${colors.tag}`}>
-          {companyLabel}
-        </span>
-      </div>
-
-      <h3 className="text-[var(--text)] font-semibold text-sm leading-tight mb-2 group-hover:text-[var(--accent)] transition-colors">
-        {project.title}
-      </h3>
-
-      <p className="text-[var(--text-muted)] text-xs leading-relaxed line-clamp-3 mb-4">
-        {project.summary}
-      </p>
-
-      <div className="flex items-center justify-between">
-        <div className="flex flex-wrap gap-1">
-          {project.tags.slice(0, 2).map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-2 py-0.5 bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent-line)]"
-            >
-              {tag}
-            </span>
-          ))}
+    <li className="border-t border-[var(--border)] first:border-t-0">
+      <button
+        onClick={onClick}
+        className="group w-full text-left py-6 grid grid-cols-1 sm:grid-cols-[11rem_1fr] gap-2 sm:gap-8"
+      >
+        <div className="flex items-center gap-2 sm:block">
+          <span className="text-xs text-[var(--text-muted)] tabular-nums sm:block">
+            {project.period}
+          </span>
+          <span className="text-xs text-[var(--text-muted)] sm:block sm:mt-1.5">
+            {companyLabel}
+          </span>
         </div>
-        <svg
-          className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </div>
 
-      <div className="mt-3 pt-3 border-t border-[var(--border)]">
-        <p className="text-xs text-[var(--success)] font-medium line-clamp-1 flex items-center gap-1.5">
-          <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-          {project.result}
-        </p>
-      </div>
-    </button>
+        <div className="min-w-0">
+          <h3 className="flex items-start gap-2 text-[var(--text)] font-semibold text-base sm:text-lg leading-snug group-hover:text-[var(--accent)] transition-colors">
+            <span className="min-w-0">{project.title}</span>
+            <svg
+              className="w-4 h-4 mt-1 flex-shrink-0 text-[var(--text-muted)] opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-[var(--accent)] motion-reduce:transition-none motion-reduce:translate-x-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </h3>
+
+          <p className="mt-2 text-[var(--text-muted)] text-sm leading-relaxed line-clamp-2 max-w-[62ch]">
+            {project.summary}
+          </p>
+
+          <p className="mt-3 flex items-start gap-1.5 text-[var(--success)] text-sm font-medium">
+            <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="min-w-0">{project.result}</span>
+          </p>
+        </div>
+      </button>
+    </li>
   );
 }
 
@@ -142,9 +138,6 @@ export default function ProjectsPanel() {
                   : "bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)]"
               }`}
             >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-[var(--bg)]" : colors.dot}`}
-              />
               {labels[company]}
               <span className={`ml-1.5 text-xs ${isActive ? "opacity-70" : "opacity-50"}`}>
                 ({counts[company]})
@@ -155,9 +148,9 @@ export default function ProjectsPanel() {
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <ul>
           {filtered.map((project) => (
-            <ProjectCard
+            <ProjectRow
               key={project.id}
               project={project}
               companyLabel={labels[project.company]}
@@ -166,7 +159,7 @@ export default function ProjectsPanel() {
               )}
             />
           ))}
-        </div>
+        </ul>
       ) : (
         <div className="text-center py-16 text-[var(--text-muted)]">
           <p>{t.noProjects}</p>

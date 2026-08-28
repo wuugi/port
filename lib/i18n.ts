@@ -15,7 +15,6 @@ export interface UiStrings {
   languages: string;
   exploreMore: string;
   totalCompanies: (n: number) => string;
-  careerTimeline: string;
   responsibilities: string;
   since: (start: string) => string;
   showMoreTasks: (n: number) => string;
@@ -23,8 +22,6 @@ export interface UiStrings {
   showLessTasks: string;
   showLessTasksFor: (company: string) => string;
   current: string;
-  former: string;
-  managedViaNotion: string;
   totalProjects: (n: number) => string;
   noProjects: string;
   summary: string;
@@ -33,13 +30,9 @@ export interface UiStrings {
   problem: string;
   process: string;
   result: string;
-  viewInNotion: string;
   close: string;
   totalSkills: (n: number) => string;
   categoryLabels: Record<CategoryKey, string>;
-  contactSubheading: string;
-  openToOpportunities: string;
-  openToOpportunitiesDesc: string;
   copy: string;
   copied: string;
   experienceLabel: string;
@@ -62,7 +55,6 @@ export const ui: Record<Lang, UiStrings> = {
     languages: "어학",
     exploreMore: "더 알아보기",
     totalCompanies: (n) => `총 ${n}개 회사`,
-    careerTimeline: "경력 타임라인",
     responsibilities: "담당 업무",
     since: (start) => `${start}부터`,
     showMoreTasks: (n) => `업무 ${n}개 더 보기`,
@@ -70,8 +62,6 @@ export const ui: Record<Lang, UiStrings> = {
     showLessTasks: "간략히 보기",
     showLessTasksFor: (company) => `${company} 담당 업무 간략히 보기`,
     current: "재직중",
-    former: "전직",
-    managedViaNotion: "Notion으로 관리됨",
     totalProjects: (n) => `총 ${n}개 프로젝트`,
     noProjects: "이 회사의 프로젝트가 없습니다.",
     summary: "요약",
@@ -80,14 +70,9 @@ export const ui: Record<Lang, UiStrings> = {
     problem: "문제 인식",
     process: "진행 과정",
     result: "결과",
-    viewInNotion: "노션에서 보기",
     close: "닫기",
     totalSkills: (n) => `총 ${n}개 스킬`,
     categoryLabels: { data: "데이터 & 분석", tool: "협업 도구", process: "운영 프로세스" },
-    contactSubheading: "협업 제안이나 채용 문의는 아래 연락처로 연락주세요.",
-    openToOpportunities: "현재 기회에 열려 있습니다",
-    openToOpportunitiesDesc:
-      "서비스 운영, 고객 경험 개선, 데이터 기반 의사결정이 필요한 곳이라면 언제든지 연락주세요.",
     copy: "복사",
     copied: "복사됨",
     experienceLabel: "경력",
@@ -108,7 +93,6 @@ export const ui: Record<Lang, UiStrings> = {
     languages: "Languages",
     exploreMore: "Explore More",
     totalCompanies: (n) => `${n} ${n === 1 ? "company" : "companies"}`,
-    careerTimeline: "Career Timeline",
     responsibilities: "Responsibilities",
     since: (start) => `Since ${start}`,
     showMoreTasks: (n) => `Show ${n} more`,
@@ -117,8 +101,6 @@ export const ui: Record<Lang, UiStrings> = {
     showLessTasks: "Show less",
     showLessTasksFor: (company) => `Show fewer responsibilities at ${company}`,
     current: "Current",
-    former: "Former",
-    managedViaNotion: "Managed via Notion",
     totalProjects: (n) => `${n} projects`,
     noProjects: "No projects for this company.",
     summary: "Summary",
@@ -127,14 +109,9 @@ export const ui: Record<Lang, UiStrings> = {
     problem: "Problem",
     process: "Process",
     result: "Result",
-    viewInNotion: "View in Notion",
     close: "Close",
     totalSkills: (n) => `${n} skills`,
     categoryLabels: { data: "Data & Analytics", tool: "Collaboration Tools", process: "Operations Process" },
-    contactSubheading: "Feel free to reach out for collaboration or job opportunities.",
-    openToOpportunities: "Open to opportunities",
-    openToOpportunitiesDesc:
-      "If you need service operations, CX improvements, or data-driven decision making, feel free to reach out anytime.",
     copy: "Copy",
     copied: "Copied",
     experienceLabel: "Experience",

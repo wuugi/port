@@ -40,7 +40,7 @@ function SkillBar({
         {/* scaleX rather than width: the fill is compositor-only and never
             asks the browser to lay the row out again mid-animation. */}
         <div
-          className={`skill-fill h-full w-full origin-left ${colors.dot}`}
+          className={`skill-fill h-full w-full origin-left bg-[var(--text-muted)]`}
           style={{
             transform: `scaleX(${animate ? skill.level / 100 : 0})`,
             transition: `transform 600ms var(--ease-out) ${delay}ms`,
@@ -78,11 +78,8 @@ export default function SkillsPanel() {
             .filter((s) => s.category === category)
             .sort((a, b) => b.level - a.level);
           return (
-            <div key={category} className={`p-6 ${colors.panel}`}>
-              <h3 className={`font-semibold mb-6 flex items-center gap-2 ${colors.text}`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${colors.dot}`} />
-                {t.categoryLabels[category]}
-              </h3>
+            <div key={category} className="p-6 bg-[var(--bg-card)] border border-[var(--border)]">
+              <h3 className="font-semibold mb-6 text-[var(--text)]">{t.categoryLabels[category]}</h3>
               <div className="space-y-5">
                 {items.map((skill, i) => (
                   <SkillBar

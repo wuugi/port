@@ -7,7 +7,7 @@ export const personInfo: PersonInfo = {
   email: "hyunuk1245@naver.com",
   phone: "010-2515-5238",
   intro:
-    "고객의 불편이 곧 개선의 출발점이라고 믿습니다. 마이다스인, 삼쩜삼(자비스앤빌런즈), 플렉스를 거치며 6년간 서비스 이슈를 데이터로 분석하고 고객 여정 전반을 설계해왔습니다. 운영 정책 수립부터 SQL 기반 모니터링, AI를 활용한 업무 자동화까지 — 고객이 제품의 가치를 온전히 경험할 수 있도록 팀과 함께 만들어가고 있습니다.",
+    "마이다스인, 삼쩜삼(자비스앤빌런즈), 플렉스를 거치며 6년간 서비스 이슈를 데이터로 분석하고 고객 여정 전반을 설계해왔습니다. 운영 정책 수립부터 SQL 기반 모니터링, AI를 활용한 업무 자동화까지, 고객이 제품의 가치를 온전히 경험할 수 있도록 팀과 함께 만들어가고 있습니다.",
   education: "경희대학교 지리학/언론정보학",
   educationPeriod: "2014.03 - 2020.02",
   certifications: ["SQLD (23.12.15)"],
@@ -16,7 +16,7 @@ export const personInfo: PersonInfo = {
   en: {
     title: "6-Year Operations Manager Focused on Customer Experience & Data",
     intro:
-      "I believe customer pain is the starting point for improvement. Over 6 years at Midas-in, Jarvis & Villains (삼쩜삼), and Flex, I've analyzed service issues with data and designed end-to-end customer journeys. From establishing operating policies and SQL-based monitoring to AI-powered workflow automation — I work with teams to ensure customers fully experience the value of the product.",
+      "Over 6 years at Midas-in, Jarvis & Villains (삼쩜삼), and Flex, I've analyzed service issues with data and designed end-to-end customer journeys. From establishing operating policies and SQL-based monitoring to AI-powered workflow automation — I work with teams to ensure customers fully experience the value of the product.",
     education: "Kyung Hee University — Geography / Journalism & Communications",
     certifications: ["SQLD (Dec 15, 2023)"],
     languages: ["Basic English Conversation", "TOEIC 920 (Jul 2022 – Jul 2024, expired)"],
@@ -619,6 +619,7 @@ export const projectsData: Project[] = [
 
 export const skillsData: SkillItem[] = [
   { name: "SQL", level: 90, category: "data" },
+  { name: "Claude", level: 88, category: "data" },
   { name: "R", level: 65, category: "data" },
   { name: "Python", level: 50, category: "data" },
   { name: "Google Analytics", level: 75, category: "data" },

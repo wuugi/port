@@ -99,7 +99,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           closing ? "modal-panel-out" : "modal-panel"
         }`}
       >
-        <span className={`absolute inset-x-0 top-0 h-1 z-20 ${colors.dot}`} />
+        <span className="absolute inset-x-0 top-0 h-1 z-20 bg-[var(--accent)]" />
 
         <button
           onClick={onClose}
@@ -113,9 +113,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         <div className="overflow-y-auto scrollbar-thin">
           {/* Peak: company identity, the title at the system's full scale, the outcome as evidence. */}
-          <header className={`border-b px-6 pt-8 pb-6 pr-16 ${colors.panel}`}>
+          <header className="border-b border-[var(--border)] px-6 pt-8 pb-6 pr-16 bg-[var(--bg)]">
             <div className="flex items-center gap-2 mb-3">
-              <span className={`px-2 py-0.5 text-xs ${colors.tag}`}>{labels[shown.company]}</span>
+              <span className="px-2 py-0.5 text-xs bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border)]">{labels[shown.company]}</span>
               <span className="text-xs text-[var(--text-muted)] tabular-nums">{shown.period}</span>
             </div>
 
