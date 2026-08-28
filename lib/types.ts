@@ -29,7 +29,6 @@ export interface CareerItem {
   company: string;
   companyKey: CompanyKey;
   period: string;
-  color: "green" | "amber" | "purple";
   tasks: string[];
   en?: CareerTranslation;
 }

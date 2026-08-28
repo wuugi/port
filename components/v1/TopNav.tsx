@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import type { ActivePanel } from "@/lib/types";
 import { useTheme } from "@/lib/theme-context";
 import { useLang } from "@/lib/lang-context";
@@ -17,9 +18,12 @@ const navItems: { key: ActivePanel; label: string }[] = [
   { key: "contact", label: "Contact" },
 ];
 
+/** Left-to-right order of the tabs; the shell reads it to pick travel direction. */
+export const panelOrder: ActivePanel[] = navItems.map((i) => i.key);
+
 function SunIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
       <circle cx="12" cy="12" r="5"/>
       <line x1="12" y1="1" x2="12" y2="3"/>
       <line x1="12" y1="21" x2="12" y2="23"/>
@@ -35,7 +39,7 @@ function SunIcon() {
 
 function MoonIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
   );
@@ -44,6 +48,21 @@ function MoonIcon() {
 export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
   const { theme, toggleTheme } = useTheme();
   const { lang, toggleLang } = useLang();
+
+  const tabRefs = useRef<Partial<Record<ActivePanel, HTMLButtonElement | null>>>({});
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+
+  // The underline travels between tabs rather than reappearing, so the two
+  // states read as one movement. Re-measured on resize since widths are fluid.
+  useEffect(() => {
+    const measure = () => {
+      const el = tabRefs.current[activePanel];
+      if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [activePanel]);
 
   return (
     <nav className="sticky top-0 z-40 bg-[var(--bg)]/95 backdrop-blur-md border-b border-[var(--border)]">
@@ -57,24 +76,39 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
           </div>
 
           <div className="flex items-center gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => onPanelChange(item.key)}
-                className={`px-3 py-2 text-sm font-medium transition-all duration-200 relative ${
-                  activePanel === item.key
-                    ? "text-[var(--accent)] border-b-2 border-[var(--accent)]"
-                    : "text-[var(--text-muted)] hover:text-[var(--text)]"
+            <div className="relative flex items-center">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  ref={(el) => { tabRefs.current[item.key] = el; }}
+                  onClick={() => onPanelChange(item.key)}
+                  aria-current={activePanel === item.key ? "page" : undefined}
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    activePanel === item.key
+                      ? "text-[var(--accent)]"
+                      : "text-[var(--text-muted)] hover:text-[var(--text)]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+
+              <span
+                aria-hidden="true"
+                className={`absolute bottom-0 left-0 h-0.5 w-px bg-[var(--accent)] origin-left ${
+                  indicator.width ? "nav-indicator" : ""
                 }`}
-              >
-                {item.label}
-              </button>
-            ))}
+                style={{
+                  transform: `translateX(${indicator.left}px) scaleX(${indicator.width})`,
+                }}
+              />
+            </div>
 
             <div className="ml-2 flex items-center border border-[var(--border)] overflow-hidden text-xs font-semibold">
               <button
                 onClick={() => lang !== "ko" && toggleLang()}
-                className={`px-2.5 py-1.5 transition-all duration-200 ${
+                aria-pressed={lang === "ko"}
+                className={`px-2.5 py-1.5 transition-colors duration-200 ${
                   lang === "ko"
                     ? "bg-[var(--accent)] text-[var(--bg)]"
                     : "text-[var(--text-muted)] hover:text-[var(--accent)]"
@@ -85,7 +119,8 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
               </button>
               <button
                 onClick={() => lang !== "en" && toggleLang()}
-                className={`px-2.5 py-1.5 transition-all duration-200 ${
+                aria-pressed={lang === "en"}
+                className={`px-2.5 py-1.5 transition-colors duration-200 ${
                   lang === "en"
                     ? "bg-[var(--accent)] text-[var(--bg)]"
                     : "text-[var(--text-muted)] hover:text-[var(--accent)]"
@@ -98,7 +133,7 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
 
             <button
               onClick={toggleTheme}
-              className="ml-1 p-2 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
+              className="ml-1 p-2 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
               aria-label="테마 전환"
             >
               {theme === "dark" ? <MoonIcon /> : <SunIcon />}

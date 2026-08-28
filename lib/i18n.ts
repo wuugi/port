@@ -2,7 +2,7 @@ import type { Lang, Project, CareerItem, PersonInfo } from "./types";
 
 type CategoryKey = "data" | "tool" | "process";
 
-interface UiStrings {
+export interface UiStrings {
   aboutHeading: string;
   careerHeading: string;
   projectsHeading: string;
@@ -14,8 +14,14 @@ interface UiStrings {
   certifications: string;
   languages: string;
   exploreMore: string;
-  totalCompanies: string;
+  totalCompanies: (n: number) => string;
   careerTimeline: string;
+  responsibilities: string;
+  since: (start: string) => string;
+  showMoreTasks: (n: number) => string;
+  showMoreTasksFor: (company: string, n: number) => string;
+  showLessTasks: string;
+  showLessTasksFor: (company: string) => string;
   current: string;
   former: string;
   managedViaNotion: string;
@@ -30,7 +36,6 @@ interface UiStrings {
   viewInNotion: string;
   close: string;
   totalSkills: (n: number) => string;
-  topSkills: string;
   categoryLabels: Record<CategoryKey, string>;
   contactSubheading: string;
   openToOpportunities: string;
@@ -56,8 +61,14 @@ export const ui: Record<Lang, UiStrings> = {
     certifications: "자격증",
     languages: "어학",
     exploreMore: "더 알아보기",
-    totalCompanies: "개 회사",
+    totalCompanies: (n) => `총 ${n}개 회사`,
     careerTimeline: "경력 타임라인",
+    responsibilities: "담당 업무",
+    since: (start) => `${start}부터`,
+    showMoreTasks: (n) => `업무 ${n}개 더 보기`,
+    showMoreTasksFor: (company, n) => `${company} 담당 업무 ${n}개 더 보기`,
+    showLessTasks: "간략히 보기",
+    showLessTasksFor: (company) => `${company} 담당 업무 간략히 보기`,
     current: "재직중",
     former: "전직",
     managedViaNotion: "Notion으로 관리됨",
@@ -72,7 +83,6 @@ export const ui: Record<Lang, UiStrings> = {
     viewInNotion: "노션에서 보기",
     close: "닫기",
     totalSkills: (n) => `총 ${n}개 스킬`,
-    topSkills: "핵심 역량 Top 5",
     categoryLabels: { data: "데이터 & 분석", tool: "협업 도구", process: "운영 프로세스" },
     contactSubheading: "협업 제안이나 채용 문의는 아래 연락처로 연락주세요.",
     openToOpportunities: "현재 기회에 열려 있습니다",
@@ -97,8 +107,15 @@ export const ui: Record<Lang, UiStrings> = {
     certifications: "Certifications",
     languages: "Languages",
     exploreMore: "Explore More",
-    totalCompanies: " companies",
+    totalCompanies: (n) => `${n} ${n === 1 ? "company" : "companies"}`,
     careerTimeline: "Career Timeline",
+    responsibilities: "Responsibilities",
+    since: (start) => `Since ${start}`,
+    showMoreTasks: (n) => `Show ${n} more`,
+    showMoreTasksFor: (company, n) =>
+      `Show ${n} more ${n === 1 ? "responsibility" : "responsibilities"} at ${company}`,
+    showLessTasks: "Show less",
+    showLessTasksFor: (company) => `Show fewer responsibilities at ${company}`,
     current: "Current",
     former: "Former",
     managedViaNotion: "Managed via Notion",
@@ -113,7 +130,6 @@ export const ui: Record<Lang, UiStrings> = {
     viewInNotion: "View in Notion",
     close: "Close",
     totalSkills: (n) => `${n} skills`,
-    topSkills: "Top 5 Core Skills",
     categoryLabels: { data: "Data & Analytics", tool: "Collaboration Tools", process: "Operations Process" },
     contactSubheading: "Feel free to reach out for collaboration or job opportunities.",
     openToOpportunities: "Open to opportunities",

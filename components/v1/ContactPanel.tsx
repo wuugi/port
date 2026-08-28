@@ -17,7 +17,7 @@ function CopyButton({ value, copyLabel, copiedLabel }: { value: string; copyLabe
   return (
     <button
       onClick={handleCopy}
-      className="px-3 py-1.5 text-xs font-medium border border-[var(--accent)]/40 text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-colors flex items-center gap-1.5"
+      className="px-3 py-1.5 text-xs font-medium border border-[var(--accent-line)] text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-colors flex items-center gap-1.5"
     >
       {copied ? (
         <>
@@ -43,7 +43,7 @@ function ContactCard({ icon, label, value, href, copyLabel, copiedLabel }: {
 }) {
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5 flex items-center gap-4">
-      <div className="w-12 h-12 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] flex-shrink-0">
+      <div className="w-12 h-12 bg-[var(--accent-subtle)] border border-[var(--accent-line)] flex items-center justify-center text-[var(--accent)] flex-shrink-0">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -62,7 +62,7 @@ export default function ContactPanel() {
   const t = ui[lang];
 
   return (
-    <div className="panel-enter max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-8">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-[var(--text)] mb-2">{t.contactHeading}</h2>
         <p className="text-[var(--text-muted)]">{t.contactSubheading}</p>
@@ -81,13 +81,6 @@ export default function ContactPanel() {
         />
       </div>
 
-      <div className="bg-[var(--accent-subtle)] border border-[var(--accent)]/20 p-6 text-center">
-        <div className="inline-flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 bg-[var(--color-green)] rounded-full animate-pulse" />
-          <span className="text-[var(--color-green)] text-sm font-medium">{t.openToOpportunities}</span>
-        </div>
-        <p className="text-[var(--text-muted)] text-sm">{t.openToOpportunitiesDesc}</p>
-      </div>
     </div>
   );
 }
