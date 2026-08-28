@@ -37,9 +37,11 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
   return (
     <div className="space-y-10">
       {/* Lead: one identity block — the person, the claim, and the evidence for it. */}
-      <section className="bg-[var(--bg-card)] border border-[var(--border)] p-6 sm:p-10">
+      <section>
         <div className="flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-8">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 overflow-hidden bg-[var(--accent-subtle)] border border-[var(--accent-line)] flex items-center justify-center flex-shrink-0">
+          {/* No frame: the photograph is its own edge, and with the panel cards
+              gone a tinted border here would be the loudest box on the page. */}
+          <div className="w-24 h-24 sm:w-32 sm:h-32 overflow-hidden bg-[var(--bg-card)] flex items-center justify-center flex-shrink-0">
             {personInfo.profileImage ? (
               // The source is 921×1152 but the box is 96–128 CSS px, so 128 is the
               // real intrinsic size: retina then fetches the 256px candidate rather
@@ -103,7 +105,7 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
 
       {/* 자격증 and 어학 are separate facts and now say so, instead of sharing one
           merged label above three flat lines. */}
-      <section className="bg-[var(--bg-card)] border border-[var(--border)] px-6 py-5 sm:px-8 sm:py-6">
+      <section className="border-t border-[var(--border)] pt-2">
         <dl>
           <Fact label={t.email}>
             <a
