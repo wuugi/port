@@ -60,8 +60,6 @@
 :root {
   --accent-subtle: color-mix(in oklab, var(--accent) var(--tint), transparent);
   --accent-line: color-mix(in oklab, var(--accent) var(--line), transparent);
-  --accent2-subtle: color-mix(in oklab, var(--accent2) var(--tint), transparent);
-  --accent2-line: color-mix(in oklab, var(--accent2) var(--line), transparent);
   --success-subtle: color-mix(in oklab, var(--success) var(--tint), transparent);
   --success-line: color-mix(in oklab, var(--success) var(--line), transparent);
 }

@@ -10,7 +10,6 @@ import { ui } from "@/lib/i18n";
 
 interface ProjectModalProps {
   project: Project | null;
-  rawProject?: Project | null;
   onClose: () => void;
 }
 

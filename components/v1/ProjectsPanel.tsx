@@ -6,7 +6,6 @@ import { projectsData, companyLabels, companyLabelsEn } from "@/lib/static-data"
 import ProjectModal from "@/components/shared/ProjectModal";
 import { useLang } from "@/lib/lang-context";
 import { ui, tProject } from "@/lib/i18n";
-import { companyColors } from "@/lib/palette";
 
 // The shell remounts a panel on every visit, so a bare mount-effect refetched
 // Notion each time the user returned here. Cached at module scope: one request
@@ -36,7 +35,6 @@ function ProjectRow({
   companyLabel: string;
   onClick: () => void;
 }) {
-  const colors = companyColors[project.company];
 
   return (
     <li className="border-t border-[var(--border)] first:border-t-0">
@@ -126,7 +124,6 @@ export default function ProjectsPanel() {
       <div className="flex gap-2 flex-wrap">
         {companies.map((company) => {
           const isActive = activeCompany === company;
-          const colors = companyColors[company];
           return (
             <button
               key={company}
@@ -134,7 +131,7 @@ export default function ProjectsPanel() {
               aria-pressed={isActive}
               className={`px-4 py-2 text-sm font-medium border transition-colors duration-200 flex items-center gap-2 ${
                 isActive
-                  ? colors.solid
+                  ? "bg-[var(--accent)] border-[var(--accent)] text-[var(--bg)]"
                   : "bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)]"
               }`}
             >
@@ -168,7 +165,6 @@ export default function ProjectsPanel() {
 
       <ProjectModal
         project={selectedProject ? tProject(selectedProject, lang) : null}
-        rawProject={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
     </div>

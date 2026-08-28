@@ -5,7 +5,6 @@ import { skillsData } from "@/lib/static-data";
 import type { SkillItem } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
 import { ui } from "@/lib/i18n";
-import { skillColors } from "@/lib/palette";
 
 function SkillBar({
   skill,
@@ -18,7 +17,6 @@ function SkillBar({
   lang: string;
   index: number;
 }) {
-  const colors = skillColors[skill.category];
   const displayName = lang === "en" && skill.nameEn ? skill.nameEn : skill.name;
   // A column arrives as a list, so the fills stagger — capped so the last bar
   // is never left waiting on the first.
@@ -72,7 +70,6 @@ export default function SkillsPanel() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {categories.map((category) => {
-          const colors = skillColors[category];
           // Strongest first, so the best evidence leads each column.
           const items = skillsData
             .filter((s) => s.category === category)

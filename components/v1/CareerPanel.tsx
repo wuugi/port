@@ -5,7 +5,6 @@ import { careerData, companyLabelsEn } from "@/lib/static-data";
 import type { CareerItem } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
 import { ui, tCareer, type UiStrings } from "@/lib/i18n";
-import { companyColors } from "@/lib/palette";
 
 function CareerEntry({
   item,
@@ -17,7 +16,6 @@ function CareerEntry({
   t: UiStrings;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const colors = companyColors[item.companyKey];
   const isCurrent = item.companyKey === "flex";
   const hidden = item.tasks.length - 3;
 
