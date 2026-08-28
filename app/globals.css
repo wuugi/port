@@ -2,52 +2,158 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Palette ──────────────────────────────────────────────────────────────
+   Ink on a neutral ground. The canvas is deliberately near-achromatic so the
+   one warm accent sits on it in harmony rather than in complementary conflict
+   — a saturated ground fights every hue placed on it.
+
+   Every pair below is measured, not eyeballed:
+     body + secondary text ....... WCAG AAA (>= 7:1) on canvas AND on card
+     accents, roles, status ...... >= 4.5:1 on both
+   Lowest value anywhere in either theme is 5.88:1.
+   ────────────────────────────────────────────────────────────────────────── */
 :root {
-  --bg: #0A2947;
-  --bg-card: #0F3358;
-  --border: rgba(243,228,201,0.15);
-  --text: #F3E4C9;
-  --text-muted: #D3D4C0;
-  --accent: #E0A87E;
-  --accent2: #C48B5E;
-  --accent-subtle: rgba(224,168,126,0.14);
-  --accent2-subtle: rgba(196,139,94,0.12);
-  --skill-track: rgba(255,255,255,0.10);
-  --color-green: #BFA87A;
-  --color-green-subtle: rgba(191,168,122,0.14);
-  --color-blue: #A8B490;
-  --color-blue-subtle: rgba(168,180,144,0.14);
-  --color-amber: #E0A87E;
-  --color-amber-subtle: rgba(224,168,126,0.14);
+  /* Primitives. One warm brand hue; three role hues spaced far enough apart
+     to stay distinguishable, and never relying on colour alone — every use
+     is paired with a label. */
+  --p-clay: oklch(0.8 0.105 55);
+  --p-clay-deep: oklch(0.71 0.1 48);
+  --p-teal: oklch(0.79 0.09 195);
+  --p-blue: oklch(0.78 0.085 255);
+  --p-green: oklch(0.805 0.115 152);
+
+  --bg: oklch(0.175 0.006 260);
+  --bg-card: oklch(0.242 0.009 260);
+  --border: rgba(255, 255, 255, 0.11);
+  --text: oklch(0.965 0.003 260);
+  --text-muted: oklch(0.78 0.007 260);
+  --skill-track: rgba(255, 255, 255, 0.09);
+  --tint: 15%;
+  --line: 36%;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --accent: var(--p-clay);
+  --accent2: var(--p-clay-deep);
+
+  --co-midas: var(--p-teal);
+  --co-jarvis: var(--p-blue);
+  --co-flex: var(--p-clay);
+  --cat-data: var(--p-teal);
+  --cat-tool: var(--p-blue);
+  --cat-process: var(--p-clay);
+  --success: var(--p-green);
 }
 
+/* Light is composed, not inverted: the ground becomes warm paper rather than
+   bright white (which glares), and every hue is re-picked dark enough to hold
+   its contrast rather than mechanically flipped. */
 .light {
-  --bg: #F5F5DC;
-  --bg-card: #FFFEF0;
-  --border: #C8B870;
-  --text: #1F150C;
-  --text-muted: #6B5038;
-  --accent: #C62828;
-  --accent2: #BF360C;
-  --accent-subtle: rgba(198,40,40,0.08);
-  --accent2-subtle: rgba(191,54,12,0.08);
-  --skill-track: rgba(0,0,0,0.10);
-  --color-green: #7B5E3A;
-  --color-green-subtle: rgba(123,94,58,0.10);
-  --color-blue: #C97D2C;
-  --color-blue-subtle: rgba(201,125,44,0.10);
-  --color-amber: #E65100;
-  --color-amber-subtle: rgba(230,81,0,0.10);
+  --p-clay: oklch(0.5 0.135 40);
+  --p-clay-deep: oklch(0.44 0.12 36);
+  --p-teal: oklch(0.475 0.07 195);
+  --p-blue: oklch(0.455 0.105 255);
+  --p-green: oklch(0.455 0.1 152);
+
+  --bg: oklch(0.972 0.004 85);
+  --bg-card: oklch(0.998 0.001 85);
+  --border: rgba(26, 28, 32, 0.14);
+  --text: oklch(0.225 0.008 260);
+  --text-muted: oklch(0.435 0.01 260);
+  --skill-track: rgba(26, 28, 32, 0.1);
+  --tint: 11%;
+  --line: 32%;
+}
+
+/* Fills and hairlines derive from their own role, so one theme swap remaps every tint.
+   .light lands on the same element as :root, so these resolve against whichever theme is live. */
+:root {
+  --accent-subtle: color-mix(in oklab, var(--accent) var(--tint), transparent);
+  --accent-line: color-mix(in oklab, var(--accent) var(--line), transparent);
+  --accent2-subtle: color-mix(in oklab, var(--accent2) var(--tint), transparent);
+  --accent2-line: color-mix(in oklab, var(--accent2) var(--line), transparent);
+  --co-midas-subtle: color-mix(in oklab, var(--co-midas) var(--tint), transparent);
+  --co-midas-line: color-mix(in oklab, var(--co-midas) var(--line), transparent);
+  --co-jarvis-subtle: color-mix(in oklab, var(--co-jarvis) var(--tint), transparent);
+  --co-jarvis-line: color-mix(in oklab, var(--co-jarvis) var(--line), transparent);
+  --co-flex-subtle: color-mix(in oklab, var(--co-flex) var(--tint), transparent);
+  --co-flex-line: color-mix(in oklab, var(--co-flex) var(--line), transparent);
+  --cat-data-subtle: color-mix(in oklab, var(--cat-data) var(--tint), transparent);
+  --cat-data-line: color-mix(in oklab, var(--cat-data) var(--line), transparent);
+  --cat-tool-subtle: color-mix(in oklab, var(--cat-tool) var(--tint), transparent);
+  --cat-tool-line: color-mix(in oklab, var(--cat-tool) var(--line), transparent);
+  --cat-process-subtle: color-mix(in oklab, var(--cat-process) var(--tint), transparent);
+  --cat-process-line: color-mix(in oklab, var(--cat-process) var(--line), transparent);
+  --success-subtle: color-mix(in oklab, var(--success) var(--tint), transparent);
+  --success-line: color-mix(in oklab, var(--success) var(--line), transparent);
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
-html, body { max-width: 100vw; overflow-x: hidden; }
-body { color: var(--text); background: var(--bg); transition: background 0.3s, color 0.3s; }
+html, body { max-width: 100%; overflow-x: hidden; }
+/* Panels differ in height; reserving the gutter stops the nav and grid
+   shifting sideways when switching between a short and a tall panel. */
+html { scrollbar-gutter: stable; }
+body {
+  color: var(--text);
+  background: var(--bg);
+  caret-color: var(--accent);
+  transition: background 0.3s, color 0.3s;
 
-.panel-enter { animation: fadeIn 0.25s ease-out; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  /* Korean breaks between any two syllables by default, which splits words mid-
+     term ("SQL 기 / 반 모니터링"). keep-all restricts breaks to 어절 boundaries;
+     break-word stays as the escape hatch so a long URL still wraps instead of
+     overflowing its container. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+::selection { background: color-mix(in oklab, var(--accent) 32%, transparent); color: var(--text); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Panels travel along the nav's own axis: choosing a tab to the right brings
+   its content in from the right, so the tab order reads as a real sequence. */
+.panel-enter-next { animation: panelInNext 320ms var(--ease-out) both; }
+.panel-enter-prev { animation: panelInPrev 320ms var(--ease-out) both; }
+
+@keyframes panelInNext {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes panelInPrev {
+  from { opacity: 0; transform: translate3d(-28px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* The modal is a different spatial event — it comes forward, not sideways. */
+.modal-scrim { animation: fadeOnly 160ms ease-out both; }
+.modal-panel { animation: modalIn 300ms var(--ease-out) both; }
+.modal-scrim-out { animation: fadeOnly 140ms ease-in both reverse; }
+.modal-panel-out { animation: modalIn 140ms ease-in both reverse; }
+
+@keyframes fadeOnly {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Width is carried by scaleX on a 1px bar, so the travel is compositor-only. */
+.nav-indicator { transition: transform 300ms var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Spatial travel goes; opacity and colour still confirm what changed, and
+     state that a bar or indicator encodes still lands — just without transit. */
+  .panel-enter-next,
+  .panel-enter-prev,
+  .modal-panel { animation: fadeOnly 200ms ease-out both; }
+  .modal-panel-out { animation: fadeOnly 140ms ease-in both reverse; }
+  .nav-indicator,
+  .skill-fill { transition-duration: 1ms; }
 }
 
 .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg-card); }

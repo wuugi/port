@@ -1,139 +1,115 @@
 "use client";
 
 import { useState } from "react";
-import { careerData } from "@/lib/static-data";
+import { careerData, companyLabelsEn } from "@/lib/static-data";
 import type { CareerItem } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
-import { ui, tCareer } from "@/lib/i18n";
+import { ui, tCareer, type UiStrings } from "@/lib/i18n";
+import { companyColors } from "@/lib/palette";
 
-const colorMap: Record<
-  string,
-  { dot: string; text: string; badge: string }
-> = {
-  green: {
-    dot: "bg-[var(--color-green)]",
-    text: "text-[var(--color-green)]",
-    badge: "bg-[var(--color-green-subtle)] text-[var(--color-green)] border border-[var(--color-green)]/20",
-  },
-  amber: {
-    dot: "bg-[var(--color-blue)]",
-    text: "text-[var(--color-blue)]",
-    badge: "bg-[var(--color-blue-subtle)] text-[var(--color-blue)] border border-[var(--color-blue)]/20",
-  },
-  purple: {
-    dot: "bg-[var(--accent)]",
-    text: "text-[var(--accent)]",
-    badge: "bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20",
-  },
-};
-
-function CareerCard({
+function CareerEntry({
   item,
-  currentLabel,
-  expandLabel,
-  collapseLabel,
+  companyName,
+  t,
 }: {
   item: CareerItem;
-  currentLabel: string;
-  expandLabel: (n: number) => string;
-  collapseLabel: string;
+  companyName: string;
+  t: UiStrings;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const colors = colorMap[item.color];
+  const colors = companyColors[item.companyKey];
+  const isCurrent = item.companyKey === "flex";
+  const hidden = item.tasks.length - 3;
 
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 transition-all duration-300 hover:border-[var(--accent)]/40">
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className={`text-lg font-bold ${colors.text}`}>{item.company}</h3>
-          <p className="text-[var(--accent)] text-sm mt-1">{item.period}</p>
-        </div>
-        {item.color === "purple" && (
-          <span className={`px-2 py-0.5 text-xs ${colors.badge}`}>
-            {currentLabel}
+    <li className="py-8 first:pt-0 last:pb-0 border-t border-[var(--border)] first:border-t-0">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h3 className={`text-lg sm:text-xl font-bold ${colors.text}`}>{companyName}</h3>
+        {isCurrent && (
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs bg-[var(--success-subtle)] text-[var(--success)] border border-[var(--success-line)]">
+            <span className="w-1.5 h-1.5 bg-[var(--success)] rounded-full" />
+            {t.current}
           </span>
         )}
       </div>
 
-      <div className="space-y-1.5">
-        {(expanded ? item.tasks : item.tasks.slice(0, 3)).map((task, i) => (
-          <div key={i} className="flex items-start gap-2">
-            <span className={`w-1.5 h-1.5 ${colors.dot} rounded-full mt-2 flex-shrink-0`} />
-            <p className="text-[var(--text-muted)] text-sm leading-relaxed">{task}</p>
-          </div>
-        ))}
-      </div>
+      {/* The badge carries the status, so the dates state only the span. */}
+      <p className="mt-1 text-[var(--text-muted)] text-sm tabular-nums">
+        {isCurrent ? t.since(item.period) : item.period}
+      </p>
 
-      {item.tasks.length > 3 && (
+      <p className="mt-6 text-xs uppercase tracking-wide text-[var(--text-muted)]">
+        {t.responsibilities}
+      </p>
+      <ul className="mt-2.5 space-y-2">
+        {(expanded ? item.tasks : item.tasks.slice(0, 3)).map((task, i) => (
+          <li key={i} className="flex items-start gap-2.5">
+            <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${colors.dot}`} />
+            <p className="text-[var(--text-muted)] text-sm leading-relaxed">{task}</p>
+          </li>
+        ))}
+      </ul>
+
+      {hidden > 0 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className={`mt-4 text-xs font-medium ${colors.text} hover:opacity-80 transition-opacity flex items-center gap-1`}
+          aria-expanded={expanded}
+          // The visible label is short; the accessible name names the company,
+          // so the three buttons stay distinguishable out of context.
+          aria-label={
+            expanded
+              ? t.showLessTasksFor(companyName)
+              : t.showMoreTasksFor(companyName, hidden)
+          }
+          className={`mt-4 text-xs font-medium hover:opacity-80 transition-opacity flex items-center gap-1 ${colors.text}`}
         >
-          {expanded ? collapseLabel : expandLabel(item.tasks.length - 3)}
+          {expanded ? t.showLessTasks : t.showMoreTasks(hidden)}
           <svg
             className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
       )}
-    </div>
+    </li>
   );
 }
 
 export default function CareerPanel() {
   const { lang } = useLang();
   const t = ui[lang];
-  const translatedCareer = careerData.map((item) => tCareer(item, lang));
+  // Korean keeps the authored name (it carries the 삼쩜삼 brand); English uses
+  // the same labels the Projects panel shows, so one company reads one way.
+  const companyName = (item: CareerItem) =>
+    lang === "en" ? companyLabelsEn[item.companyKey] : item.company;
 
-  const expandLabel = (n: number) => lang === "ko" ? `+${n}개 더보기` : `+${n} more`;
-  const collapseLabel = lang === "ko" ? "접기" : "Collapse";
+  // Newest first: the most recent role is the one that matters most.
+  const entries = [...careerData].reverse().map((item) => tCareer(item, lang));
 
   return (
-    <div className="panel-enter space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-8">
+      <div className="flex items-baseline justify-between gap-4">
         <h2 className="text-xl font-bold text-[var(--text)]">{t.careerHeading}</h2>
         <span className="text-[var(--text-muted)] text-sm">
-          {lang === "ko" ? `총 ${careerData.length}${t.totalCompanies}` : `${careerData.length}${t.totalCompanies}`}
+          {t.totalCompanies(careerData.length)}
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {translatedCareer.map((item) => (
-          <CareerCard
-            key={item.companyKey}
-            item={item}
-            currentLabel={t.current}
-            expandLabel={expandLabel}
-            collapseLabel={collapseLabel}
-          />
-        ))}
-      </div>
-
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
-        <h3 className="text-[var(--text)] font-semibold mb-4">{t.careerTimeline}</h3>
-        <div className="relative">
-          <div className="absolute left-3 top-0 bottom-0 w-px bg-[var(--border)]" />
-          <div className="space-y-4">
-            {[...careerData].reverse().map((item) => {
-              const colors = colorMap[item.color];
-              return (
-                <div key={item.companyKey} className="flex items-center gap-4 pl-8 relative">
-                  <span
-                    className={`absolute left-1.5 w-3 h-3 ${colors.dot} rounded-full ring-2 ring-[var(--bg-card)]`}
-                  />
-                  <div>
-                    <p className={`font-medium ${colors.text}`}>{item.company}</p>
-                    <p className="text-[var(--text-muted)] text-sm">{item.period}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 sm:p-10">
+        <ol className="max-w-3xl">
+          {entries.map((item) => (
+            <CareerEntry
+              key={item.companyKey}
+              item={item}
+              companyName={companyName(item)}
+              t={t}
+            />
+          ))}
+        </ol>
       </div>
     </div>
   );

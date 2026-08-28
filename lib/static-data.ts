@@ -27,8 +27,7 @@ export const careerData: CareerItem[] = [
   {
     company: "마이다스인",
     companyKey: "midas",
-    period: "2021.1 - 2023.5",
-    color: "green",
+    period: "2021.1 – 2023.5",
     tasks: [
       "웹 신규 서비스 전략 기획",
       "VOC 기반 서비스 개선안 기획",
@@ -49,8 +48,7 @@ export const careerData: CareerItem[] = [
   {
     company: "자비스앤빌런즈 (삼쩜삼)",
     companyKey: "jarvis",
-    period: "2023.6 - 2025.8",
-    color: "amber",
+    period: "2023.6 – 2025.8",
     tasks: [
       "서비스 모니터링 (서비스 이용, 신청, 세무신고)",
       "운영 정책 수립 및 관리",
@@ -77,8 +75,7 @@ export const careerData: CareerItem[] = [
   {
     company: "플렉스",
     companyKey: "flex",
-    period: "2026.1 - 재직중",
-    color: "purple",
+    period: "2026.1",
     tasks: [
       "서비스 관련 고객 문의 진행",
       "운영 정책 설계",
@@ -374,8 +371,6 @@ export const projectsData: Project[] = [
         "Complaints and inquiries for this issue dropped 95% YoY (from top 5% to bottom 5% of inbound). External complaints to payment processors dropped 80%. Recovered critical response capacity for the team.",
     },
   },
-
-  // JARVIS (추가)
   {
     id: "proj-jarvis-5",
     title: "크리티컬 노운 이슈 해결 (오신고 문제 해결)",
