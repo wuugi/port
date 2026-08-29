@@ -90,9 +90,12 @@ what the presentation must serve.
   자비스앤빌런즈 2023.6–2025.8, 플렉스 2026.1–present).
 - Twelve projects — 플렉스 2, 자비스앤빌런즈 7, 마이다스인 3 — each with summary, role and
   result; most with background / problem / process / fullResult; all in KO and EN.
-- Fourteen skills across data / tools / process, with self-assessed levels. The levels
-  order the list and band it into 주력 / 실무 활용 / 사용 경험; neither the number nor a
-  bar is shown, because a self-rating cannot support that precision.
+- Eight skills, mirroring the Notion skills database exactly (its 상태 number is the
+  level). They order the list and band it into 주력 / 실무 활용 / 사용 경험; neither the
+  number nor a bar is shown, because a self-rating cannot support that precision.
+  Notion lists no process skills, so that category is absent and the panel renders two
+  columns rather than an empty third. Each Notion skill also carries a short note on
+  what it is used for; those are **not** on the site yet.
 - SQLD (2023.12.15); TOEIC 920, stated honestly as expired (2024.7).
 - `public/profile.png` — the only image asset in the repository.
 - Project images come from the Notion pages and are checked into `public/projects/`

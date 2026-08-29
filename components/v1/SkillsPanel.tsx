@@ -61,6 +61,16 @@ export default function SkillsPanel() {
   const { lang } = useLang();
   const t = ui[lang];
 
+  // Strongest first, so the best evidence leads each column.
+  const columns = categories
+    .map((category) => ({
+      category,
+      items: skillsData
+        .filter((s) => s.category === category)
+        .sort((a, b) => b.level - a.level),
+    }))
+    .filter((c) => c.items.length > 0);
+
   return (
     <div className="space-y-8">
       <div className="flex items-baseline justify-between gap-4">
@@ -68,12 +78,14 @@ export default function SkillsPanel() {
         <span className="text-[var(--text-muted)] text-sm">{t.totalSkills(skillsData.length)}</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10">
-        {categories.map((category) => {
-          // Strongest first, so the best evidence leads each column.
-          const items = skillsData
-            .filter((s) => s.category === category)
-            .sort((a, b) => b.level - a.level);
+      {/* A category with nothing in it is not a column — the source of truth is
+          Notion, and what it holds decides how many columns there are. */}
+      <div
+        className={`grid grid-cols-1 gap-x-10 gap-y-10 ${
+          columns.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"
+        }`}
+      >
+        {columns.map(({ category, items }) => {
           return (
             // A column head over a hairline, not a boxed panel: three cards
             // inside the page frame were three more rectangles saying nothing.

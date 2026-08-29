@@ -670,21 +670,20 @@ export const projectsData: Project[] = [
   },
 ];
 
+/**
+ * Mirrors the Notion skills database exactly — names and `level` (its 상태 number)
+ * as authored there. Notion lists no process skills, so that category is empty
+ * and the panel drops it rather than printing an empty column.
+ */
 export const skillsData: SkillItem[] = [
-  { name: "SQL", level: 90, category: "data" },
-  { name: "Claude", level: 88, category: "data" },
-  { name: "R", level: 65, category: "data" },
-  { name: "Python", level: 50, category: "data" },
-  { name: "Google Analytics", level: 75, category: "data" },
-  { name: "Notion", level: 95, category: "tool" },
-  { name: "Figma", level: 55, category: "tool" },
-  { name: "JIRA", level: 80, category: "tool" },
-  { name: "Zendesk", level: 75, category: "tool" },
+  { name: "SQL (Redash / databricks)", level: 80, category: "data" },
+  { name: "R", level: 70, category: "data" },
+  { name: "Excel (spreadsheet)", level: 90, category: "data" },
+  { name: "Claude", level: 90, category: "data" },
   { name: "Slack", level: 90, category: "tool" },
-  { name: "서비스 기획", nameEn: "Service Planning", level: 85, category: "process" },
-  { name: "운영 정책 수립", nameEn: "Operations Policy", level: 90, category: "process" },
-  { name: "VOC 분석", nameEn: "VOC Analysis", level: 88, category: "process" },
-  { name: "데이터 기반 의사결정", nameEn: "Data-Driven Decisions", level: 82, category: "process" },
+  { name: "Jira / confluence", level: 80, category: "tool" },
+  { name: "Word", level: 80, category: "tool" },
+  { name: "Figma", level: 50, category: "tool" },
 ];
 
 export const companyLabels: Record<CompanyKey, string> = {
