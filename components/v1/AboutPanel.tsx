@@ -54,11 +54,15 @@ export default function AboutPanel() {
             </h2>
             <p className="mt-2 text-[var(--accent)] text-base sm:text-lg text-balance">{p.title}</p>
 
-            {/* No artificial cap: the paragraph fills the column the photo leaves,
-                so lines break on their own rhythm instead of against a narrow gutter. */}
-            <p className="mt-6 text-[var(--text-muted)] leading-[1.9] text-[15px] text-pretty">
-              {p.intro}
-            </p>
+            {/* No artificial cap: the text fills the column the photo leaves, so
+                lines break on their own rhythm instead of against a narrow gutter.
+                The intro is authored as paragraphs and stays paragraphs — run
+                together it is a five-sentence wall on a page meant to be scanned. */}
+            <div className="mt-6 space-y-4 text-[var(--text-muted)] leading-[1.9] text-[15px] text-pretty">
+              {p.intro.split("\n\n").map((para) => (
+                <p key={para.slice(0, 24)}>{para}</p>
+              ))}
+            </div>
           </div>
         </div>
       </section>

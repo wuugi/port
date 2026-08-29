@@ -3,23 +3,28 @@ import type { CareerItem, Project, SkillItem, PersonInfo, CompanyKey } from "./t
 export const personInfo: PersonInfo = {
   name: "김현욱",
   nameEn: "Kim Hyun Uk",
-  title: "고객 경험과 데이터를 보는 Operation Manager (6년차)",
+  title: "고객 경험과 데이터를 보는 Operation Manager",
   email: "hyunuk1245@naver.com",
   phone: "010-2515-5238",
+  // Authored in Notion (자기소개 페이지). Paragraphs are split on a blank line.
   intro:
-    "마이다스인, 삼쩜삼(자비스앤빌런즈), 플렉스를 거치며 6년간 서비스 이슈를 데이터로 분석하고 고객 여정 전반을 설계해왔습니다. 운영 정책 수립부터 SQL 기반 모니터링, AI를 활용한 업무 자동화까지, 고객이 제품의 가치를 온전히 경험할 수 있도록 팀과 함께 만들어가고 있습니다.",
+    "서비스 이슈 분석 및 개선을 주도하며 고객 중심의 운영 전략을 수립해온 Operation Manager입니다. 고객 여정 전반을 설계하면서 서비스 인지부터 종료까지 만족스러운 경험을 제공하기 위해 노력했습니다.\n\n" +
+    "고객이 갖고 있는 불편사항을 직접 컨택해 확인하고, 그 개선점을 팀과 제품을 통해 이끌어내면서 제품의 가치를 고객이 온전히 느낄 수 있도록 만들었습니다.\n\n" +
+    "AI를 활용해 업무 효율을 높이고, 그렇게 확보한 시간을 다시 고객에게 쓸 수 있는 환경을 만들었습니다.",
   education: "경희대학교 지리학/언론정보학",
   educationPeriod: "2014.03 - 2020.02",
   certifications: ["SQLD (23.12.15)"],
-  languages: ["영어 회화 베이직", "TOEIC 920 (2022.7 - 2024.7 만료)"],
+  languages: ["영어 일상 회화 가능", "TOEIC 920 (2022.7 - 2024.7 만료)"],
   profileImage: "/profile.png",
   en: {
-    title: "6-Year Operations Manager Focused on Customer Experience & Data",
+    title: "Operations Manager Focused on Customer Experience & Data",
     intro:
-      "Over 6 years at Midas-in, Jarvis & Villains (삼쩜삼), and Flex, I've analyzed service issues with data and designed end-to-end customer journeys. From establishing operating policies and SQL-based monitoring to AI-powered workflow automation — I work with teams to ensure customers fully experience the value of the product.",
+      "An Operations Manager who leads service issue analysis and improvement and sets customer-centred operating strategy. I design the customer journey end to end, so the experience holds from the moment someone first hears about a service to the moment they leave it.\n\n" +
+      "I contact customers directly to find out what is not working, then drive those fixes through the team and the product — so the value of the product actually reaches the people using it.\n\n" +
+      "And I use AI to cut the routine work, which buys back the hours to spend on customers.",
     education: "Kyung Hee University — Geography / Journalism & Communications",
     certifications: ["SQLD (Dec 15, 2023)"],
-    languages: ["Basic English Conversation", "TOEIC 920 (Jul 2022 – Jul 2024, expired)"],
+    languages: ["Conversational English", "TOEIC 920 (Jul 2022 – Jul 2024, expired)"],
   },
 };
 
@@ -99,6 +104,54 @@ export const careerData: CareerItem[] = [
 
 export const projectsData: Project[] = [
   // FLEX
+  {
+    id: "proj-flex-3",
+    title: "고객사 설문 발송 툴 기획·개발",
+    company: "flex",
+    period: "2026.08",
+    summary:
+      "설문 응답을 사람이 손으로 대조하던 과정을 없애기 위해, 프리필 링크를 자체 생성하는 도구를 기획하고 직접 만들어 사내에 배포했습니다.",
+    role: "프로세스 기획 및 프로덕트 개발",
+    result: "응답 매핑 100% 자동화, 외부 CRM 발송 툴 의존 제거",
+    tags: ["프로세스 기획", "프로덕트 개발", "자동화"],
+    background:
+      "고객 만족도 설문을 진행하기로 결정하면서, 여러 서비스의 담당자가 각자 다른 양식으로 설문을 발송하는 상황이 드러났습니다.",
+    problem:
+      "설문지 구성이 담당자마다 달라 응답 데이터를 하나로 맞추기 어려웠고, 고객이 인적 정보를 정확히 적지 않으면 응답을 누구의 것인지 특정할 수 없어 분석 자체가 불가능해졌습니다.",
+    process: [
+      "문제 정의 — 단순한 수작업 리소스 문제가 아니라, 응답한 건이 누구의 것인지 파악할 수 없다는 점이 본질임을 확인",
+      "대안 비교 — 구글 폼 프리필과 서드파티 솔루션을 보안 검토 소요, API 활용 자유도, 응답 수정 가능성 기준으로 비교",
+      "구글 폼으로 결정 — 보안 검토 지연과 API 제약을 피해 빠르게 진행하기로 하고, 설문 링크를 넣으면 프리필 문항 ID를 자동 추출해 링크를 만들어 주는 사이트를 기획",
+      "구현 — 설문 생성과 메일 발송을 한 화면에서 처리하도록 묶고, AI 코딩 도구로 설계 논의와 구현을 진행해 로컬 테스트 후 사내 배포",
+      "시연·의견 수집 — 사용 부서에 가이드 문서를 공유하고 전체 프로세스를 시연, 이미지 삽입과 발송 주체 변경 등 요구사항을 추가 반영",
+      "최종 배포 — 요구사항 반영과 가독성 개선 후 사내 서버에 배포",
+    ],
+    fullResult:
+      "필요 정보를 암호화해 설문에 미리 채우고 제출 후 자동 복호화하는 구조로, 응답과 고객을 잇는 매핑률 100%를 달성했습니다. 외부 메일 발송 CRM 툴에 대한 의존을 없애면서 반송 메일 문제도 함께 해소했습니다.",
+    notionUrl: "https://app.notion.com/p/3ca8937a33b1806d9995d0ea5bfdcb06",
+    en: {
+      title: "Customer Survey Delivery Tool",
+      summary:
+        "Removed the manual reconciliation behind customer surveys by designing and building an in-house tool that generates pre-filled survey links, then shipping it internally.",
+      role: "Process design and product development",
+      result: "Response mapping fully automated; external CRM sending tool no longer needed",
+      tags: ["Process Design", "Product Development", "Automation"],
+      background:
+        "The decision to run a customer satisfaction survey surfaced the fact that each service owner was sending their own survey in their own format.",
+      problem:
+        "Because the forms differed by owner, responses could not be reconciled into one dataset — and whenever a customer mistyped their details, there was no way to tell whose answer it was, which made analysis impossible.",
+      process: [
+        "Defining the problem — Establishing that this was not a manual-effort problem but an identification one: a response could not be tied back to the customer who gave it",
+        "Comparing options — Weighing Google Forms pre-fill against third-party tools on security review time, API freedom, and whether respondents could edit pre-filled values",
+        "Choosing Google Forms — Avoiding security-review delay and API limits, then designing a site that takes a survey link, extracts the pre-fill field IDs automatically, and generates the links",
+        "Building it — Combining survey creation and mail delivery into a single screen, developing it with AI coding tools, and deploying internally after local testing",
+        "Demo and feedback — Sharing a usage guide with the teams, walking through the whole process, and adding requested features such as inline images and a switchable sending account",
+        "Final release — Shipping to the internal server after the requested changes and a readability pass",
+      ],
+      fullResult:
+        "Required details are encrypted into the pre-filled survey and decrypted automatically on submission, which ties every response to the right customer. Dropping the external CRM mail tool also removed the bounced-mail problem that came with it.",
+    },
+  },
   {
     id: "proj-flex-1",
     title: "요금제 전환 프로젝트",

@@ -145,25 +145,28 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </header>
 
           {shown.images && shown.images.length > 0 && (
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            // Full width, one per row, each at its own shape. These are dashboard
+            // screenshots — wide, and the evidence is the numbers inside them. A
+            // uniform tile grid cropped the widest one to a third of itself and
+            // shrank the rest past reading size.
+            <div className="mt-8 space-y-3">
               {shown.images.map((img, i) => (
-                // The image is its own edge; a border around it would be another
-                // rectangle. aspect-ratio still reserves the box so nothing reflows.
-                <div key={i} className="relative w-full aspect-[4/3] max-h-48 overflow-hidden bg-[var(--bg)]">
-                  <Image
-                    src={img}
-                    alt={`${shown.title} ${i + 1}`}
-                    fill
-                    sizes="(max-width: 640px) 90vw, 320px"
-                    loading="lazy"
-                    className="object-cover"
-                    // Signed Notion URLs expire; a broken one must not leave a
-                    // torn frame behind in the middle of the case study.
-                    onError={(e) => {
-                      (e.currentTarget.parentElement as HTMLElement).style.display = "none";
-                    }}
-                  />
-                </div>
+                <Image
+                  key={img.src}
+                  src={img.src}
+                  alt={`${shown.title} ${i + 1}`}
+                  width={img.width}
+                  height={img.height}
+                  sizes="(max-width: 672px) 90vw, 600px"
+                  loading="lazy"
+                  // The image is its own edge; a border would be another rectangle.
+                  className="w-full h-auto"
+                  // A file removed from public/ must not leave a torn frame
+                  // behind in the middle of the case study.
+                  onError={(e) => {
+                    (e.currentTarget as HTMLElement).style.display = "none";
+                  }}
+                />
               ))}
             </div>
           )}

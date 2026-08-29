@@ -54,24 +54,32 @@ what the presentation must serve.
 - Next.js 14 (App Router), React 18, TypeScript, Tailwind 3.
 - Server rendering is available on Vercel, which `next/image` optimization depends
   on; `sharp` is installed for it.
-- Career / project / skills text is authored in **`lib/static-data.ts`**. Notion is
-  merged over it **at author time** by `npm run sync:notion`, which writes
-  `lib/projects.generated.json` and downloads page images into `public/projects/`.
-  Both are committed; the deployed site calls no external API.
-- The merge is field by field and an empty Notion value never overwrites an authored
-  one, so a renamed property costs a stale field rather than a blank page. The script
-  prints the property names it saw and refuses to write when nothing parsed.
-- **Decided (2026-08-29):** build-time sync over runtime fetch. Notion's image URLs are
-  signed and expire in about an hour, which is the only reason a runtime call existed;
-  downloading them once removes an external dependency from every visitor's path.
+- All text — career, projects, skills, About — is authored in **`lib/static-data.ts`**,
+  Korean and English together. The deployed site calls no external API.
+- **Notion holds the raw working notes**, one page per project under a template
+  (요약 / 역할 / 성과 / 시기 → 배경·문제 → 진행 과정 → 결과). Its databases carry a single
+  `이름` property; everything else lives in the page body, and there is no English
+  anywhere in it. Confirmed against the live workspace on 2026-08-29.
+- **Decided (2026-08-29):** the sync moves only what is mechanical. `npm run sync:notion`
+  downloads page images into `public/projects/` and records their measured dimensions in
+  `lib/projects.generated.json`; `--text` prints each page's body as the raw material for
+  a content update. Turning notes into bilingual copy stays an editorial pass done in a
+  session and reviewed as a diff — syncing Notion's text directly would trade edited
+  prose for bullet memos and leave the English silently behind.
+- Image URLs from Notion are signed and expire within the hour, which is why a copy in
+  the repository is the only way to show them.
 - `NOTION_TOKEN` is needed **locally, to run the sync**. It is no longer read at
-  runtime, so it is not required in Vercel.
+  runtime, so it is not required in Vercel. The integration is connected to the three
+  project databases, the About page, the skills database and the template page;
+  sharing inherits, so connecting a parent page covers everything beneath it.
 - The `/v2` route and `components/v2/` have been **removed**.
 
 ## Brand Commitments
 
 - Name: 김현욱 / Kim Hyun Uk.
-- Title: "고객 경험과 데이터를 보는 Operation Manager (6년차)".
+- Title: "고객 경험과 데이터를 보는 Operation Manager", as authored on the Notion About
+  page. **No years-of-experience claim in the title:** Notion states 총 5년 3개월, so the
+  earlier "(6년차)" / "6-Year" overstated it in English.
 - Company names as authored. Korean keeps **자비스앤빌런즈 (삼쩜삼)** — 삼쩜삼 is the
   recognisable service brand and must not be dropped for brevity. English uses
   Midas-in / Jarvis & Villains / Flex.

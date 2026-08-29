@@ -33,6 +33,12 @@ export interface CareerItem {
   en?: CareerTranslation;
 }
 
+export interface ProjectImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -46,7 +52,9 @@ export interface Project {
   problem?: string;
   process?: string[];
   fullResult?: string;
-  images?: string[];
+  /** Pulled from Notion by the sync script. Dimensions are measured at download
+   *  time so the page reserves the real box and never crops the shot. */
+  images?: ProjectImage[];
   notionUrl?: string;
   en?: ProjectTranslation;
 }

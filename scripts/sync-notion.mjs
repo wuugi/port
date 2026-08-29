@@ -1,21 +1,26 @@
 #!/usr/bin/env node
 /**
- * Pulls project text and images out of Notion once, at author time, and writes
- * them into the repository. The site then ships as static files.
+ * Notion is where the working notes live. The site's copy is edited, bilingual
+ * prose that says the same things better, and it lives in lib/static-data.ts.
+ * This script does not try to reconcile those — it does the mechanical half.
  *
- *   npm run sync:notion            report + write
- *   npm run sync:notion -- --dry   report only, writes nothing
+ *   npm run sync:notion             download images, write the manifest
+ *   npm run sync:notion -- --dry    report only, writes nothing
+ *   npm run sync:notion -- --text   also print every page's body
  *
- * Why not fetch at request time: Notion's image URLs are signed and expire in
- * about an hour, so a live page had to call Notion on every visit purely to
- * re-sign them. That put an external API in the path of every visitor for
- * content that changes a few times a year. Here the images are downloaded once
- * and served from /public, and a Notion outage cannot reach the site.
+ * Images: Notion serves them from signed URLs that expire within the hour, so
+ * the only way to show them is to keep a copy. They land in public/projects/
+ * and lib/projects.generated.json maps them to a Notion page id.
+ *
+ * Text: --text prints what each page says, which is the raw material for a
+ * content update. The rewrite into Korean and English stays a human decision,
+ * made against the diff, rather than a translation the build performs.
  */
 
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_JSON = path.join(ROOT, "lib", "projects.generated.json");
@@ -23,6 +28,7 @@ const IMAGE_DIR = path.join(ROOT, "public", "projects");
 const NOTION_VERSION = "2022-06-28";
 const MAX_IMAGES = 3;
 const DRY = process.argv.includes("--dry");
+const TEXT = process.argv.includes("--text");
 
 /** .env.local is the same file Next reads; no need for a second place to put the token. */
 async function loadToken() {
@@ -53,22 +59,7 @@ async function notion(token, endpoint, init = {}) {
   return res.json();
 }
 
-// ── property mapping ───────────────────────────────────────────────────────
-// Notion property names are authored by hand and drift (English, Korean, with
-// or without separators). Every accepted spelling is tried rather than assuming
-// one, and the names actually seen are printed so a rename is visible here
-// instead of showing up as a blank field on the site.
-
-const seenProps = new Set();
-
-function pick(props, ...names) {
-  for (const n of names) if (props?.[n]) return props[n];
-  return undefined;
-}
 const plain = (arr) => (arr ?? []).map((t) => t.plain_text).join("");
-const text = (p) => plain(p?.rich_text);
-const lines = (s) => s.split("\n").map((l) => l.trim()).filter(Boolean);
-const multi = (p) => (p?.multi_select ?? []).map((m) => m.name);
 
 /** Notion ids are dashed UUIDs; the authored `notionUrl` carries bare 32 hex. */
 function bareId(value) {
@@ -76,68 +67,41 @@ function bareId(value) {
   return m ? m[1].toLowerCase() : null;
 }
 
-function mapTranslation(props) {
-  const title = text(pick(props, "Title EN", "Title_EN", "TitleEN", "제목 영문"));
-  const summary = text(pick(props, "Summary EN", "Summary_EN", "요약 영문"));
-  const role = text(pick(props, "Role EN", "Role_EN", "역할 영문"));
-  const result = text(pick(props, "Result EN", "Result_EN", "결과 영문"));
-  const background = text(pick(props, "Background EN", "Background_EN", "배경 영문"));
-  const problem = text(pick(props, "Problem EN", "Problem_EN", "문제 영문"));
-  const processText = text(pick(props, "Process EN", "Process_EN", "프로세스 영문"));
-  const fullResult = text(pick(props, "FullResult EN", "FullResult_EN", "전체결과 영문"));
-  const tags = multi(pick(props, "Tags EN", "Tags_EN"));
-
-  if (!title && !summary && !role && !result) return undefined;
-
-  return {
-    title,
-    summary,
-    role,
-    result,
-    tags: tags.length ? tags : undefined,
-    background: background || undefined,
-    problem: problem || undefined,
-    process: processText ? lines(processText) : undefined,
-    fullResult: fullResult || undefined,
-  };
+function pageTitle(page) {
+  for (const prop of Object.values(page.properties ?? {})) {
+    if (prop.type === "title") return plain(prop.title);
+  }
+  return "(untitled)";
 }
 
-function mapPage(page, company) {
-  const props = page.properties ?? {};
-  for (const name of Object.keys(props)) seenProps.add(name);
-  const processText = text(pick(props, "Process", "프로세스"));
+// ── page bodies ────────────────────────────────────────────────────────────
 
-  return {
-    notionPageId: bareId(page.id),
-    company,
-    title: plain(pick(props, "title", "Name", "이름")?.title),
-    period: text(pick(props, "Period", "기간")),
-    summary: text(pick(props, "Summary", "요약")),
-    role: text(pick(props, "Role", "역할")),
-    result: text(pick(props, "Result", "결과")),
-    tags: multi(pick(props, "Tags", "태그")),
-    background: text(pick(props, "Background", "배경")) || undefined,
-    problem: text(pick(props, "Problem", "문제")) || undefined,
-    process: processText ? lines(processText) : undefined,
-    fullResult: text(pick(props, "FullResult", "전체결과")) || undefined,
-    notionUrl: page.url || undefined,
-    en: mapTranslation(props),
-  };
+/** Walks a page including nested children, collecting images and, for --text,
+ *  a readable outline. One walk serves both so a page is fetched once. */
+async function walk(token, blockId, depth, out) {
+  const data = await notion(token, `blocks/${blockId}/children?page_size=100`);
+  for (const block of data.results ?? []) {
+    if (block.type === "image") {
+      const url = block.image?.file?.url || block.image?.external?.url;
+      if (url && out.images.length < MAX_IMAGES) out.images.push(url);
+      out.lines.push("  ".repeat(depth) + "[image]");
+    } else {
+      const text = plain(block[block.type]?.rich_text);
+      if (text.trim()) {
+        const marker = block.type.startsWith("heading")
+          ? "#".repeat(Number(block.type.slice(-1))) + " "
+          : block.type.endsWith("list_item")
+          ? "- "
+          : "";
+        out.lines.push("  ".repeat(depth) + marker + text);
+      }
+    }
+    if (block.has_children) await walk(token, block.id, depth + 1, out);
+  }
+  return out;
 }
 
 // ── images ─────────────────────────────────────────────────────────────────
-
-async function pageImageUrls(token, pageId) {
-  const data = await notion(token, `blocks/${pageId}/children?page_size=50`);
-  const urls = [];
-  for (const block of data.results ?? []) {
-    if (block.type !== "image") continue;
-    const url = block.image?.file?.url || block.image?.external?.url;
-    if (url) urls.push(url);
-    if (urls.length >= MAX_IMAGES) break;
-  }
-  return urls;
-}
 
 async function download(url, destBase) {
   const res = await fetch(url);
@@ -152,8 +116,26 @@ async function download(url, destBase) {
     : type.includes("gif") ? ".gif"
     : ".jpg";
   const file = `${destBase}${ext}`;
-  await fs.writeFile(path.join(IMAGE_DIR, file), Buffer.from(await res.arrayBuffer()));
-  return `/projects/${file}`;
+  const buffer = Buffer.from(await res.arrayBuffer());
+  await fs.writeFile(path.join(IMAGE_DIR, file), buffer);
+
+  // These are mostly dashboard screenshots, and they are wide — one was 5:1.
+  // Measuring here is what lets the page show the whole shot at its own shape
+  // instead of cropping it into a uniform tile, and it reserves the right box
+  // so nothing reflows when the image arrives.
+  const { width, height } = await sharp(buffer).metadata();
+  return { src: `/projects/${file}`, width, height };
+}
+
+/** Report-only: which Notion pages the authored data already covers. A regex
+ *  over the TypeScript is fine for a printed hint and is never load-bearing. */
+async function authoredIds() {
+  try {
+    const src = await fs.readFile(path.join(ROOT, "lib", "static-data.ts"), "utf8");
+    return new Set([...src.matchAll(/[a-f0-9]{32}/gi)].map((m) => m[0].toLowerCase()));
+  } catch {
+    return null;
+  }
 }
 
 // ── run ────────────────────────────────────────────────────────────────────
@@ -163,8 +145,8 @@ async function main() {
   if (!token) {
     console.error(
       "NOTION_TOKEN is not set.\n" +
-      "Put it in .env.local as NOTION_TOKEN=secret_... (see .env.local.example),\n" +
-      "or export it for one run. Nothing was written."
+      "Put it in .env.local as NOTION_TOKEN=ntn_... (see .env.local.example).\n" +
+      "Nothing was written."
     );
     process.exit(1);
   }
@@ -172,78 +154,104 @@ async function main() {
   const databases = JSON.parse(
     await fs.readFile(path.join(ROOT, "lib", "notion-databases.json"), "utf8")
   );
+  const authored = await authoredIds();
 
-  const projects = [];
+  const pages = [];
+  const unreachable = [];
   for (const [company, databaseId] of Object.entries(databases)) {
-    const data = await notion(token, `databases/${databaseId}/query`, {
-      method: "POST",
-      body: JSON.stringify({ sorts: [{ timestamp: "created_time", direction: "descending" }] }),
-    });
-    const mapped = (data.results ?? []).map((page) => mapPage(page, company));
-    // A page whose title and summary are both empty means the schema did not
-    // match. Keeping it would write blanks over good authored text.
-    const usable = mapped.filter((p) => p.title?.trim() && p.summary?.trim());
+    // One database the integration cannot see must not hide the state of the
+    // others: the point of a run is finding out which are wired up.
+    let data;
+    try {
+      data = await notion(token, `databases/${databaseId}/query`, {
+        method: "POST",
+        body: JSON.stringify({ sorts: [{ timestamp: "created_time", direction: "descending" }] }),
+      });
+    } catch (err) {
+      const notShared = err.message.includes("object_not_found");
+      console.log(
+        `${company.padEnd(7)} -- ${notShared ? "not shared with this integration (or wrong id)" : err.message.slice(0, 90)}`
+      );
+      unreachable.push({ company, databaseId });
+      continue;
+    }
+    for (const page of data.results ?? []) {
+      pages.push({ company, id: bareId(page.id), rawId: page.id, title: pageTitle(page) });
+    }
+    console.log(`${company.padEnd(7)} ${String(data.results?.length ?? 0).padStart(2)} pages`);
+  }
+
+  if (unreachable.length) {
     console.log(
-      `${company.padEnd(7)} ${String(usable.length).padStart(2)} usable / ${mapped.length} pages` +
-        (usable.length < mapped.length
-          ? "   <- some pages have no Title or Summary the parser recognises"
-          : "")
+      "\nTo share a database: open it in Notion, ... menu (top right) -> Connections\n" +
+      "-> add the integration. Sharing inherits, so a parent page covers everything under it.\n" +
+      unreachable.map((u) => `  ${u.company.padEnd(7)} ${u.databaseId}`).join("\n")
     );
-    projects.push(...usable);
   }
 
-  if (projects.length === 0) {
-    console.error("\nNo usable pages in any database. Refusing to write an empty file.");
-    console.error("Property names seen in Notion: " + [...seenProps].join(", "));
+  if (pages.length === 0) {
+    console.error("\nNo pages read. Nothing written; lib/static-data.ts is untouched.");
     process.exit(1);
-  }
-
-  const withEn = projects.filter((p) => p.en).length;
-  console.log(`\ntext    ${projects.length} projects, ${withEn} with English`);
-  if (withEn < projects.length) {
-    console.log("        the rest keep the English already in lib/static-data.ts");
   }
 
   if (!DRY) await fs.mkdir(IMAGE_DIR, { recursive: true });
 
+  const manifest = [];
   let imageCount = 0;
-  for (const project of projects) {
-    if (!project.notionPageId) continue;
-    let urls = [];
+  console.log("");
+
+  for (const page of pages) {
+    const known = authored ? authored.has(page.id) : true;
+    let body;
     try {
-      urls = await pageImageUrls(token, project.notionPageId);
+      body = await walk(token, page.rawId, 0, { images: [], lines: [] });
     } catch (err) {
-      console.warn(`        ! images for ${project.title}: ${err.message}`);
+      console.warn(`  ! ${page.title.slice(0, 46)}: ${err.message.slice(0, 70)}`);
       continue;
     }
-    if (DRY) {
-      imageCount += urls.length;
-      continue;
-    }
+
     const saved = [];
-    for (const [i, url] of urls.entries()) {
-      try {
-        saved.push(await download(url, `${project.notionPageId}-${i + 1}`));
-      } catch (err) {
-        console.warn(`        ! ${project.title} image ${i + 1}: ${err.message}`);
+    if (!DRY) {
+      for (const [i, url] of body.images.entries()) {
+        try {
+          saved.push(await download(url, `${page.id}-${i + 1}`));
+        } catch (err) {
+          console.warn(`  ! ${page.title.slice(0, 40)} image ${i + 1}: ${err.message}`);
+        }
       }
     }
-    if (saved.length) project.images = saved;
-    imageCount += saved.length;
-  }
-  console.log(`images  ${imageCount} ${DRY ? "found" : "downloaded into public/projects/"}`);
+    imageCount += DRY ? body.images.length : saved.length;
+    if (saved.length) manifest.push({ notionPageId: page.id, images: saved });
 
-  console.log(`\nNotion properties seen: ${[...seenProps].sort().join(", ")}`);
+    const shapes = saved.map((i) => `${i.width}x${i.height}`).join(" ");
+    console.log(
+      `${known ? "  " : "NEW "}${page.company.padEnd(7)} ${String(body.images.length).padStart(2)} img  ${page.title.slice(0, 44).padEnd(45)} ${shapes}`
+    );
+    if (TEXT) console.log(body.lines.map((l) => "      " + l).join("\n") + "\n");
+  }
+
+  console.log(`\nimages  ${imageCount} ${DRY ? "found" : "downloaded into public/projects/"}`);
+  if (authored) {
+    const unmatched = pages.filter((p) => !authored.has(p.id));
+    if (unmatched.length) {
+      console.log(
+        `\n${unmatched.length} Notion page(s) marked NEW are not in lib/static-data.ts yet.\n` +
+        "Run with --text to read them, then write the entry (Korean and English together)."
+      );
+    }
+  }
 
   if (DRY) {
     console.log("\n--dry: nothing written.");
     return;
   }
 
-  const payload = { syncedAt: new Date().toISOString(), projects };
-  await fs.writeFile(OUT_JSON, JSON.stringify(payload, null, 2) + "\n");
-  console.log("\nwrote   lib/projects.generated.json");
-  console.log("Commit lib/projects.generated.json and public/projects/ to publish.");
+  await fs.writeFile(
+    OUT_JSON,
+    JSON.stringify({ syncedAt: new Date().toISOString(), projects: manifest }, null, 2) + "\n"
+  );
+  console.log("wrote   lib/projects.generated.json");
+  console.log("Commit it together with public/projects/ to publish.");
 }
 
 main().catch((err) => {
