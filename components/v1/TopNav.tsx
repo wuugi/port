@@ -7,7 +7,6 @@ import { useLang } from "@/lib/lang-context";
 
 interface TopNavProps {
   activePanel: ActivePanel;
-  onPanelChange: (panel: ActivePanel) => void;
 }
 
 const navItems: { key: ActivePanel; label: string }[] = [
@@ -18,7 +17,7 @@ const navItems: { key: ActivePanel; label: string }[] = [
   { key: "contact", label: "Contact" },
 ];
 
-/** Left-to-right order of the tabs; the shell reads it to pick travel direction. */
+/** Left-to-right order of the sections; the shell reads it to track scroll. */
 export const panelOrder: ActivePanel[] = navItems.map((i) => i.key);
 
 function SunIcon() {
@@ -45,11 +44,18 @@ function MoonIcon() {
   );
 }
 
-export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
+/** The href carries the deep link; this carries the travel. A click on the
+ *  section already named in the URL is not a navigation, so the browser does
+ *  nothing — after scrolling away, that tab would go dead. */
+function scrollToSection(key: ActivePanel) {
+  document.getElementById(key)?.scrollIntoView();
+}
+
+export default function TopNav({ activePanel }: TopNavProps) {
   const { theme, toggleTheme } = useTheme();
   const { lang, toggleLang } = useLang();
 
-  const tabRefs = useRef<Partial<Record<ActivePanel, HTMLButtonElement | null>>>({});
+  const tabRefs = useRef<Partial<Record<ActivePanel, HTMLAnchorElement | null>>>({});
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
   // The underline travels between tabs rather than reappearing, so the two
@@ -78,11 +84,12 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
           <div className="flex items-center gap-1">
             <div className="relative flex items-center">
               {navItems.map((item) => (
-                <button
+                <a
                   key={item.key}
                   ref={(el) => { tabRefs.current[item.key] = el; }}
-                  onClick={() => onPanelChange(item.key)}
-                  aria-current={activePanel === item.key ? "page" : undefined}
+                  href={`#${item.key}`}
+                  onClick={() => scrollToSection(item.key)}
+                  aria-current={activePanel === item.key ? "true" : undefined}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     activePanel === item.key
                       ? "text-[var(--accent)]"
@@ -90,7 +97,7 @@ export default function TopNav({ activePanel, onPanelChange }: TopNavProps) {
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
 
               <span

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { skillsData } from "@/lib/static-data";
 import type { SkillItem } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
@@ -53,16 +53,29 @@ export default function SkillsPanel() {
   const { lang } = useLang();
   const t = ui[lang];
   const [animate, setAnimate] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
 
+  // The bars now sit below the fold, so they fill when the reader reaches them
+  // rather than on page load — otherwise they are already full on arrival.
   useEffect(() => {
-    const timer = setTimeout(() => setAnimate(true), 100);
-    return () => clearTimeout(timer);
+    const el = rootRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setAnimate(true);
+        observer.disconnect();
+      },
+      { rootMargin: "0px 0px -15% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const categories = ["data", "tool", "process"] as const;
 
   return (
-    <div className="space-y-8">
+    <div ref={rootRef} className="space-y-8">
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="text-xl font-bold text-[var(--text)]">{t.skillsHeading}</h2>
         <span className="text-[var(--text-muted)] text-sm">{t.totalSkills(skillsData.length)}</span>

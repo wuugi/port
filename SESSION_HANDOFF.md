@@ -59,6 +59,28 @@ npm run build      # dev 서버를 반드시 먼저 끌 것 (6절 함정 참고)
 
 ---
 
+## 2-B. 페이지 구조 — 탭 전환에서 **한 페이지 스크롤**로 변경 (2026-08-29)
+
+패널을 클릭으로 갈아끼우던 구조를 없애고 다섯 섹션을 한 문서에 쌓았습니다.
+
+- `PortfolioV1.tsx` — `activePanel` 스위치 렌더 제거. `<section id="about|career|projects|skills|contact">` 5개를 헤어라인으로 구분해 나열
+- `TopNav.tsx` — 탭이 `<button>` → `<a href="#섹션">`. 딥링크(`/#projects`)가 그대로 동작
+  - href만으로는 **이미 그 해시에 있을 때 다시 눌러도 브라우저가 아무것도 안 함**. `onClick`에서 `scrollIntoView()`를 같이 호출해 항상 이동하게 함
+- 활성 탭은 클릭이 아니라 **스크롤 위치**가 결정 (`scroll` 리스너, passive). 헤더 아래 80px 선을 지난 마지막 섹션이 현재 섹션이고, 페이지 끝에 닿으면 마지막 섹션(Contact)으로 강제
+  - 마지막 섹션은 짧아서 헤더 선까지 절대 못 올라오므로 이 예외가 필요함
+- `html { scroll-behavior: smooth }` + 섹션 `scroll-mt-20`(스티키 헤더 회피). reduced-motion에서는 `auto`
+- `.panel-enter-next/prev` 애니메이션과 keyframes 삭제 (패널이 더는 교체되지 않음)
+- `SkillsPanel` 막대: 마운트 후 100ms 타이머 → **IntersectionObserver**. 이제 접힌 화면 아래에 있으므로 도달했을 때 채워짐
+
+### 이 과정에서 드러난 기존 버그 2개 (회귀 주의)
+
+1. **`body { overflow-x: hidden }`이 스티키 헤더를 죽이고 있었음.** body에 overflow가 걸리면 body가 스크롤 컨테이너가 되고, 그 안의 `position: sticky`는 뷰포트가 아니라 body 기준이 되어 그냥 같이 밀려 올라갑니다. 페이지가 짧을 땐 안 보이던 버그. **overflow-x를 `html`에만 남겼습니다** (html의 값은 뷰포트로 전파되므로 가로 스크롤 차단은 그대로)
+2. **모달 스크롤 락이 `document.body`에 걸려 있어 실제로 잠기지 않았음.** 같은 전파 규칙 때문에 뷰포트를 잠그려면 `document.documentElement`에 걸어야 합니다. 수정함. 레이아웃 점프는 기존 `scrollbar-gutter: stable`이 흡수
+
+**검증:** 타입체크·빌드 클린. 브라우저에서 해시 이동, 스티키 헤더 고정(navTop=0), 스크롤 기반 활성 탭, 스킬 막대 도달 시 채워짐, 모달 열림/락/Esc 해제까지 확인. **좁은 화면은 여전히 미검증**(3-4 참고)
+
+---
+
 ## 3. 남은 작업 (우선순위)
 
 ### 1) Career / Skills 패널 카드 제거 — 바로 착수 가능

@@ -56,9 +56,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => clearTimeout(timer);
   }, [projectId, lang]);
 
+  // Locked on <html>, not <body>: html's overflow is what propagates to the
+  // viewport, so a lock on body leaves the page scrolling behind the dialog.
+  // scrollbar-gutter keeps the layout from jumping when the bar goes.
   useEffect(() => {
-    document.body.style.overflow = projectId ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    document.documentElement.style.overflow = projectId ? "hidden" : "";
+    return () => { document.documentElement.style.overflow = ""; };
   }, [projectId]);
 
   useEffect(() => {

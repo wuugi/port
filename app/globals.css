@@ -65,10 +65,14 @@
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
-html, body { max-width: 100%; overflow-x: hidden; }
-/* Panels differ in height; reserving the gutter stops the nav and grid
-   shifting sideways when switching between a short and a tall panel. */
-html { scrollbar-gutter: stable; }
+html, body { max-width: 100%; }
+/* Reserving the gutter stops the grid shifting sideways. The page is one
+   document, so nav links are hash targets and the browser does the travel;
+   sections carry scroll-margin to clear the sticky header.
+   overflow-x lives on <html> only — it propagates to the viewport from there,
+   whereas the same rule on <body> makes body a scroll container, which silently
+   kills position: sticky on the nav once the page is long enough to scroll. */
+html { max-width: 100%; overflow-x: hidden; scrollbar-gutter: stable; scroll-behavior: smooth; }
 body {
   color: var(--text);
   background: var(--bg);
@@ -88,20 +92,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}
-
-/* Panels travel along the nav's own axis: choosing a tab to the right brings
-   its content in from the right, so the tab order reads as a real sequence. */
-.panel-enter-next { animation: panelInNext 320ms var(--ease-out) both; }
-.panel-enter-prev { animation: panelInPrev 320ms var(--ease-out) both; }
-
-@keyframes panelInNext {
-  from { opacity: 0; transform: translate3d(28px, 0, 0); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes panelInPrev {
-  from { opacity: 0; transform: translate3d(-28px, 0, 0); }
-  to { opacity: 1; transform: none; }
 }
 
 /* The modal is a different spatial event — it comes forward, not sideways. */
@@ -125,8 +115,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   /* Spatial travel goes; opacity and colour still confirm what changed, and
      state that a bar or indicator encodes still lands — just without transit. */
-  .panel-enter-next,
-  .panel-enter-prev,
+  html { scroll-behavior: auto; }
   .modal-panel { animation: fadeOnly 200ms ease-out both; }
   .modal-panel-out { animation: fadeOnly 140ms ease-in both reverse; }
   .nav-indicator,

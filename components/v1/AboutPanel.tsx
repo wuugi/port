@@ -2,13 +2,8 @@
 
 import Image from "next/image";
 import { personInfo } from "@/lib/static-data";
-import type { ActivePanel } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
 import { ui, tPerson } from "@/lib/i18n";
-
-interface AboutPanelProps {
-  onNavigate: (panel: ActivePanel) => void;
-}
 
 /** Label beside value, not four equal boxes: these facts differ in length and in
  *  kind, and forcing them into one shape is what made the row read uneven. */
@@ -23,7 +18,7 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
-export default function AboutPanel({ onNavigate }: AboutPanelProps) {
+export default function AboutPanel() {
   const { lang } = useLang();
   const t = ui[lang];
   const p = tPerson(personInfo, lang);
@@ -87,18 +82,18 @@ export default function AboutPanel({ onNavigate }: AboutPanelProps) {
         <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center gap-4">
           <p className="text-[var(--text-muted)] text-xs flex-1">{t.exploreMore}</p>
           <div className="flex gap-3">
-            <button
-              onClick={() => onNavigate("career")}
+            <a
+              href="#career"
               className="px-5 py-2.5 border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-colors"
             >
               Career →
-            </button>
-            <button
-              onClick={() => onNavigate("projects")}
+            </a>
+            <a
+              href="#projects"
               className="px-5 py-2.5 bg-[var(--accent)] text-[var(--bg)] text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Projects →
-            </button>
+            </a>
           </div>
         </div>
       </section>
