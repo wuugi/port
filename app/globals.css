@@ -7,17 +7,22 @@
    one warm accent sits on it in harmony rather than in complementary conflict
    — a saturated ground fights every hue placed on it.
 
-   Every pair below is measured, not eyeballed:
+   Every pair below is measured, not eyeballed — run `npm run check:contrast`,
+   which reads these tokens and prints the table:
      body + secondary text ....... WCAG AAA (>= 7:1) on canvas AND on card
      accents, roles, status ...... >= 4.5:1 on both
-   Lowest value anywhere in either theme is 5.88:1.
+   Lowest required pair in either theme is 5.65:1 (light accent on canvas).
+
+   Clay and green are close under red-green colour blindness (Δ OKLab 0.02–0.11,
+   below the ~0.09 identification threshold), so neither hue is ever the only
+   signal: the result line carries a check mark and a fixed position, and the
+   active nav tab carries aria-current and a travelling underline.
    ────────────────────────────────────────────────────────────────────────── */
 :root {
   /* Primitives. One warm brand hue; three role hues spaced far enough apart
      to stay distinguishable, and never relying on colour alone — every use
      is paired with a label. */
   --p-clay: oklch(0.8 0.105 55);
-  --p-clay-deep: oklch(0.71 0.1 48);
   --p-green: oklch(0.805 0.115 152);
 
   --bg: oklch(0.175 0.006 260);
@@ -28,14 +33,10 @@
   --rule: rgba(255, 255, 255, 0.055);
   --text: oklch(0.965 0.003 260);
   --text-muted: oklch(0.78 0.007 260);
-  --skill-track: rgba(255, 255, 255, 0.09);
-  --tint: 15%;
   --line: 36%;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   --accent: var(--p-clay);
-  --accent2: var(--p-clay-deep);
-
   --success: var(--p-green);
 }
 
@@ -45,7 +46,6 @@
    cleanly and keeps long Korean text crisp instead of sepia. */
 .light {
   --p-clay: oklch(0.515 0.15 35);
-  --p-clay-deep: oklch(0.45 0.13 32);
   --p-green: oklch(0.46 0.105 152);
 
   --bg: oklch(0.976 0.0015 250);
@@ -54,17 +54,13 @@
   --rule: rgba(20, 23, 27, 0.07);
   --text: oklch(0.205 0.008 250);
   --text-muted: oklch(0.44 0.01 250);
-  --skill-track: rgba(20, 23, 27, 0.09);
-  --tint: 10%;
   --line: 30%;
 }
 
-/* Fills and hairlines derive from their own role, so one theme swap remaps every tint.
-   .light lands on the same element as :root, so these resolve against whichever theme is live. */
+/* The one derived hairline still in use — the rule above the dialog's result
+   section, tinted from the role it introduces. It lands on the same element as
+   :root, so it resolves against whichever theme is live. */
 :root {
-  --accent-subtle: color-mix(in oklab, var(--accent) var(--tint), transparent);
-  --accent-line: color-mix(in oklab, var(--accent) var(--line), transparent);
-  --success-subtle: color-mix(in oklab, var(--success) var(--tint), transparent);
   --success-line: color-mix(in oklab, var(--success) var(--line), transparent);
 }
 
