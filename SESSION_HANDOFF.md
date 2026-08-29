@@ -1,95 +1,179 @@
-# 포트폴리오 세션 인계 문서 (2026-08-18)
+# 포트폴리오 세션 인계 문서 (2026-08-29 갱신)
 
-## 저장소 / 배포 정보
+> 이전 판(2026-08-18)의 노션 구조 설명은 **일부 무효**입니다. 아래 4절이 최신입니다.
+
+---
+
+## 0. 지금 당장 알아야 할 것
+
+- **아무것도 push하지 않았습니다.** 전부 로컬에만 있습니다.
+  - `main` → `origin/main` 대비 **18 커밋 앞섬**
+  - `claude/notion-mcp-portfolio-content-qu562q` → **13 커밋 앞섬**
+  - 두 브랜치는 **트리가 동일**합니다 (`git diff main <feature>` 결과 없음)
+- **`main`에 push하면 Vercel이 즉시 프로덕션 배포합니다.** 사용자 승인 후에만 하세요.
+- 빌드 · 타입체크 · 디자인 디텍터 모두 클린 상태로 커밋돼 있습니다.
+
+```bash
+cd "C:/Users/hyunu/OneDrive/Desktop/claude/포트폴리오/port"
+npm run dev        # http://localhost:3000
+npm run build      # dev 서버를 반드시 먼저 끌 것 (6절 함정 참고)
+```
+
+---
+
+## 1. 저장소 / 배포
+
 - 저장소: `wuugi/port`
-- 배포: Vercel — `https://wuugi-port.vercel.app/`
-- **Vercel은 `main` 브랜치만 감시해서 배포함**
-- 코드 추적용 피처 브랜치: `claude/notion-mcp-portfolio-content-qu562q`
-- **모든 변경사항은 반드시 `main`과 `claude/notion-mcp-portfolio-content-qu562q` 두 브랜치 모두에 푸시해야 함**
+- 배포: **Vercel** — https://wuugi-port.vercel.app/
+- **Vercel은 `main` 브랜치만 감시**
+- **모든 변경은 `main`과 `claude/notion-mcp-portfolio-content-qu562q` 양쪽에 반영**
+  - 이번 세션 방식: `main`에서 작업 → `git branch -f claude/notion-mcp-portfolio-content-qu562q main`
+- git identity는 **이 저장소에만**(`--local`) `wuugi <104419293+wuugi@users.noreply.github.com>` 설정. 전역은 건드리지 않음
 
-## ⚠️ 중요: 이 사이트는 노션과 자동 연동되지 않습니다
+---
 
-사용자가 "노션에 있는 정보가 자동으로 사이트에 노출되는 구조 아니었냐"고 질문했는데, **아닙니다.**
+## 2. 확정된 디자인 원칙
 
-### 실제 구조
-- 모든 프로젝트/커리어/자기소개 텍스트는 `lib/static-data.ts`에 **하드코딩**되어 있음
-- 즉, 노션 페이지 내용을 수정해도 사이트 텍스트에는 반영되지 않음. 텍스트를 바꾸려면 **`lib/static-data.ts`를 직접 수정하고 git push**해야 함
+제품 사실은 저장소 루트 **`PRODUCT.md`**(신규)에 있습니다. 디자인 규칙은 아래가 최신입니다.
 
-### 현재 실제로 노션과 연결되어 있는 부분 (이미지만)
-텍스트와 달리 **프로젝트 이미지는 부분적으로 노션에서 실시간으로 가져오는 구조**가 이미 구현되어 있음. 동작 방식:
+### 색 — 의미는 두 가지뿐
+```
+클레이(clay) = 액션 · 링크 · 활성 상태
+초록(green)  = 성과 · 결과
+그 외 전부   = 중립 (회사 · 스킬 카테고리는 텍스트 라벨이 담당)
+```
+- 회사별/카테고리별 색은 **제거됨**. 이전 teal/blue 조합은 OKLab 지각거리 **Δ0.088**로 식별 임계선(약 0.09) 아래였음
+- 팔레트는 `app/globals.css` **한 곳에만** 존재. 컴포넌트에 하드코딩된 색 없음
+- **대비는 측정값**: 본문·보조 텍스트 WCAG **AAA(7:1 이상)**, 나머지 4.5:1 이상, 전체 최저 **5.6:1**
+- 검증 스크립트는 임시 폴더에 있었고 저장소에 없음. 팔레트를 바꾸면 OKLCH→sRGB→WCAG 재계산 필요
 
-1. `components/v1/ProjectsPanel.tsx` (라인 84~93)
-   - 최초 렌더링 시 `lib/static-data.ts`의 `projectsData`(하드코딩 텍스트)를 그대로 화면에 표시
-   - `useEffect`에서 클라이언트가 `/api/notion/projects`를 fetch → 응답이 오면 `rawProjects` state를 교체(리렌더링). 즉 첫 페인트는 정적 데이터, 이후 노션 이미지가 붙은 데이터로 교체되는 2단계 구조
-   - `components/v2/ProjectsSection.tsx`도 같은 패턴 사용 여부는 미확인 — 필요 시 확인할 것
+### 형태 — 문제는 박스 개수, 모서리가 아님
+- 사용자가 반복해 지적한 "AI 같다"의 실체는 **패널마다 동일한 1px 카드가 캔버스에 떠 있는 것**(대시보드 위젯 문법)
+- **모서리를 둥글게 하면 역효과** — 캔버스 위 둥근 카드가 바로 전형적인 SaaS/AI 템플릿 언어. **90도 유지**
+- 방향: 카드를 걷어내고 **헤어라인 + 여백**으로 구조를 만든다. 카드는 **진짜 떠 있어야 하는 것(모달)에만**
 
-2. `app/api/notion/projects/route.ts` (Next.js Route Handler, `dynamic = "force-dynamic"`으로 매 요청마다 실행)
-   - `getStaticProjects()`로 `static-data.ts`의 프로젝트 배열을 가져옴 (텍스트는 항상 이 정적 데이터가 base)
-   - `process.env.NOTION_TOKEN`이 없으면 그대로 `{ projects: staticProjects, source: "static" }` 반환하고 끝
-   - 토큰이 있으면 각 프로젝트의 `notionUrl` 필드(예: `https://app.notion.com/p/1fc8937a33b180d59937f2a226db9d5d`)에서 정규식 `/\/p\/([a-f0-9]{32})/`로 노션 페이지 ID를 추출
-   - 그 페이지 ID로 `GET https://api.notion.com/v1/blocks/{pageId}/children` 호출 → 페이지 내 `type: "image"` 블록만 최대 3개까지 URL 수집
-   - 이미지가 있으면 `{ ...project, images: [...] }` 형태로 프로젝트 객체에 `images` 배열을 붙여서 반환 (`source: "notion"`)
-   - **즉 여기서 가져오는 건 오직 이미지 URL뿐이고, title/summary/result 등 텍스트 필드는 절대 건드리지 않음**
+### 한글 타이포
+- `body`에 `word-break: keep-all` + `overflow-wrap: break-word` (globals.css)
+  - 없으면 "SQL 기 / 반 모니터링"처럼 단어 중간에서 끊김
+- **`ch` 단위 금지** — 라틴 "0" 기준이라 한글에서 훨씬 넓어짐. `rem` 고정폭 사용
 
-3. `lib/notion.ts`의 `fetchProjects()` 함수
-   - `@notionhq/client` SDK로 노션 **데이터베이스**를 쿼리해서 title/period/summary/role/result/tags/background/problem/process/fullResult 등 텍스트 전체를 노션 프로퍼티에서 파싱해오는 함수가 **이미 작성되어 있음** (`static-data.ts`의 `notionDatabaseIds`가 바로 이 함수에 넘길 database_id 용도로 정의된 것으로 보임)
-   - **하지만 이 함수는 코드베이스 어디서도 호출되지 않는 죽은 코드(dead code)임** — grep 결과 `fetchProjects`를 import/호출하는 곳이 없음
-   - 즉 "노션 DB에서 텍스트까지 통채로 자동으로 가져오는" 기능은 이미 절반쓸 구현되어 있으나 실제 라우트에 연결만 안 되어 있는 상태. 이걸 `app/api/notion/projects/route.ts`에서 호출하도록 배선하면 텍스트까지 자동 동기화가 가능해질 수 있음 (아래 "다음 세션" 항목 참고)
+---
 
-4. `app/api/notion/debug/route.ts`
-   - 특정 페이지 ID(`1418937a33b180a0be91dd0c447a1c8a`, 마이다스 구 프로젝트 하나)의 블록 목록과 이미지 블록을 확인하는 디버그용 엔드포인트. 프로덕션 로직에는 영향 없음
+## 3. 남은 작업 (우선순위)
 
-5. 환경변수
-   - `.env.local.example`에 `NOTION_TOKEN=your_notion_integration_token_here` 정의되어 있음
-   - **Vercel 프로덕션에 이 값이 실제로 설정되어 있는지는 이번 세션에서 확인하지 못함.** 설정되어 있어야 위 이미지 자동 fetch가 동작하고, 없으면 `/api/notion/projects`가 항상 정적 데이터만 반환함 (`source: "static"`)
+### 1) Career / Skills 패널 카드 제거 — 바로 착수 가능
+About(`components/v1/AboutPanel.tsx`)과 Contact는 **적용 완료**. 같은 방식으로:
+- `components/v1/CareerPanel.tsx` — `bg-[var(--bg-card)] border ... p-6 sm:p-10` 래퍼 제거
+- `components/v1/SkillsPanel.tsx` — 카테고리 패널 3개의 `bg-card + border` 제거
 
-### 진짜 자동 동기화를 만들려면 (아직 미구현)
-다음 중 하나의 아키텍처 변경이 필요함:
-1. **빌드 타임 동기화 (ISR/SSG)**: Next.js 빌드 시 노션 API를 호출해 `static-data.ts` 역할을 대체하는 데이터를 생성. Vercel 빌드 훅이나 revalidate 주기 설정 필요
-2. **런타임 동기화 (SSR)**: 페이지 요청마다 노션 API를 호출해 데이터를 가져옴. 노션 API 레이트 리밋/속도 이슈 고려 필요
-3. 두 경우 모두 노션 API 토큰을 Vercel 환경변수에 등록하고, 노션 페이지 스키마(속성명 등)를 코드가 파싱할 수 있는 형태로 표준화해야 함
+참고 패턴: `AboutPanel.tsx`의 `<section className="border-t border-[var(--border)] pt-2">`
 
-이 작업은 이번 세션에서 하지 않았음. 사용자가 원하면 다음 세션에서 진행 가능.
+### 2) 테두리 위계
+컨테이너 경계와 구분선이 **같은 굵기·같은 색**(`--border`). 카드를 걷어낸 뒤 구분선용 더 옅은 토큰이 필요할 수 있음.
 
-## 이번 세션에서 한 작업
+### 3) 노션 About 연동 — **차단됨** (4-2 참고)
 
-### 문제
-노션에 있는 프로젝트 정보와 사이트에 노출되는 프로젝트 정보가 달랐음:
-- 노션: 자비스 7건, 마이다스 3건
-- 사이트(`static-data.ts`): 자비스 4건, 마이다스 4건(오래된/잘못된 데이터)
+### 4) 모바일 렌더링 미검증
+이번 세션 내내 `resize_window`가 실제 뷰포트를 바꾸지 못했고 렌더러가 자주 멈췄습니다.
+**좁은 화면 렌더링을 한 번도 눈으로 확인하지 못했습니다.** 반응형 클래스는 작성돼 있으나 검증 필요.
 
-### 조치
-`lib/static-data.ts`를 노션 기준으로 업데이트:
+---
 
-1. **자비스(jarvis) 프로젝트 3건 추가** (`proj-jarvis-5`, `proj-jarvis-6`, `proj-jarvis-7`)
-   - 크리티컬 노운 이슈 해결 (오신고 문제 해결)
-   - 서비스 모니터링 대시보드 제작
-   - 고객 만족도 조사 개선 및 대시보드 제작
+## 4. 노션 연동 — 현재 구조와 차단 지점
 
-2. **마이다스(midas) 프로젝트 4건 → 3건으로 전량 교체** (`proj-midas-1~3`)
-   - 고객 요구사항 기반 기능 개선 및 백로그 해소
-   - VOC 기반 개선 운영 및 시나리오봇 응대율 개선
-   - 대규모 채용 프로젝트 사전 안정성 점검 (QA)
+### 4-1. 프로젝트 텍스트 동기화 — 배선 완료, **실행 검증 미완**
 
-3. **`notionDatabaseIds.midas` 값 갱신**
-   - `1418937a-33b1-8095-a29c-e7d62223648d` → `4ee459a1-7b7f-4506-b438-481f29908326`
+`lib/notion.ts`의 `fetchProjects()`를 `app/api/notion/projects/route.ts`에 연결했습니다.
+단, **통째 교체가 아니라 필드 단위 병합**입니다:
 
-각 프로젝트는 한글/영문(`en` 필드) 콘텐츠를 모두 포함하며, `background`/`problem`/`process`/`fullResult`/`notionUrl` 등 기존 스키마를 그대로 따름.
+- 노션에 값이 있으면 이김
+- **비어 있으면 정적 값을 덮어쓰지 않음** — 속성명 하나 바뀌었다고 라이브 페이지가 백지가 되는 사고 방지
+- 노션 호출 실패 시 통째 정적 폴백 (`source: "static-fallback"`)
+- 매칭 키: `notionUrl`의 32-hex 대 노션 `page.id`(대시 제거). 12개 프로젝트 전부 `notionUrl` 보유, 양방향 일치 확인함
 
-### 커밋 내역
-- `claude/notion-mcp-portfolio-content-qu562q`: commit `8c999d7` — "feat: sync project data with Notion — add 3 Jarvis projects, replace Midas projects"
-- `main`: commit `b05c58e` — "fix: 노션 최신 데이터에 맞춰 프로젝트 목록 업데이트 (자비스 3건 추가, 마이다스 3건 교체)"
+**파서에 추가한 것:** `en` 속성 파싱(`Summary EN` / `Summary_EN` / `요약 영문` 등 복수 표기 허용), `notionUrl` 반환.
 
-두 브랜치 모두 반영 완료. Vercel이 `main` 기준으로 자동 배포함.
+> 이전 파서는 `en`을 **전혀 파싱하지 않았고** `notionUrl`도 반환하지 않았습니다.
+> 그대로 배선했다면 **영문 사이트 전체가 한국어로 폴백되고 이미지 연동도 죽었을 것**입니다.
 
-## 다음 세션에서 이어서 할 수 있는 일
-- [ ] **가장 빠른 다음 스텝**: `lib/notion.ts`의 `fetchProjects()`(이미 텍스트 전체 파싱 로직 구현되어 있으나 미사용)를 `app/api/notion/projects/route.ts`에 연결하면 텍스트까지 노션에서 자동으로 가져오는 구조를 만들 수 있음. 단, 그러려면 노션 데이터베이스의 속성명(Title/Period/Summary/Role/Result/Tags/Background/Problem/Process/FullResult 또는 한글명)이 실제 노션 DB 스키마와 정확히 일치하는지 먼저 확인 필요
-- [ ] Vercel 프로덕션 환경변수에 `NOTION_TOKEN`이 설정되어 있는지 확인 (없으면 이미지 자동 fetch조차 동작 안 함 — `source: "static"`으로만 응답)
-- [ ] 배포 후 `https://wuugi-port.vercel.app/`에서 자비스/마이다스 신규 프로젝트가 정상 노출되는지, 그리고 노션 이미지가 실제로 붙는지 육안 확인
-- [ ] 이전 세션들에서 진행한 UI 변경사항(다크/라이트 팔레트, 커리어 배지, 노션 링크 버튼 제거 등)과 충돌 없는지 확인
-- [ ] `components/v2/ProjectsSection.tsx`가 `/api/notion/projects`를 쓰는지, 아니면 정적 데이터만 쓰는지 확인 (이번 세션에서 미확인)
+**미검증:** 로컬에 `NOTION_TOKEN`이 없어 **정적 폴백 경로만 테스트**했습니다(12건 · EN 12건 유지 · 잘못된 company 400). **노션 경로는 실행해본 적 없습니다.**
 
-## 작업 시 참고사항 (환경 특이사항)
-- 이 원격 환경에서는 `git push`가 자격증명 부재로 실패함 → 항상 `mcp__github__push_files` MCP 툴 사용
-- `push_files`로 GitHub에 커밋한 후에는 로컬이 뒤처지므로 `git fetch origin <branch> && git reset --hard origin/<branch>`로 동기화 필요
-- PR은 명시적으로 요청받았을 때만 생성
+**스키마 확인 방법:** 배포 후 **`/api/notion/debug`** 를 열면 세 DB의 실제 속성명과 파서 기대값 매칭이 JSON으로 나옵니다.
+- `korean.matched` — 이 필드만 동기화됨
+- `korean.missing` — `lib/static-data.ts` 값 유지
+- `english.missing` — EN 미동기화. 노션에 해당 컬럼을 만들면 즉시 동작
+
+> 이 라우트는 예전에 **토큰 앞 12자를 공개 응답에 노출**하고 있었습니다. 제거했습니다.
+
+### 4-2. About(자기소개) 연동 — **차단**
+
+요청받은 페이지:
+`https://app.notion.com/p/Operation-Manager-93c43a4bceb5447c85efa680e7e2f61d`
+
+**네 경로 전부 404:** 전체 URL / 대시 UUID / 워크스페이스 검색 / 최근 문서 목록
+
+MCP 인증 상태 (`notion-fetch` id=`self`):
+```
+User:      김현욱 (hyunuk125@gmail.com)   type: person   <- integration 아님
+Workspace: 현욱의 Notion
+```
+
+노션 Connections에서 **"Claude"를 찾아도 안 나오는 게 정상**입니다.
+추가할 integration이 존재하지 않는 구조(사용자 본인 OAuth)입니다.
+
+**가장 유력한 원인:** 그 페이지가 `현욱의 Notion`이 **아닌 다른 워크스페이스**에 있음.
+**사용자에게 확인할 것:** 해당 페이지를 연 상태에서 좌측 상단 워크스페이스 이름이 `현욱의 Notion`인지.
+
+**중요 — 경로가 두 개입니다:**
+
+| | 인증 주체 | 용도 |
+|---|---|---|
+| MCP | 사용자 본인 계정 | Claude가 읽는 용도 |
+| 사이트 | `NOTION_TOKEN` (별도 integration) | 배포된 사이트가 읽는 용도 |
+
+**MCP가 뚫려도 사이트는 못 읽습니다.** 사이트가 읽으려면 `NOTION_TOKEN` integration에도 페이지 공유가 필요합니다.
+
+또한 `personInfo.intro`는 **현재 노션 동기화 대상이 아닙니다.** `lib/notion.ts`는 프로젝트만 파싱하고 `personInfo`는 손대지 않습니다. About 연동에는 새 경로가 필요합니다.
+
+### 4-3. 확인된 사실
+- `NOTION_TOKEN`은 Vercel에 **설정돼 있음** (사용자 확인)
+- 스킬(`skillsData`)은 노션 동기화 대상이 **아님** — `lib/notion.ts`에 관련 코드 0줄
+
+---
+
+## 5. 이번 세션에서 고친 실제 버그 (회귀 주의)
+
+1. **`lib/`가 Tailwind content 글롭에 없었음** — `lib/` 안의 클래스 문자열이 CSS로 **전혀 생성되지 않음**. `tailwind.config.ts`에 추가
+2. **모달이 애니메이션 래퍼에 갇힘** — transform이 걸린 조상이 `position: fixed`의 containing block이 되어 스크림이 패널 크기로 잘림. `createPortal`로 `document.body`에 이동
+3. **EN 무한 렌더 루프 위험** — `tProject()`가 EN에서 **매 렌더 새 객체** 반환. 모달 이펙트를 객체가 아닌 `project.id`에 키잉. 안 그러면 무한 루프 + 포커스 강탈
+4. **EN 로케일 누수** — `period` 데이터에 한국어 "재직중"이 박혀 있고 번역 안 됨. 데이터를 `"2026.1"`로 바꾸고 UI가 조합
+5. **`navigator.clipboard` 미처리 rejection** — 비보안 출처/권한 거부 시 복사 버튼이 멈춤. try/catch 추가
+6. **패널 전환 시 8px 가로 밀림** — 스크롤바 출현. `scrollbar-gutter: stable`
+7. **프로필 이미지 1.14MB** — 128px 박스에 921x1152 원본. `next/image` + 실제 intrinsic size(128) 적용으로 **1,193,982 → 3,564 바이트**. 페이지 전체 **1318KB → 161KB**
+8. **노션 fetch가 방문할 때마다 재요청** — 패널이 탭 전환마다 언마운트되므로 `useEffect(…, [])`가 매번 실행. 모듈 스코프 캐시로 해결
+
+---
+
+## 6. 작업 함정
+
+- **dev 서버가 켜진 상태로 `npm run build` 하지 말 것.** `.next`를 덮어써서 실행 중인 dev 서버가 깨집니다(CSS가 통째로 사라지거나 `PageNotFoundError`). **이 세션에서 두 번 당했습니다.**
+- **스크린샷이 애니메이션 중간 프레임을 잡습니다.** 스킬 바가 12%만 찬 것처럼, 모달이 반투명한 것처럼 보이면 버그가 아니라 전환 중일 수 있습니다. 한 장 더 찍어 확인하세요
+- **첫 클릭이 하이드레이션 전에 씹힙니다.** 로드 직후 nav 클릭은 자주 무시됩니다. 한 번 더 클릭
+- 셸에서 `node -e`에 정규식/백슬래시를 넣으면 이스케이프가 깨집니다. 스크립트 파일 또는 `sed` 사용
+- 파일이 **CRLF**입니다. `\n` 기반 정규식 치환이 실패할 수 있습니다
+
+---
+
+## 7. 삭제된 것
+
+- **`/v2` 전체** (`app/v2/`, `components/v2/` 9개 파일) — 사용자 결정. 다크모드·i18n 미적용의 별도 구현이었음
+- `lib/palette.ts` — 회사 색 제거 후 6개 항목이 전부 동일 객체가 되어 순수 간접층으로 전락
+- i18n 미사용 문자열 8개, `--co-*` / `--cat-*` / `--accent2-subtle` / `--accent2-line` 토큰
+- Contact 소제목, 자기소개 첫 문장(양 언어), 스킬 퍼센트 숫자, "핵심 역량 Top 5" 패널, 경력 타임라인 패널
+
+## 8. 추가된 것
+
+- **`PRODUCT.md`** (저장소 루트) — 제품 사실 기록
+- **`sharp`** — 프로덕션 이미지 최적화(libvips). 없으면 Next가 느린 WASM 폴백 사용
+- `next.config.mjs`의 `images.remotePatterns` — 노션 S3 이미지용
+- 스킬에 **`Claude`** 추가 (데이터 & 분석, level 88) — 저장소 히스토리에 **한 번도 커밋된 적 없었음**(노션에 적어두셨을 가능성. 스킬은 노션 동기화 대상이 아님)
