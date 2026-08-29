@@ -9,7 +9,7 @@ import { ui, tPerson } from "@/lib/i18n";
  *  kind, and forcing them into one shape is what made the row read uneven. */
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-6 py-3.5 first:pt-0 last:pb-0 border-t border-[var(--border)] first:border-t-0">
+    <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-6 py-3.5 first:pt-0 last:pb-0 border-t border-[var(--rule)] first:border-t-0">
       <dt className="text-xs uppercase tracking-wide text-[var(--text-muted)] sm:pt-0.5">
         {label}
       </dt>
@@ -22,12 +22,6 @@ export default function AboutPanel() {
   const { lang } = useLang();
   const t = ui[lang];
   const p = tPerson(personInfo, lang);
-
-  const stats = [
-    { label: t.experienceLabel, value: t.experienceValue },
-    { label: t.certLabel, value: "SQLD" },
-    { label: t.toeicLabel, value: "920" },
-  ];
 
   return (
     <div className="space-y-10">
@@ -65,42 +59,13 @@ export default function AboutPanel() {
             <p className="mt-6 text-[var(--text-muted)] leading-[1.9] text-[15px] text-pretty">
               {p.intro}
             </p>
-
-            <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-              {stats.map((item) => (
-                <div key={item.label}>
-                  <dd className="text-[var(--accent)] font-bold text-2xl tabular-nums leading-none">
-                    {item.value}
-                  </dd>
-                  <dt className="text-[var(--text-muted)] text-xs mt-1.5">{item.label}</dt>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-
-        <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center gap-4">
-          <p className="text-[var(--text-muted)] text-xs flex-1">{t.exploreMore}</p>
-          <div className="flex gap-3">
-            <a
-              href="#career"
-              className="px-5 py-2.5 border border-[var(--accent)] text-[var(--accent)] text-sm font-medium hover:bg-[var(--accent-subtle)] transition-colors"
-            >
-              Career →
-            </a>
-            <a
-              href="#projects"
-              className="px-5 py-2.5 bg-[var(--accent)] text-[var(--bg)] text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              Projects →
-            </a>
           </div>
         </div>
       </section>
 
       {/* 자격증 and 어학 are separate facts and now say so, instead of sharing one
           merged label above three flat lines. */}
-      <section className="border-t border-[var(--border)] pt-2">
+      <section className="border-t border-[var(--border)] pt-2 mt-10">
         <dl>
           <Fact label={t.email}>
             <a

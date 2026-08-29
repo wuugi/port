@@ -23,6 +23,9 @@
   --bg: oklch(0.175 0.006 260);
   --bg-card: oklch(0.242 0.009 260);
   --border: rgba(255, 255, 255, 0.11);
+  /* Row dividers inside a block. Same colour family as --border but half its
+     weight, so a section edge still reads as the stronger line. */
+  --rule: rgba(255, 255, 255, 0.055);
   --text: oklch(0.965 0.003 260);
   --text-muted: oklch(0.78 0.007 260);
   --skill-track: rgba(255, 255, 255, 0.09);
@@ -48,6 +51,7 @@
   --bg: oklch(0.976 0.0015 250);
   --bg-card: oklch(1 0 0);
   --border: rgba(20, 23, 27, 0.13);
+  --rule: rgba(20, 23, 27, 0.07);
   --text: oklch(0.205 0.008 250);
   --text-muted: oklch(0.44 0.01 250);
   --skill-track: rgba(20, 23, 27, 0.09);
@@ -118,12 +122,26 @@ body {
   html { scroll-behavior: auto; }
   .modal-panel { animation: fadeOnly 200ms ease-out both; }
   .modal-panel-out { animation: fadeOnly 140ms ease-in both reverse; }
-  .nav-indicator,
-  .skill-fill { transition-duration: 1ms; }
+  .nav-indicator { transition-duration: 1ms; }
 }
 
 /* A scrollbar is neither an action nor an outcome, so it does not get a colour.
    In clay it read as a saturated bar down the side of the dialog. */
+/* The section index scrolls sideways on a narrow screen; a visible bar under
+   the nav would read as a second border. */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Measured, not guessed: the five labels plus the two controls stop fitting
+   at about 430px. Below that the index scrolls, and the fade says so — a strip
+   that scrolls with no edge cue reads as a strip that ends. */
+@media (max-width: 430px) {
+  .nav-scroll {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+  }
+}
+
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in oklab, var(--text-muted) 45%, transparent) transparent;

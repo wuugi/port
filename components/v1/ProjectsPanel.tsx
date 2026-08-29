@@ -1,24 +1,12 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import type { CompanyKey, Project } from "@/lib/types";
-import { projectsData, companyLabels, companyLabelsEn } from "@/lib/static-data";
+import { companyLabels, companyLabelsEn } from "@/lib/static-data";
+import { projects as allProjects } from "@/lib/projects";
 import ProjectModal from "@/components/shared/ProjectModal";
 import { useLang } from "@/lib/lang-context";
 import { ui, tProject } from "@/lib/i18n";
-
-// The shell remounts a panel on every visit, so a bare mount-effect refetched
-// Notion each time the user returned here. Cached at module scope: one request
-// per page load, and a repeat visit renders from memory.
-let projectsRequest: Promise<Project[] | null> | null = null;
-
-function loadRemoteProjects(): Promise<Project[] | null> {
-  projectsRequest ??= fetch("/api/notion/projects")
-    .then((r) => r.json())
-    .then((data) => (data.projects?.length ? (data.projects as Project[]) : null))
-    .catch(() => null);
-  return projectsRequest;
-}
 
 /**
  * An index of work, not a card grid. Equal-size bordered cards are the framework
@@ -28,28 +16,20 @@ function loadRemoteProjects(): Promise<Project[] | null> {
  */
 function ProjectRow({
   project,
-  companyLabel,
   onClick,
 }: {
   project: Project;
-  companyLabel: string;
   onClick: () => void;
 }) {
-
   return (
-    <li className="border-t border-[var(--border)] first:border-t-0">
+    <li className="border-t border-[var(--rule)] first:border-t-0">
       <button
         onClick={onClick}
-        className="group w-full text-left py-6 grid grid-cols-1 sm:grid-cols-[11rem_1fr] gap-2 sm:gap-8"
+        className="group w-full text-left py-6 grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1.5 sm:gap-8"
       >
-        <div className="flex items-center gap-2 sm:block">
-          <span className="text-xs text-[var(--text-muted)] tabular-nums sm:block">
-            {project.period}
-          </span>
-          <span className="text-xs text-[var(--text-muted)] sm:block sm:mt-1.5">
-            {companyLabel}
-          </span>
-        </div>
+        <span className="text-xs text-[var(--text-muted)] tabular-nums">
+          {project.period}
+        </span>
 
         <div className="min-w-0">
           <h3 className="flex items-start gap-2 text-[var(--text)] font-semibold text-base sm:text-lg leading-snug group-hover:text-[var(--accent)] transition-colors">
@@ -88,15 +68,9 @@ export default function ProjectsPanel() {
 
   const [activeCompany, setActiveCompany] = useState<CompanyKey>("flex");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [rawProjects, setRawProjects] = useState<Project[]>(projectsData);
-
-  useEffect(() => {
-    let active = true;
-    loadRemoteProjects().then((remote) => {
-      if (active && remote) setRawProjects(remote);
-    });
-    return () => { active = false; };
-  }, []);
+  // Notion is pulled at author time by npm run sync:notion, so the list is
+  // present in the first paint instead of arriving a network round trip later.
+  const rawProjects = allProjects;
 
   const companies: CompanyKey[] = ["flex", "jarvis", "midas"];
   // Translating all 12 projects on every keystroke of state (tab change, modal
@@ -121,7 +95,7 @@ export default function ProjectsPanel() {
         <span className="text-[var(--text-muted)] text-sm">{t.totalProjects(rawProjects.length)}</span>
       </div>
 
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-5 sm:gap-7 flex-wrap border-b border-[var(--border)]">
         {companies.map((company) => {
           const isActive = activeCompany === company;
           return (
@@ -129,15 +103,15 @@ export default function ProjectsPanel() {
               key={company}
               onClick={() => setActiveCompany(company)}
               aria-pressed={isActive}
-              className={`px-4 py-2 text-sm font-medium border transition-colors duration-200 flex items-center gap-2 ${
+              className={`-mb-px pb-3 flex items-baseline gap-1.5 text-sm font-medium border-b-2 transition-colors duration-200 ${
                 isActive
-                  ? "bg-[var(--accent)] border-[var(--accent)] text-[var(--bg)]"
-                  : "bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)]"
+                  ? "border-[var(--accent)] text-[var(--text)]"
+                  : "border-transparent text-[var(--text-muted)] hover:text-[var(--text)]"
               }`}
             >
               {labels[company]}
-              <span className={`ml-1.5 text-xs ${isActive ? "opacity-70" : "opacity-50"}`}>
-                ({counts[company]})
+              <span className="text-xs tabular-nums text-[var(--text-muted)]">
+                {counts[company]}
               </span>
             </button>
           );
@@ -150,7 +124,6 @@ export default function ProjectsPanel() {
             <ProjectRow
               key={project.id}
               project={project}
-              companyLabel={labels[project.company]}
               onClick={() => setSelectedProject(
                 rawProjects.find((p) => p.id === project.id) ?? project
               )}

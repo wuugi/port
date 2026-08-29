@@ -1,50 +1,58 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { skillsData } from "@/lib/static-data";
 import type { SkillItem } from "@/lib/types";
 import { useLang } from "@/lib/lang-context";
-import { ui } from "@/lib/i18n";
+import { ui, type UiStrings } from "@/lib/i18n";
 
-function SkillBar({
-  skill,
-  animate,
+const categories = ["data", "tool", "process"] as const;
+const tiers = ["core", "working", "familiar"] as const;
+type Tier = (typeof tiers)[number];
+
+/**
+ * A self-assessed number cannot support a bar to the percent, and a wall of
+ * part-filled tracks is the one thing on this page that looked generated. The
+ * levels still order and band the list — they just stop claiming precision
+ * they never had.
+ */
+function tierOf(skill: SkillItem): Tier {
+  if (skill.level >= 85) return "core";
+  if (skill.level >= 70) return "working";
+  return "familiar";
+}
+
+function SkillGroup({
+  tier,
+  items,
   lang,
-  index,
+  t,
 }: {
-  skill: SkillItem;
-  animate: boolean;
+  tier: Tier;
+  items: SkillItem[];
   lang: string;
-  index: number;
+  t: UiStrings;
 }) {
-  const displayName = lang === "en" && skill.nameEn ? skill.nameEn : skill.name;
-  // A column arrives as a list, so the fills stagger — capped so the last bar
-  // is never left waiting on the first.
-  const delay = Math.min(index * 70, 280);
+  if (items.length === 0) return null;
 
   return (
-    <div>
-      <p className="text-[var(--text)] text-sm font-medium">{displayName}</p>
-      {/* The bar is the only encoding of level: the numeric label said the same
-          thing twice, and a self-rated percentage claims precision it cannot back. */}
-      <div
-        className="mt-2 h-1.5 bg-[var(--skill-track)] overflow-hidden"
-        role="meter"
-        aria-valuenow={skill.level}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={displayName}
-      >
-        {/* scaleX rather than width: the fill is compositor-only and never
-            asks the browser to lay the row out again mid-animation. */}
-        <div
-          className={`skill-fill h-full w-full origin-left bg-[var(--text-muted)]`}
-          style={{
-            transform: `scaleX(${animate ? skill.level / 100 : 0})`,
-            transition: `transform 600ms var(--ease-out) ${delay}ms`,
-          }}
-        />
-      </div>
+    <div className="mt-5 first:mt-6">
+      <p className="text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)]">
+        {t.skillTiers[tier]}
+      </p>
+      {/* Names on one flowing line rather than one row each: a dozen single-item
+          rows read as a form, and these are simply a vocabulary. */}
+      <p className="mt-1.5 text-sm leading-[1.9] text-[var(--text)]">
+        {items.map((skill, i) => (
+          <span key={skill.name}>
+            {i > 0 && (
+              <span aria-hidden="true" className="text-[var(--text-muted)]">
+                {"  ·  "}
+              </span>
+            )}
+            {lang === "en" && skill.nameEn ? skill.nameEn : skill.name}
+          </span>
+        ))}
+      </p>
     </div>
   );
 }
@@ -52,55 +60,36 @@ function SkillBar({
 export default function SkillsPanel() {
   const { lang } = useLang();
   const t = ui[lang];
-  const [animate, setAnimate] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  // The bars now sit below the fold, so they fill when the reader reaches them
-  // rather than on page load — otherwise they are already full on arrival.
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setAnimate(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -15% 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const categories = ["data", "tool", "process"] as const;
 
   return (
-    <div ref={rootRef} className="space-y-8">
+    <div className="space-y-8">
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="text-xl font-bold text-[var(--text)]">{t.skillsHeading}</h2>
         <span className="text-[var(--text-muted)] text-sm">{t.totalSkills(skillsData.length)}</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10">
         {categories.map((category) => {
           // Strongest first, so the best evidence leads each column.
           const items = skillsData
             .filter((s) => s.category === category)
             .sort((a, b) => b.level - a.level);
           return (
-            <div key={category} className="p-6 bg-[var(--bg-card)] border border-[var(--border)]">
-              <h3 className="font-semibold mb-6 text-[var(--text)]">{t.categoryLabels[category]}</h3>
-              <div className="space-y-5">
-                {items.map((skill, i) => (
-                  <SkillBar
-                    key={skill.name}
-                    skill={skill}
-                    animate={animate}
-                    lang={lang}
-                    index={i}
-                  />
-                ))}
-              </div>
+            // A column head over a hairline, not a boxed panel: three cards
+            // inside the page frame were three more rectangles saying nothing.
+            <div key={category}>
+              <h3 className="pb-3 border-b border-[var(--border)] text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                {t.categoryLabels[category]}
+              </h3>
+              {tiers.map((tier) => (
+                <SkillGroup
+                  key={tier}
+                  tier={tier}
+                  items={items.filter((s) => tierOf(s) === tier)}
+                  lang={lang}
+                  t={t}
+                />
+              ))}
             </div>
           );
         })}

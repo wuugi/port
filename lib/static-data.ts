@@ -634,17 +634,6 @@ export const skillsData: SkillItem[] = [
   { name: "데이터 기반 의사결정", nameEn: "Data-Driven Decisions", level: 82, category: "process" },
 ];
 
-export const notionDatabaseIds: Record<CompanyKey, string> = {
-  flex: "2c18937a-33b1-8062-9bb7-f6b87d2c07d0",
-  jarvis: "e53d13ad-2b54-4e91-8762-b1ed55ae8dc1",
-  midas: "4ee459a1-7b7f-4506-b438-481f29908326",
-};
-
-export function getStaticProjects(company?: CompanyKey): Project[] {
-  if (!company) return projectsData;
-  return projectsData.filter((p) => p.company === company);
-}
-
 export const companyLabels: Record<CompanyKey, string> = {
   flex: "플렉스",
   jarvis: "자비스앤빌런즈",

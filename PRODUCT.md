@@ -54,20 +54,19 @@ what the presentation must serve.
 - Next.js 14 (App Router), React 18, TypeScript, Tailwind 3.
 - Server rendering is available on Vercel, which `next/image` optimization depends
   on; `sharp` is installed for it.
-- Career / project / skills text is currently **hardcoded in `lib/static-data.ts`**.
-  Editing Notion does not change site text today.
-- `/api/notion/projects` attaches **images only** at runtime, resolved from each
-  project's `notionUrl`. It never overwrites text fields, and returns
-  `source: "static"` when `NOTION_TOKEN` is absent.
-- `lib/notion.ts → fetchProjects()` already parses full project text from a Notion
-  database but is **not wired to any route** (dead code).
-- **Decided:** move to full Notion text sync by wiring `fetchProjects()`, making the
-  Notion DB the single source of truth. Blocked on confirming the Notion database
-  property names match what the parser expects.
-- **Decided:** the `/v2` route — a second, unrelated implementation (indigo/slate,
-  no dark mode, no i18n) — is slated for **removal**. Not yet executed.
-- **Unverified:** whether `NOTION_TOKEN` is set in Vercel production. Without it,
-  no Notion images ever appear in production.
+- Career / project / skills text is authored in **`lib/static-data.ts`**. Notion is
+  merged over it **at author time** by `npm run sync:notion`, which writes
+  `lib/projects.generated.json` and downloads page images into `public/projects/`.
+  Both are committed; the deployed site calls no external API.
+- The merge is field by field and an empty Notion value never overwrites an authored
+  one, so a renamed property costs a stale field rather than a blank page. The script
+  prints the property names it saw and refuses to write when nothing parsed.
+- **Decided (2026-08-29):** build-time sync over runtime fetch. Notion's image URLs are
+  signed and expire in about an hour, which is the only reason a runtime call existed;
+  downloading them once removes an external dependency from every visitor's path.
+- `NOTION_TOKEN` is needed **locally, to run the sync**. It is no longer read at
+  runtime, so it is not required in Vercel.
+- The `/v2` route and `components/v2/` have been **removed**.
 
 ## Brand Commitments
 
@@ -83,13 +82,13 @@ what the presentation must serve.
   자비스앤빌런즈 2023.6–2025.8, 플렉스 2026.1–present).
 - Twelve projects — 플렉스 2, 자비스앤빌런즈 7, 마이다스인 3 — each with summary, role and
   result; most with background / problem / process / fullResult; all in KO and EN.
-- Thirteen skills across data / tools / process, with self-assessed levels. These are
-  shown as relative bars; the numeric percentages are deliberately not displayed
-  because self-rating cannot support that precision.
+- Fourteen skills across data / tools / process, with self-assessed levels. The levels
+  order the list and band it into 주력 / 실무 활용 / 사용 경험; neither the number nor a
+  bar is shown, because a self-rating cannot support that precision.
 - SQLD (2023.12.15); TOEIC 920, stated honestly as expired (2024.7).
 - `public/profile.png` — the only image asset in the repository.
-- Project images live **only in Notion** and are fetched at runtime; there are none
-  in static data.
+- Project images come from the Notion pages and are checked into `public/projects/`
+  by the sync script; none are hand-authored.
 - **Absent:** testimonials, references, client logos, third-party metrics, press.
   Future work must not fabricate any of these.
 

@@ -23,9 +23,13 @@ export default function PortfolioV1() {
         setActivePanel(panelOrder[panelOrder.length - 1]);
         return;
       }
+      // Measured a third of the way down, not at the header: a section whose
+      // heading has just scrolled off still owns the screen, and marking the
+      // one above it left the nav reading a section behind the eye.
+      const line = Math.min(window.innerHeight * 0.32, 280);
       const passed = panelOrder.filter((id) => {
         const el = document.getElementById(id);
-        return el && el.getBoundingClientRect().top <= 80;
+        return el && el.getBoundingClientRect().top <= line;
       });
       setActivePanel(passed[passed.length - 1] ?? panelOrder[0]);
     };
@@ -43,21 +47,21 @@ export default function PortfolioV1() {
         <section id="about" className="scroll-mt-20">
           <AboutPanel />
         </section>
-        <section id="career" className="scroll-mt-20 mt-20 sm:mt-28 pt-10 border-t border-[var(--border)]">
+        <section id="career" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <CareerPanel />
         </section>
-        <section id="projects" className="scroll-mt-20 mt-20 sm:mt-28 pt-10 border-t border-[var(--border)]">
+        <section id="projects" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <ProjectsPanel />
         </section>
-        <section id="skills" className="scroll-mt-20 mt-20 sm:mt-28 pt-10 border-t border-[var(--border)]">
+        <section id="skills" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <SkillsPanel />
         </section>
-        <section id="contact" className="scroll-mt-20 mt-20 sm:mt-28 pt-10 border-t border-[var(--border)]">
+        <section id="contact" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <ContactPanel />
         </section>
       </main>
       <footer className="border-t border-[var(--border)] mt-8 py-6 text-center">
-        <p className="text-[var(--text-muted)] text-xs">© 2026 김현욱. All rights reserved.</p>
+        <p className="text-[var(--text-muted)] text-xs">© 2026 김현욱</p>
       </footer>
     </div>
   );
