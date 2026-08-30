@@ -174,7 +174,7 @@ export const projectsData: Project[] = [
       "연간 계약 프로세스 구축 — SMB 대상 연간 계약 진행 프로세스 수립, 계약서·견적서 생성 자동화, 이탈 위험 고객 협상 리드",
     ],
     fullResult:
-      "레거시 코드에 따른 요금제 전환 간 발생한 여러 엣지 케이스를 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경 사전 안내 및 요금제 전환을 완료했고, NDR 118%로 상승 전환, 이탈율 목표치 유지 중입니다.",
+      "레거시 코드에 따른 요금제 전환 간 발생한 여러 엣지 케이스를 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경 사전 안내 및 요금제 전환을 완료했고, NDR 118%로 상승 전환했습니다. 이탈 관리 과정에서 연간 계약 전환을 유도해 선납금 약 0.5억을 확보했고, 이탈율은 10% 이하로 유지하고 있습니다.",
     notionUrl: "https://app.notion.com/p/36b8937a33b180cc8f31f3cd9919dd82",
     en: {
       title: "Pricing Plan Migration Project",
@@ -195,7 +195,7 @@ export const projectsData: Project[] = [
         "Building the annual contract process — Establishing the annual contract flow for SMB customers; automating contract and quote generation; leading negotiations with at-risk churn accounts",
       ],
       fullResult:
-        "Personally reviewed and finalized the migration logic for numerous edge cases caused by legacy code. Completed major terms changes and plan migration. NDR rose to 118%; churn rate remains within target.",
+        "Personally reviewed and finalized the migration logic for numerous edge cases caused by legacy code. Completed major terms changes and plan migration, and NDR rose to 118%. Working the churn risk into annual contracts secured about 50m KRW in prepayments, and churn is holding below 10%.",
     },
   },
   {
@@ -447,7 +447,7 @@ export const projectsData: Project[] = [
       "이슈 발생 및 환불율 모니터링 대시보드 제작 — 대상자 발생율·환불 여부 모니터링",
     ],
     fullResult:
-      "오신고에 따른 이슈 후처리 대상 25% 감소. 재정 리스크 약 10억 감소 (환불 + 대납 비용). 안정적 서비스 운영 기반 마련.",
+      "오신고에 따른 이슈 후처리 대상 25% 감소. 같은 이슈로 전년에 최소 40억이 처리됐던 것을 기준으로, 환불과 대납 비용에서 약 10억의 재정 리스크를 줄였습니다. 노운 이슈 처리 방향을 정해 안정적인 서비스 운영 기반을 마련했습니다.",
     notionUrl: "https://app.notion.com/p/1fc8937a33b180d59937f2a226db9d5d",
     en: {
       title: "Critical Known Issue Resolution (Erroneous Tax Filing)",
@@ -469,7 +469,7 @@ export const projectsData: Project[] = [
         "Monitoring dashboard creation — Built dashboard to track issue occurrence rate and refund status",
       ],
       fullResult:
-        "25% reduction in post-issue processing targets. ~1B KRW financial risk reduction (refunds + tax payment coverage). Established a stable service operations foundation.",
+        "25% fewer cases needing post-issue handling. Against the ~4bn KRW the same issue cost to process the previous year, this cut roughly 1bn KRW of financial exposure across refunds and covered tax payments, and set a handling path that makes the known issue routine rather than recurring damage.",
     },
   },
   {
