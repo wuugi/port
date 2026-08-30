@@ -681,7 +681,6 @@ export const skillsData: SkillItem[] = [
   { name: "Excel (spreadsheet)", level: 90, category: "data" },
   { name: "Claude", level: 90, category: "data" },
   { name: "Slack", level: 90, category: "tool" },
-  { name: "Jira / confluence", level: 80, category: "tool" },
   { name: "Word", level: 80, category: "tool" },
   { name: "Figma", level: 50, category: "tool" },
 ];
