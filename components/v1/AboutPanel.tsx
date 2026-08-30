@@ -22,6 +22,7 @@ export default function AboutPanel() {
   const { lang } = useLang();
   const t = ui[lang];
   const p = tPerson(personInfo, lang);
+  const displayName = lang === "en" && personInfo.nameEn ? personInfo.nameEn : personInfo.name;
 
   return (
     <div className="space-y-10">
@@ -44,13 +45,13 @@ export default function AboutPanel() {
                 className="w-full h-full object-cover object-top"
               />
             ) : (
-              <span className="text-[var(--accent)] text-4xl font-bold">김</span>
+              <span className="text-[var(--accent)] text-4xl font-bold">{displayName.charAt(0)}</span>
             )}
           </div>
 
           <div className="min-w-0 flex-1">
             <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight">
-              {lang === "en" && personInfo.nameEn ? personInfo.nameEn : personInfo.name}
+              {displayName}
             </h2>
             <p className="mt-2 text-[var(--accent)] text-base sm:text-lg text-balance">{p.title}</p>
 

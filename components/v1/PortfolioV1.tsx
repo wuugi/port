@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { ActivePanel } from "@/lib/types";
+import { personInfo } from "@/lib/static-data";
+import { useLang } from "@/lib/lang-context";
 import TopNav, { panelOrder } from "./TopNav";
 import AboutPanel from "./AboutPanel";
 import CareerPanel from "./CareerPanel";
@@ -9,6 +11,7 @@ import SkillsPanel from "./SkillsPanel";
 import ContactPanel from "./ContactPanel";
 
 export default function PortfolioV1() {
+  const { lang } = useLang();
   const [activePanel, setActivePanel] = useState<ActivePanel>("about");
 
   // The nav reports where the reader is rather than what they last clicked:
@@ -61,7 +64,11 @@ export default function PortfolioV1() {
         </section>
       </main>
       <footer className="border-t border-[var(--border)] mt-8 py-6 text-center">
-        <p className="text-[var(--text-muted)] text-xs">© 2026 김현욱</p>
+        {/* The name follows the locale like every other name on the page; the
+            English side was signing off in Korean. */}
+        <p className="text-[var(--text-muted)] text-xs">
+          © 2026 {lang === "en" && personInfo.nameEn ? personInfo.nameEn : personInfo.name}
+        </p>
       </footer>
     </div>
   );
