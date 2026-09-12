@@ -205,6 +205,50 @@ export const projectsData: Project[] = [
     },
   },
   {
+    id: "proj-flex-4",
+    title: "모니터링 에이전트 기획·구축",
+    company: "flex",
+    period: "2026.04 – 2026.05",
+    summary:
+      "구성원이 주 단위로 붙어 있던 AI 데이터 모니터링을 에이전트가 판단하는 구조로 바꿔, 사람이 하던 것보다 정확하게 처리하면서 팀의 시간을 프로젝트로 돌렸습니다.",
+    role: "프로세스 기획, AI 에이전트 기획·구성",
+    result: "모니터링 정확도 20% 증가, 처리율 50% 증가",
+    tags: ["프로세스 개선", "고객 경험 개선", "AI 에이전트"],
+    background:
+      "AI 활용 데이터를 모니터링하기 위해 구성원 리소스를 쓰고 있었고, 담당자는 다른 업무를 병행하지 못한 채 주 단위로 이 일만 반복해야 했습니다.",
+    problem:
+      "팀 캐파는 잡혀 있지만 실제로 프로젝트에 투입할 수 있는 리소스가 없었습니다. SaaS 모니터링 솔루션은 월 약 20만원이 드는데 ROI가 나오지 않는다고 판단했고, 사람이 데이터를 확인하는 과정에서 생기는 휴먼 에러와 누락 탓에 모니터링의 목적 자체가 달성되지 않는 경우가 있었습니다.",
+    process: [
+      "모니터링 프로세스 구조화 — 현재 진행 중인 모니터링을 분석해 단계별 확인 정보, 이상 데이터 발견 시 조치 방법, 팀 내 조치 기준과 가이드라인으로 구조화",
+      "에이전트 KB 학습 구조 설계 — Intercom API 호출로 KB 데이터를 학습시키는 구조를 설계하고, 가이드라인과 자체 웹서치로 할루시네이션을 방지",
+      "피드백–재학습 루프 설계 — 모니터링 결과를 Notion MCP로 DB화하고, 정확도 체크 → 판단 기준 재설계 → 재판단·재학습 리포트로 이어지는 구조를 설계",
+      "에이전트 및 업무 프로세스 구축 — 세션 토큰과 서브 에이전트 액션의 한계를 고려해 cron 구조로 자동화하고, 결과 활용·피드백 업무 프로세스와 재학습 시의 할루시네이션 방지 가이드라인을 정리",
+    ],
+    fullResult:
+      "모니터링 업무를 에이전트로 전면 대체했습니다. 인력이 하던 때보다 정확도가 20% 올랐고 모니터링 누락은 0%를 달성했으며, 그만큼의 팀 리소스를 주요 프로젝트에 쓸 수 있는 환경이 만들어졌습니다.",
+    notionUrl: "https://app.notion.com/p/3d48937a33b180dda696d3440123b46e",
+    en: {
+      title: "Monitoring Agent Design & Build",
+      summary:
+        "Replaced the weekly human pass over AI monitoring data with an agent that reads and judges it, running more accurately than the manual process and giving the team its hours back for project work.",
+      role: "Process design; AI agent design and configuration",
+      result: "Monitoring accuracy up 20%, throughput up 50%",
+      tags: ["Process Improvement", "Customer Experience", "AI Agent"],
+      background:
+        "Monitoring the AI-driven data was taking a person's time every week, and whoever held it could not work on anything else while the pass was running.",
+      problem:
+        "The team had capacity on paper but none it could actually deploy to projects. A SaaS monitoring product would have cost roughly 200,000 KRW a month, which did not justify itself on ROI, and the human error and gaps in a manual read meant the monitoring sometimes failed to do the one thing it was for.",
+      process: [
+        "Structuring the monitoring process — Analysing how the pass was actually run, then writing it down as what to check at each step, what to do when anomalous data appears, and the team's criteria and guidelines for acting on it",
+        "Designing the agent's knowledge base — Building the KB learning structure on Intercom API calls, with guidelines and its own web search to keep hallucination out",
+        "Designing the feedback–retraining loop — Writing the agent's output to a database via Notion MCP, then looping through it: check each judgement's accuracy, redesign the criteria from the data, report on re-judgement and retraining",
+        "Building the agent and the process around it — Automating the run on a cron structure that fits within session token and sub-agent action limits, and defining how the team uses the results, feeds back, and guards against hallucination when the criteria change",
+      ],
+      fullResult:
+        "The agent now handles the monitoring work in full. Accuracy is 20% higher than the manual pass and nothing is missed, and the time this frees goes back into the team's main projects.",
+    },
+  },
+  {
     id: "proj-flex-2",
     title: "리드 메시지 채널 분기 개선",
     company: "flex",

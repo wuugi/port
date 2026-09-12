@@ -21,8 +21,8 @@ is worth a call.
 
 ## Product Purpose
 
-A personal portfolio presenting six years of service-operations work as
-**evidence**: career history across three companies, twelve projects each with a
+A personal portfolio presenting 총 5년 5개월 of service-operations work as
+**evidence**: career history across three companies, fourteen projects each with a
 problem → process → result narrative, and a skills inventory.
 
 Success is that a reader grasps who he is and what he has actually delivered
@@ -78,7 +78,7 @@ what the presentation must serve.
 
 - Name: 김현욱 / Kim Hyun Uk.
 - Title: "고객 경험과 데이터를 보는 Operation Manager", as authored on the Notion About
-  page. **No years-of-experience claim in the title:** Notion states 총 5년 3개월, so the
+  page. **No years-of-experience claim in the title:** Notion states 총 5년 5개월, so the
   earlier "(6년차)" / "6-Year" overstated it in English.
 - Company names as authored. Korean keeps **자비스앤빌런즈 (삼쩜삼)** — 삼쩜삼 is the
   recognisable service brand and must not be dropped for brevity. English uses
@@ -88,9 +88,9 @@ what the presentation must serve.
 
 - Three companies with dated tenures and responsibility lists (마이다스인 2021.1–2023.5,
   자비스앤빌런즈 2023.6–2025.8, 플렉스 2026.1–present).
-- Twelve projects — 플렉스 2, 자비스앤빌런즈 7, 마이다스인 3 — each with summary, role and
+- Fourteen projects — 플렉스 4, 자비스앤빌런즈 7, 마이다스인 3 — each with summary, role and
   result; most with background / problem / process / fullResult; all in KO and EN.
-- Eight skills, mirroring the Notion skills database exactly (its 상태 number is the
+- Seven skills, mirroring the Notion skills database exactly (its 상태 number is the
   level). They order the list and band it into 주력 / 실무 활용 / 사용 경험; neither the
   number nor a bar is shown, because a self-rating cannot support that precision.
   Notion lists no process skills, so that category is absent and the panel renders two
