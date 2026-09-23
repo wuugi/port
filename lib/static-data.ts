@@ -123,17 +123,17 @@ export const projectsData: Project[] = [
     background:
       "고객 만족도 설문을 진행하기로 결정하면서, 여러 서비스의 담당자가 각자 다른 양식으로 설문을 발송하는 상황이 드러났습니다.",
     problem:
-      "설문지 구성이 담당자마다 달라 응답 데이터를 하나로 맞추기 어려웠고, 고객이 인적 정보를 정확히 적지 않으면 응답을 누구의 것인지 특정할 수 없어 분석 자체가 불가능해졌습니다.",
+      "응답자의 소속 법인을 사람이 수기로 매칭해야 했고, 응답자가 법인명을 비우거나 오탈자를 내면 그 응답은 버려졌습니다. 설문지 구성도 담당자마다 달라 응답 데이터를 하나로 맞추기 어려웠습니다. 발송은 메일침프로 하고 있어 마케팅 수신거부 고객은 정보성 설문도 받지 못했고, 마케팅 프로젝트 데이터까지 오염됐습니다.",
     process: [
-      "문제 정의 — 단순한 수작업 리소스 문제가 아니라, 응답한 건이 누구의 것인지 파악할 수 없다는 점이 본질임을 확인",
+      "문제 정의 — 타 부서 니즈에서 시작해, 단순한 수작업 리소스 문제가 아니라, 응답한 건이 누구의 것인지 파악할 수 없다는 점이 본질임을 확인",
       "대안 비교 — 구글 폼 프리필과 서드파티 솔루션을 보안 검토 소요, API 활용 자유도, 응답 수정 가능성 기준으로 비교",
       "구글 폼으로 결정 — 보안 검토 지연과 API 제약을 피해 빠르게 진행하기로 하고, 설문 링크를 넣으면 프리필 문항 ID를 자동 추출해 링크를 만들어 주는 사이트를 기획",
-      "구현 — 설문 생성과 메일 발송을 한 화면에서 처리하도록 묶고, AI 코딩 도구로 설계 논의와 구현을 진행해 로컬 테스트 후 사내 배포",
-      "시연·의견 수집 — 사용 부서에 가이드 문서를 공유하고 전체 프로세스를 시연, 이미지 삽입과 발송 주체 변경 등 요구사항을 추가 반영",
+      "구현 — 설문 생성과 메일 발송을 한 화면에서 처리하도록 묶고, Apps Script · Activepieces · Agent Skill을 연동해 AI 코딩 도구로 구현한 뒤 로컬 테스트 후 사내 배포",
+      "부서별 프로토타입·요구사항 수렴 — 부서별 프로토타입을 먼저 만들어 공유하고, 추가 니즈를 수렴해 기술적으로 가능한 부분과 불필요한 부분을 정리하며 확장 (이미지 삽입, 발송 주체 변경 등)",
       "최종 배포 — 요구사항 반영과 가독성 개선 후 사내 서버에 배포",
     ],
     fullResult:
-      "필요 정보를 암호화해 설문에 미리 채우고 제출 후 자동 복호화하는 구조로, 응답과 고객을 잇는 매핑률 100%를 달성했습니다. 외부 메일 발송 CRM 툴에 대한 의존을 없애면서 반송 메일 문제도 함께 해소했습니다.",
+      "법인명·담당자·이메일·내부 ID를 인코딩해 링크에 담고, 화면에 노출하지 않은 채 응답과 고객사를 자동 매칭하는 구조로 응답 매핑을 100% 자동화했습니다. 외부 CRM 대신 자체 발송 구조로 바꿔 외부 발송 툴 의존과 반송 메일 문제를 없앴고, 마케팅 수신 동의와 상관없이 정보성 설문을 보낼 수 있게 됐습니다.",
     notionUrl: "https://app.notion.com/p/3ca8937a33b1806d9995d0ea5bfdcb06",
     en: {
       title: "Customer Survey Delivery Tool",
@@ -145,17 +145,17 @@ export const projectsData: Project[] = [
       background:
         "The decision to run a customer satisfaction survey surfaced the fact that each service owner was sending their own survey in their own format.",
       problem:
-        "Because the forms differed by owner, responses could not be reconciled into one dataset — and whenever a customer mistyped their details, there was no way to tell whose answer it was, which made analysis impossible.",
+        "Each response had to be matched to the respondent's company by hand, and any response with the company name left blank or misspelled was thrown away. The forms also differed by owner, so responses could not be reconciled into one dataset. And because surveys went out through Mailchimp, customers who had opted out of marketing never received even an informational survey — while the survey sends muddied the marketing team's own project data.",
       process: [
-        "Defining the problem — Establishing that this was not a manual-effort problem but an identification one: a response could not be tied back to the customer who gave it",
+        "Defining the problem — Starting from another team's request and establishing that this was not a manual-effort problem but an identification one: a response could not be tied back to the customer who gave it",
         "Comparing options — Weighing Google Forms pre-fill against third-party tools on security review time, API freedom, and whether respondents could edit pre-filled values",
         "Choosing Google Forms — Avoiding security-review delay and API limits, then designing a site that takes a survey link, extracts the pre-fill field IDs automatically, and generates the links",
-        "Building it — Combining survey creation and mail delivery into a single screen, developing it with AI coding tools, and deploying internally after local testing",
-        "Demo and feedback — Sharing a usage guide with the teams, walking through the whole process, and adding requested features such as inline images and a switchable sending account",
+        "Building it — Combining survey creation and mail delivery into a single screen, wiring together Apps Script, Activepieces and an Agent Skill with AI coding tools, and deploying internally after local testing",
+        "Prototypes per team and gathering requirements — Building a prototype for each team first, collecting further requests, and extending the tool after sorting what was technically feasible from what was not needed (inline images, a switchable sending account)",
         "Final release — Shipping to the internal server after the requested changes and a readability pass",
       ],
       fullResult:
-        "Required details are encrypted into the pre-filled survey and decrypted automatically on submission, which ties every response to the right customer. Dropping the external CRM mail tool also removed the bounced-mail problem that came with it.",
+        "Company name, contact, email and internal ID are encoded into the link and matched to the response without ever appearing on screen, so response mapping is fully automated. Replacing the external CRM with an in-house sending setup removed that dependency and its bounced-mail problem, and informational surveys now reach customers regardless of their marketing consent.",
     },
   },
   {
@@ -165,7 +165,7 @@ export const projectsData: Project[] = [
     period: "2026.04 – 2026.07",
     summary:
       "요금 체계를 기능 중심에서 요금제 형태로 전환하며, 전환 로직 설계와 고객 안내 프로세스를 처음부터 구축했습니다.",
-    role: "전환 로직 설계, 고객 안내 프로세스 기획·운영",
+    role: "전환 PM — 엣지 케이스 대응·기술 검토·전체 일정, 고객 안내 프로세스 기획·운영",
     result: "NDR 118% 달성, 이탈율 10% 이하 유지",
     tags: ["비즈니스 액션", "요금제 개편", "고객 안내"],
     background:
@@ -173,9 +173,10 @@ export const projectsData: Project[] = [
     problem:
       "서비스 런칭 후 첫 대대적인 과금 체계 변화로 고객 체감 충격이 클 수 있었고, 상위 기능 이용 고객은 요금이 크게 오르는 케이스가 발생했습니다. 고객 사전 안내 프로세스 자체가 전무한 상태였습니다.",
     process: [
-      "요금제 종류 및 변경 시점 파악 — 요금제별 제공 기능 확인, 고객 안내 프로세스 구축을 위한 변경 시점 정의",
-      "엣지 케이스 체크 — 유효 계약·파트너 서비스 등 기존 정책 유지 시 문제가 생기는 케이스 정리, 비즈니스 목표와 고객 경험 사이의 밸런스 조율 및 각 케이스별 적용 로직 결정",
-      "고객 안내 프로세스 수립 — 안내 일정·방법·메시지 내용 설계, 이용 약관 변경 안내 메일 작성·발송, 문의 회신 워크플로우 설정",
+      "협업 구조 설정 — 영업·개발·회계·법무·운영이 함께하는 구조에서 금액 설정은 회계가 결정하고, 엣지 케이스 대응·기술 검토·전체 일정은 PM으로 담당",
+      "요금제·일정 파악 — 요금제별 제공 기능을 확인하고, 시행일을 기준으로 역산해 법무(약정 개정)·개발(개발 가능 일정, QA) 등 부서별 일정을 조율",
+      "엣지 케이스 체크 — 유효 계약·파트너 서비스 등 기존 정책 유지 시 문제가 생기는 케이스 정리, 비즈니스 목표와 고객 경험 사이의 밸런스 조율 및 각 케이스별 적용 로직 결정, 확인되는 그레이존 케이스를 전환 로직에 반영",
+      "고객 안내 프로세스 수립 — 안내 일정·방법·메시지 내용 설계, 이용 약관 변경 안내 메일 작성·발송, 문의 회신 워크플로우 설정, 고객사 이슈 발생 시 대응 정책을 운영 구성원과 함께 설정",
       "데이터 연동·대시보드 협업 — 요금제 전환 정보 확인 및 안내 자동화를 위한 데이터 연동 요청(DA팀), 시뮬레이션 데이터 검증용 대시보드 제작",
       "연간 계약 프로세스 구축 — SMB 대상 연간 계약 진행 프로세스 수립, 계약서·견적서 생성 자동화, 이탈 위험 고객 협상 리드",
     ],
@@ -186,7 +187,7 @@ export const projectsData: Project[] = [
       title: "Pricing Plan Migration Project",
       summary:
         "Led the full redesign of the billing structure from feature-based to a subscription plan model, building the migration logic and customer communication process from scratch.",
-      role: "Migration logic design, customer communication process planning & operations",
+      role: "Migration PM — edge cases, technical review and the overall schedule; customer communication process",
       result: "NDR 118% achieved, churn rate kept below 10%",
       tags: ["Business Action", "Plan Restructure", "Customer Communication"],
       background:
@@ -194,9 +195,10 @@ export const projectsData: Project[] = [
       problem:
         "As the first major billing overhaul since launch, there was significant risk of customer shock. Some high-feature users faced substantial price increases, and there was zero pre-existing customer communication process.",
       process: [
-        "Identifying plan types and transition timing — Reviewing features per plan; defining transition timing to build the customer communication process",
-        "Checking edge cases — Cataloguing scenarios where legacy policies (active contracts, partner services) would cause issues; balancing business goals against customer experience; defining per-case logic",
-        "Establishing the customer communication process — Designing notification schedules, channels, and message content; drafting and sending terms-of-service change notification emails; setting up inquiry response workflows",
+        "Setting up the collaboration — Across sales, engineering, finance, legal and operations, finance set the prices while edge cases, technical review and the overall schedule sat with me as PM",
+        "Mapping plans and the schedule — Reviewing features per plan, then working back from the launch date to line up each team's dates: legal's terms revision, engineering's build window and QA",
+        "Checking edge cases — Cataloguing scenarios where legacy policies (active contracts, partner services) would cause issues; balancing business goals against customer experience; defining per-case logic and folding gray-zone cases into the migration logic as they surfaced",
+        "Establishing the customer communication process — Designing notification schedules, channels, and message content; drafting and sending terms-of-service change notification emails; setting up inquiry response workflows; agreeing with the operations team how to handle issues raised by customers",
         "Data integration & dashboard collaboration — Requesting data pipeline from the DA team to verify plan migration and enable notification automation; building a simulation data validation dashboard",
         "Building the annual contract process — Establishing the annual contract flow for SMB customers; automating contract and quote generation; leading negotiations with at-risk churn accounts",
       ],
@@ -210,42 +212,46 @@ export const projectsData: Project[] = [
     company: "flex",
     period: "2026.04 – 2026.05",
     summary:
-      "구성원이 주 단위로 붙어 있던 AI 데이터 모니터링을 에이전트가 판단하는 구조로 바꿔, 사람이 하던 것보다 정확하게 처리하면서 팀의 시간을 프로젝트로 돌렸습니다.",
+      "구성원이 주 단위로 돌아가며 맡던 AI 상담 답변 검수를 검수 전용 에이전트가 판단하는 구조로 바꿔, 사람이 하던 것보다 빠르고 정확하게 처리하면서 팀의 시간을 프로젝트로 돌렸습니다.",
     role: "프로세스 기획, AI 에이전트 기획·구성",
     result: "검수 처리 속도 50% 향상, 사람 검수 대비 오판단 20% 감소, 판정 누락 0건",
     tags: ["프로세스 개선", "고객 경험 개선", "AI 에이전트"],
     background:
-      "AI 활용 데이터를 모니터링하기 위해 구성원 리소스를 쓰고 있었고, 담당자는 다른 업무를 병행하지 못한 채 주 단위로 이 일만 반복해야 했습니다.",
+      "AI 상담 답변이 잘못된 KB를 참조하거나 할루시네이션을 일으키지 않는지 매일 검수해야 했고, 구성원이 주 단위 로테이션으로 이 모니터링을 맡았습니다.",
     problem:
-      "팀 캐파는 잡혀 있지만 실제로 프로젝트에 투입할 수 있는 리소스가 없었습니다. SaaS 모니터링 솔루션은 월 약 20만원이 드는데 ROI가 나오지 않는다고 판단했고, 사람이 데이터를 확인하는 과정에서 생기는 휴먼 에러와 누락 탓에 모니터링의 목적 자체가 달성되지 않는 경우가 있었습니다.",
+      "검수 속도가 인입 속도를 따라가지 못해 오후 8시까지 확인하는 날이 잦았고, 담당자는 그 주 동안 다른 프로젝트에서 빠져야 했습니다. SaaS 모니터링 솔루션은 월 약 20만원이 드는데 ROI가 나오지 않는다고 판단했고, 사람이 데이터를 확인하는 과정에서 생기는 휴먼 에러와 누락 탓에 모니터링의 목적 자체가 달성되지 않는 경우가 있었습니다.",
     process: [
+      "검수 전용 에이전트 분리 — 답변 모델과 같은 환경에서 검수하면 같은 오류를 공유할 수 있어, MCP로 Claude Code에 검수 전용 에이전트를 따로 구축하고 기존 KB 학습과 가이드라인·가중치 기반 판정 점수 산출 구조로 설계",
       "모니터링 프로세스 구조화 — 현재 진행 중인 모니터링을 분석해 단계별 확인 정보, 이상 데이터 발견 시 조치 방법, 팀 내 조치 기준과 가이드라인으로 구조화",
       "에이전트 KB 학습 구조 설계 — Intercom API 호출로 KB 데이터를 학습시키는 구조를 설계하고, 가이드라인과 자체 웹서치로 할루시네이션을 방지",
       "피드백–재학습 루프 설계 — 모니터링 결과를 Notion MCP로 DB화하고, 정확도 체크 → 판단 기준 재설계 → 재판단·재학습 리포트로 이어지는 구조를 설계",
       "에이전트 및 업무 프로세스 구축 — 세션 토큰과 서브 에이전트 액션의 한계를 고려해 cron 구조로 자동화하고, 결과 활용·피드백 업무 프로세스와 재학습 시의 할루시네이션 방지 가이드라인을 정리",
+      "운영 및 검증 — 점수에 따라 개선 / 양호 / 정확 구간으로 분류하고 개선·양호 건만 사람이 검토해 판정을 피드백, 매일 아침 피드백을 재학습에 반영해 가이드라인을 보정. 도입 초기에는 사람 검수와 병행 운영하며 결과를 교차 비교해 검증",
     ],
     fullResult:
-      "모니터링 업무를 에이전트로 전면 대체했습니다. 검수 처리 속도가 50% 빨라졌고, 사람 검수 대비 오판단은 20% 줄었으며 판정 누락은 0건이었습니다. 확보한 팀 리소스를 주요 프로젝트에 쓸 수 있는 환경이 만들어졌습니다.",
+      "모니터링 업무를 에이전트로 전면 대체했습니다. 검수 처리 속도가 50% 빨라져 업무 시간 안에 전건을 처리하게 됐고, 사람 검수 대비 오판단은 20% 줄었으며 판정 누락은 0건이었습니다. 확보한 리소스를 다른 프로젝트에 재배치해 리드타임을 10% 단축했습니다.",
     notionUrl: "https://app.notion.com/p/3d48937a33b180dda696d3440123b46e",
     en: {
       title: "Monitoring Agent Design & Build",
       summary:
-        "Replaced the weekly human pass over AI monitoring data with an agent that reads and judges it, running more accurately than the manual process and giving the team its hours back for project work.",
+        "Replaced the rotating human review of AI support answers with a dedicated review agent that scores and judges them, running faster and more accurately than the manual pass and giving the team its hours back for project work.",
       role: "Process design; AI agent design and configuration",
       result: "Review 50% faster; 20% fewer misjudgements than human review, zero missed verdicts",
       tags: ["Process Improvement", "Customer Experience", "AI Agent"],
       background:
-        "Monitoring the AI-driven data was taking a person's time every week, and whoever held it could not work on anything else while the pass was running.",
+        "Every AI support answer had to be checked daily for citing the wrong KB article or hallucinating, and team members took the review on a weekly rotation.",
       problem:
-        "The team had capacity on paper but none it could actually deploy to projects. A SaaS monitoring product would have cost roughly 200,000 KRW a month, which did not justify itself on ROI, and the human error and gaps in a manual read meant the monitoring sometimes failed to do the one thing it was for.",
+        "Review could not keep pace with incoming volume, so checks often ran until 8 p.m., and whoever held the rotation was pulled off other projects for the week. A SaaS monitoring product would have cost roughly 200,000 KRW a month, which did not justify itself on ROI, and the human error and gaps in a manual read meant the monitoring sometimes failed to do the one thing it was for.",
       process: [
+        "Separating a dedicated review agent — A reviewer running in the same environment as the answering model can share its mistakes, so the review agent was built separately in Claude Code over MCP, trained on the existing KB and scoring each answer against guidelines and weights",
         "Structuring the monitoring process — Analysing how the pass was actually run, then writing it down as what to check at each step, what to do when anomalous data appears, and the team's criteria and guidelines for acting on it",
         "Designing the agent's knowledge base — Building the KB learning structure on Intercom API calls, with guidelines and its own web search to keep hallucination out",
         "Designing the feedback–retraining loop — Writing the agent's output to a database via Notion MCP, then looping through it: check each judgement's accuracy, redesign the criteria from the data, report on re-judgement and retraining",
         "Building the agent and the process around it — Automating the run on a cron structure that fits within session token and sub-agent action limits, and defining how the team uses the results, feeds back, and guards against hallucination when the criteria change",
+        "Running and validating it — Sorting answers by score into needs-work / fair / accurate, having people review only the first two and feed back whether the verdict was right, and folding that feedback into retraining every morning. Early on the agent ran alongside human review and the two were cross-checked",
       ],
       fullResult:
-        "The agent now handles the monitoring work in full. Reviews run 50% faster, with 20% fewer misjudgements than human review and zero missed verdicts, and the time this frees goes back into the team's main projects.",
+        "The agent now handles the monitoring work in full. Reviews run 50% faster, so every item is cleared within working hours, with 20% fewer misjudgements than human review and zero missed verdicts. Moving the freed time to other projects cut their lead time by 10%.",
     },
   },
   {
