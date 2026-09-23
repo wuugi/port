@@ -14,7 +14,7 @@ export const personInfo: PersonInfo = {
   education: "경희대학교 지리학/언론정보학",
   educationPeriod: "2014.03 - 2020.02",
   certifications: ["SQLD (23.12.15)"],
-  languages: ["영어 일상 회화 가능", "TOEIC 920 (2022.7 - 2024.7 만료)"],
+  languages: ["영어 일상 회화 가능", "OPIc IH (2026.09)"],
   profileImage: "/profile.png",
   en: {
     title: "Operations Manager Focused on Customer Experience & Data",
@@ -24,7 +24,7 @@ export const personInfo: PersonInfo = {
       "And I use AI to cut the routine work, which buys back the hours to spend on customers.",
     education: "Kyung Hee University — Geography / Journalism & Communications",
     certifications: ["SQLD (Dec 15, 2023)"],
-    languages: ["Conversational English", "TOEIC 920 (Jul 2022 – Jul 2024, expired)"],
+    languages: ["Conversational English", "OPIc IH (Sep 2026)"],
   },
 };
 
@@ -212,7 +212,7 @@ export const projectsData: Project[] = [
     summary:
       "구성원이 주 단위로 붙어 있던 AI 데이터 모니터링을 에이전트가 판단하는 구조로 바꿔, 사람이 하던 것보다 정확하게 처리하면서 팀의 시간을 프로젝트로 돌렸습니다.",
     role: "프로세스 기획, AI 에이전트 기획·구성",
-    result: "모니터링 정확도 20% 증가, 처리율 50% 증가",
+    result: "검수 처리 속도 50% 향상, 사람 검수 대비 오판단 20% 감소, 판정 누락 0건",
     tags: ["프로세스 개선", "고객 경험 개선", "AI 에이전트"],
     background:
       "AI 활용 데이터를 모니터링하기 위해 구성원 리소스를 쓰고 있었고, 담당자는 다른 업무를 병행하지 못한 채 주 단위로 이 일만 반복해야 했습니다.",
@@ -225,14 +225,14 @@ export const projectsData: Project[] = [
       "에이전트 및 업무 프로세스 구축 — 세션 토큰과 서브 에이전트 액션의 한계를 고려해 cron 구조로 자동화하고, 결과 활용·피드백 업무 프로세스와 재학습 시의 할루시네이션 방지 가이드라인을 정리",
     ],
     fullResult:
-      "모니터링 업무를 에이전트로 전면 대체했습니다. 인력이 하던 때보다 정확도가 20% 올랐고 모니터링 누락은 0%를 달성했으며, 그만큼의 팀 리소스를 주요 프로젝트에 쓸 수 있는 환경이 만들어졌습니다.",
+      "모니터링 업무를 에이전트로 전면 대체했습니다. 검수 처리 속도가 50% 빨라졌고, 사람 검수 대비 오판단은 20% 줄었으며 판정 누락은 0건이었습니다. 확보한 팀 리소스를 주요 프로젝트에 쓸 수 있는 환경이 만들어졌습니다.",
     notionUrl: "https://app.notion.com/p/3d48937a33b180dda696d3440123b46e",
     en: {
       title: "Monitoring Agent Design & Build",
       summary:
         "Replaced the weekly human pass over AI monitoring data with an agent that reads and judges it, running more accurately than the manual process and giving the team its hours back for project work.",
       role: "Process design; AI agent design and configuration",
-      result: "Monitoring accuracy up 20%, throughput up 50%",
+      result: "Review 50% faster; 20% fewer misjudgements than human review, zero missed verdicts",
       tags: ["Process Improvement", "Customer Experience", "AI Agent"],
       background:
         "Monitoring the AI-driven data was taking a person's time every week, and whoever held it could not work on anything else while the pass was running.",
@@ -245,7 +245,7 @@ export const projectsData: Project[] = [
         "Building the agent and the process around it — Automating the run on a cron structure that fits within session token and sub-agent action limits, and defining how the team uses the results, feeds back, and guards against hallucination when the criteria change",
       ],
       fullResult:
-        "The agent now handles the monitoring work in full. Accuracy is 20% higher than the manual pass and nothing is missed, and the time this frees goes back into the team's main projects.",
+        "The agent now handles the monitoring work in full. Reviews run 50% faster, with 20% fewer misjudgements than human review and zero missed verdicts, and the time this frees goes back into the team's main projects.",
     },
   },
   {
@@ -726,13 +726,17 @@ export const projectsData: Project[] = [
  * and the panel drops it rather than printing an empty column.
  */
 export const skillsData: SkillItem[] = [
-  { name: "SQL (Redash / databricks)", level: 80, category: "data" },
+  { name: "SQL (Redash / Databricks)", level: 80, category: "data" },
+  { name: "Python (AI-assisted)", level: 50, category: "data" },
   { name: "R", level: 70, category: "data" },
   { name: "Excel (spreadsheet)", level: 90, category: "data" },
   { name: "Claude", level: 90, category: "data" },
   { name: "Slack", level: 90, category: "tool" },
   { name: "Word", level: 80, category: "tool" },
   { name: "Figma", level: 50, category: "tool" },
+  { name: "Claude Code (MCP)", level: 90, category: "tool" },
+  { name: "Apps Script", level: 80, category: "tool" },
+  { name: "Activepieces", level: 80, category: "tool" },
 ];
 
 export const companyLabels: Record<CompanyKey, string> = {

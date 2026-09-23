@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import type { CompanyKey, Project } from "@/lib/types";
 import { companyLabels, companyLabelsEn } from "@/lib/static-data";
-import { projects as allProjects } from "@/lib/projects";
+import { variantProjects, type Variant } from "@/lib/variants";
 import ProjectModal from "@/components/shared/ProjectModal";
 import { useLang } from "@/lib/lang-context";
 import { ui, tProject } from "@/lib/i18n";
@@ -61,7 +61,7 @@ function ProjectRow({
   );
 }
 
-export default function ProjectsPanel() {
+export default function ProjectsPanel({ variant = "default" }: { variant?: Variant }) {
   const { lang } = useLang();
   const t = ui[lang];
   const labels = lang === "en" ? companyLabelsEn : companyLabels;
@@ -70,7 +70,7 @@ export default function ProjectsPanel() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   // Notion is pulled at author time by npm run sync:notion, so the list is
   // present in the first paint instead of arriving a network round trip later.
-  const rawProjects = allProjects;
+  const rawProjects = useMemo(() => variantProjects(variant), [variant]);
 
   const companies: CompanyKey[] = ["flex", "jarvis", "midas"];
   // Translating all 12 projects on every keystroke of state (tab change, modal

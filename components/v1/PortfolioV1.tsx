@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { ActivePanel } from "@/lib/types";
+import type { Variant } from "@/lib/variants";
 import { personInfo } from "@/lib/static-data";
 import { useLang } from "@/lib/lang-context";
 import TopNav, { panelOrder } from "./TopNav";
@@ -10,7 +11,7 @@ import ProjectsPanel from "./ProjectsPanel";
 import SkillsPanel from "./SkillsPanel";
 import ContactPanel from "./ContactPanel";
 
-export default function PortfolioV1() {
+export default function PortfolioV1({ variant = "default" }: { variant?: Variant }) {
   const { lang } = useLang();
   const [activePanel, setActivePanel] = useState<ActivePanel>("about");
 
@@ -48,13 +49,13 @@ export default function PortfolioV1() {
         {/* One continuous document. scroll-mt clears the sticky header so a
             section's heading is not hidden underneath it on arrival. */}
         <section id="about" className="scroll-mt-20">
-          <AboutPanel />
+          <AboutPanel variant={variant} />
         </section>
         <section id="career" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <CareerPanel />
         </section>
         <section id="projects" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
-          <ProjectsPanel />
+          <ProjectsPanel variant={variant} />
         </section>
         <section id="skills" className="scroll-mt-20 mt-16 sm:mt-20 pt-10 border-t border-[var(--border)]">
           <SkillsPanel />

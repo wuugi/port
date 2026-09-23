@@ -4,6 +4,7 @@ import Image from "next/image";
 import { personInfo } from "@/lib/static-data";
 import { useLang } from "@/lib/lang-context";
 import { ui, tPerson } from "@/lib/i18n";
+import { variantPerson, type Variant } from "@/lib/variants";
 
 /** Label beside value, not four equal boxes: these facts differ in length and in
  *  kind, and forcing them into one shape is what made the row read uneven. */
@@ -18,10 +19,10 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
-export default function AboutPanel() {
+export default function AboutPanel({ variant = "default" }: { variant?: Variant }) {
   const { lang } = useLang();
   const t = ui[lang];
-  const p = tPerson(personInfo, lang);
+  const p = tPerson(variantPerson(variant), lang);
   const displayName = lang === "en" && personInfo.nameEn ? personInfo.nameEn : personInfo.name;
 
   return (

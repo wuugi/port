@@ -96,7 +96,7 @@ what the presentation must serve.
   Notion lists no process skills, so that category is absent and the panel renders two
   columns rather than an empty third. Each Notion skill also carries a short note on
   what it is used for; those are **not** on the site yet.
-- SQLD (2023.12.15); TOEIC 920, stated honestly as expired (2024.7).
+- SQLD (2023.12.15); OPIc IH (2026.09).
 - `public/profile.png` — the only image asset in the repository.
 - Project images come from the Notion pages and are checked into `public/projects/`
   by the sync script; none are hand-authored.
