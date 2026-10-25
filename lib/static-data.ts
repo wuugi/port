@@ -112,50 +112,50 @@ export const projectsData: Project[] = [
   // FLEX
   {
     id: "proj-flex-3",
-    title: "고객사 설문 발송 툴 기획·개발",
+    title: "고객사 대상 설문 발송 툴 기획 및 개발",
     company: "flex",
     period: "2026.08",
     summary:
-      "설문 응답을 사람이 손으로 대조하던 과정을 없애기 위해, 프리필 링크를 자체 생성하는 도구를 기획하고 직접 만들어 사내에 배포했습니다.",
+      "고객 오입력으로 설문 응답이 매치되지 않던 문제를, 법인명·담당자·이메일·내부 ID를 인코딩한 프리필 링크로 화면 노출 없이 응답과 고객사를 자동 매칭해 해결하고 응답 매핑을 100% 자동화했습니다.",
     role: "프로세스 기획 및 프로덕트 개발",
-    result: "응답 매핑 100% 자동화, 외부 CRM 발송 툴 의존 제거",
-    tags: ["프로세스 기획", "프로덕트 개발", "자동화"],
+    result: "고객사 설문 응답 매핑 100% 자동화, 외부 메일 발송 CRM 툴 의존도 제거",
+    tags: ["프로세스 기획", "개발"],
     background:
-      "고객 만족도 설문을 진행하기로 결정하면서, 여러 서비스의 담당자가 각자 다른 양식으로 설문을 발송하는 상황이 드러났습니다.",
+      "고객 만족도 설문 진행이 결정됐고, 타 부서의 니즈에서 시작한 프로젝트입니다.",
     problem:
-      "응답자의 소속 법인을 사람이 수기로 매칭해야 했고, 응답자가 법인명을 비우거나 오탈자를 내면 그 응답은 버려졌습니다. 설문지 구성도 담당자마다 달라 응답 데이터를 하나로 맞추기 어려웠습니다. 발송은 메일침프로 하고 있어 마케팅 수신거부 고객은 정보성 설문도 받지 못했고, 마케팅 프로젝트 데이터까지 오염됐습니다.",
+      "서비스별·담당자별로 설문지 구성이 달라 데이터 매핑이 어려웠습니다. 설문 응답자의 소속 법인을 사람이 수기로 매칭해야 했고, 응답자가 법인명을 비우거나 오탈자를 내면 그 응답은 버려졌습니다. 메일침프로 발송해 마케팅 수신거부 고객은 정보성 설문도 받지 못했고, 마케팅 프로젝트 데이터까지 오염됐습니다.",
     process: [
-      "문제 정의 — 타 부서 니즈에서 시작해, 단순한 수작업 리소스 문제가 아니라, 응답한 건이 누구의 것인지 파악할 수 없다는 점이 본질임을 확인",
-      "대안 비교 — 구글 폼 프리필과 서드파티 솔루션을 보안 검토 소요, API 활용 자유도, 응답 수정 가능성 기준으로 비교",
-      "구글 폼으로 결정 — 보안 검토 지연과 API 제약을 피해 빠르게 진행하기로 하고, 설문 링크를 넣으면 프리필 문항 ID를 자동 추출해 링크를 만들어 주는 사이트를 기획",
-      "구현 — 설문 생성과 메일 발송을 한 화면에서 처리하도록 묶고, Apps Script · Activepieces · Agent Skill을 연동해 AI 코딩 도구로 구현한 뒤 로컬 테스트 후 사내 배포",
-      "부서별 프로토타입·요구사항 수렴 — 부서별 프로토타입을 먼저 만들어 공유하고, 추가 니즈를 수렴해 기술적으로 가능한 부분과 불필요한 부분을 정리하며 확장 (이미지 삽입, 발송 주체 변경 등)",
-      "최종 배포 — 요구사항 반영과 가독성 개선 후 사내 서버에 배포",
+      "문제점 정의 — 데이터 매핑 문제로 생기는 문제를 정확히 파악하고, 단순한 리소스 문제를 넘어 고객이 응답한 건에 대한 데이터 파악이 사실상 불가능함을 확인",
+      "대안 설정 및 비교 — 구글 폼 프리필(별도 보안 검토 불필요, API 활용 자유로움 / 발송 주체별 개별 링크 필요, 프리필 응답 수정 가능)과 서드파티 솔루션(링크 안에 숨긴 ID로 문항에 노출되지 않음 / 보안 검토와 추가 과금 필요) 비교",
+      "구글 폼 결정 및 초기 플로우 구현 — 보안 검토 시간 지연과 API 활용 제한을 피해 구글 폼으로 빠르게 진행, 설문 링크 입력 → 프리필 문항 ID 자동 추출 → 입력 값에 따른 링크 자동 산출 구조의 사이트를 기획하고 설문과 메일 발송을 한 사이트에서 구현",
+      "기술 구현 — Claude Code로 설계 논의 및 사이트 구현, Apps Script · Activepieces · Agent Skill 연동, 로컬 테스트 후 사내 배포 솔루션으로 웹 배포",
+      "부서별 프로토타입 공유 및 요구사항 수렴 — 부서별 프로토타입과 사용 가이드 문서를 공유하고 사용 프로세스 전체를 시연해 의견 요청, 이미지 삽입·이미지 내 링크 삽입과 구글 메일 발송 주체 변경 기능 추가",
+      "최종 수정 후 배포 — 요구사항 반영과 사이트 가독성 개선, 내부 로컬 서버 테스트 후 사내 서버에 최종 배포",
     ],
     fullResult:
-      "법인명·담당자·이메일·내부 ID를 인코딩해 링크에 담고, 화면에 노출하지 않은 채 응답과 고객사를 자동 매칭하는 구조로 응답 매핑을 100% 자동화했습니다. 외부 CRM 대신 자체 발송 구조로 바꿔 외부 발송 툴 의존과 반송 메일 문제를 없앴고, 마케팅 수신 동의와 상관없이 정보성 설문을 보낼 수 있게 됐습니다.",
+      "데이터 매핑 작업을 전면 제거하고 고객 응답에 따른 자동 매핑 시스템을 구축해 응답 매핑을 100% 자동화했습니다. CRM 툴을 쓰던 기존 발송 구조의 문제를 해결해 마케팅 메시지와의 충돌로 인한 메일 수신 차단을 막았고, 마케팅 동의 여부와 상관없이 메일을 발송할 수 있게 됐습니다. 설문 결과를 통합 저장하는 DB를 만들어 고객사별 통합 상태를 확인하는 데이터 프로젝트의 기반을 마련했습니다.",
     notionUrl: "https://app.notion.com/p/3ca8937a33b1806d9995d0ea5bfdcb06",
     en: {
-      title: "Customer Survey Delivery Tool",
+      title: "Customer Survey Delivery Tool: Planning and Development",
       summary:
-        "Removed the manual reconciliation behind customer surveys by designing and building an in-house tool that generates pre-filled survey links, then shipping it internally.",
+        "Respondents' typos left survey answers unmatched. Encoding company, contact, email and internal ID into a pre-filled link now matches each response to its customer without showing those fields, so mapping is fully automated.",
       role: "Process design and product development",
-      result: "Response mapping fully automated; external CRM sending tool no longer needed",
-      tags: ["Process Design", "Product Development", "Automation"],
+      result: "Survey response mapping fully automated; no longer dependent on an external CRM mailing tool",
+      tags: ["Process Design", "Development"],
       background:
-        "The decision to run a customer satisfaction survey surfaced the fact that each service owner was sending their own survey in their own format.",
+        "The company decided to run a customer satisfaction survey. The project started from another team's request.",
       problem:
-        "Each response had to be matched to the respondent's company by hand, and any response with the company name left blank or misspelled was thrown away. The forms also differed by owner, so responses could not be reconciled into one dataset. And because surveys went out through Mailchimp, customers who had opted out of marketing never received even an informational survey — while the survey sends muddied the marketing team's own project data.",
+        "Each service and each owner used a different survey form, which made the data hard to map. Respondents' companies had to be matched by hand, and any response with the company name left blank or misspelled was thrown away. Surveys went out through Mailchimp, so customers who had opted out of marketing never received even an informational survey, and the sends polluted the marketing team's project data.",
       process: [
-        "Defining the problem — Starting from another team's request and establishing that this was not a manual-effort problem but an identification one: a response could not be tied back to the customer who gave it",
-        "Comparing options — Weighing Google Forms pre-fill against third-party tools on security review time, API freedom, and whether respondents could edit pre-filled values",
-        "Choosing Google Forms — Avoiding security-review delay and API limits, then designing a site that takes a survey link, extracts the pre-fill field IDs automatically, and generates the links",
-        "Building it — Combining survey creation and mail delivery into a single screen, wiring together Apps Script, Activepieces and an Agent Skill with AI coding tools, and deploying internally after local testing",
-        "Prototypes per team and gathering requirements — Building a prototype for each team first, collecting further requests, and extending the tool after sorting what was technically feasible from what was not needed (inline images, a switchable sending account)",
-        "Final release — Shipping to the internal server after the requested changes and a readability pass",
+        "Defining the problem — Pinning down what the mapping problem caused, and confirming that it was more than a matter of effort: there was effectively no way to know whose response was whose",
+        "Comparing options — Google Forms pre-fill (no separate security review, free use of the API / one link per sender, pre-filled answers can be edited) against a third-party tool (IDs hidden in the link, not shown in the form / security review and extra cost)",
+        "Choosing Google Forms and building the first flow — Going with Google Forms to avoid security-review delay and API limits; planning a site that takes a survey link, extracts the pre-fill field IDs and generates links from the inputs, with survey creation and mail delivery on one site",
+        "Building it — Design discussion and implementation with Claude Code; Apps Script, Activepieces and an Agent Skill wired together; local testing, then web deployment on the internal hosting service",
+        "Prototypes per team and requirements — Sharing a prototype and a user guide with each team, demonstrating the whole flow and asking for feedback; adding inline images, links inside images, and a switchable Gmail sender",
+        "Final changes and release — Applying the requests and improving readability; testing on a local server, then releasing on the internal server",
       ],
       fullResult:
-        "Company name, contact, email and internal ID are encoded into the link and matched to the response without ever appearing on screen, so response mapping is fully automated. Replacing the external CRM with an in-house sending setup removed that dependency and its bounced-mail problem, and informational surveys now reach customers regardless of their marketing consent.",
+        "Manual mapping is gone: responses are matched to customers automatically, so response mapping is fully automated. Replacing the CRM-based sending setup stopped blocks caused by clashes with marketing mail, and surveys now go out regardless of marketing consent. Survey results are stored in one database, which lays the groundwork for a data project tracking each customer's overall status.",
     },
   },
   {
@@ -164,46 +164,46 @@ export const projectsData: Project[] = [
     company: "flex",
     period: "2026.04 – 2026.07",
     summary:
-      "요금 체계를 기능 중심에서 요금제 형태로 전환하며, 전환 로직 설계와 고객 안내 프로세스를 처음부터 구축했습니다.",
-    role: "전환 PM — 엣지 케이스 대응·기술 검토·전체 일정, 고객 안내 프로세스 기획·운영",
-    result: "NDR 118% 달성, 이탈율 10% 이하 유지",
-    tags: ["비즈니스 액션", "요금제 개편", "고객 안내"],
+      "비즈니스 목표 달성을 위한 요금제 개편에서 요금제 분류, 요금 적용 로직 설정과 전환 작업, 고객 안내 및 대응 프로세스를 기획하고 진행했습니다.",
+    role: "전환 PM — 엣지 케이스 대응·기술 검토·전체 일정 담당, 고객 안내 프로세스 기획·운영 (금액 설정은 회계 결정)",
+    result: "NDR 118% 달성, 이탈율 10% 이하 유지, 선납금 약 0.5억 원 확보",
+    tags: ["비즈니스 액션"],
     background:
-      "비즈니스 목표 달성을 위한 요금 인상 필요성이 대두되었고, 단순 인상을 넘어 기능 중심 → 요금제 형태로의 체계 전환이 결정되었습니다.",
+      "비즈니스 목표 달성을 위한 요금 인상 필요성이 대두됐고, 단순 요금 인상을 넘어 기능 중심에서 요금제 형태로 요금 체계를 전환하기로 했습니다. 전환 로직과 고객 안내 프로세스를 처음부터 구축해야 했습니다.",
     problem:
-      "서비스 런칭 후 첫 대대적인 과금 체계 변화로 고객 체감 충격이 클 수 있었고, 상위 기능 이용 고객은 요금이 크게 오르는 케이스가 발생했습니다. 고객 사전 안내 프로세스 자체가 전무한 상태였습니다.",
+      "서비스 런칭 후 첫 대대적인 과금 체계 변화라 고객이 체감하는 변화가 크고, 사용하지 않은 기능에 대한 과금이라는 부정적인 인식이 생길 수 있었습니다. 상위 요금제 기능을 사용하던 고객은 결제 요금이 크게 증가했고, 사전 안내를 진행하는 기준 프로세스가 없었습니다.",
     process: [
-      "협업 구조 설정 — 영업·개발·회계·법무·운영이 함께하는 구조에서 금액 설정은 회계가 결정하고, 엣지 케이스 대응·기술 검토·전체 일정은 PM으로 담당",
-      "요금제·일정 파악 — 요금제별 제공 기능을 확인하고, 시행일을 기준으로 역산해 법무(약정 개정)·개발(개발 가능 일정, QA) 등 부서별 일정을 조율",
-      "엣지 케이스 체크 — 유효 계약·파트너 서비스 등 기존 정책 유지 시 문제가 생기는 케이스 정리, 비즈니스 목표와 고객 경험 사이의 밸런스 조율 및 각 케이스별 적용 로직 결정, 확인되는 그레이존 케이스를 전환 로직에 반영",
-      "고객 안내 프로세스 수립 — 안내 일정·방법·메시지 내용 설계, 이용 약관 변경 안내 메일 작성·발송, 문의 회신 워크플로우 설정, 고객사 이슈 발생 시 대응 정책을 운영 구성원과 함께 설정",
-      "데이터 연동·대시보드 협업 — 요금제 전환 정보 확인 및 안내 자동화를 위한 데이터 연동 요청(DA팀), 시뮬레이션 데이터 검증용 대시보드 제작",
-      "연간 계약 프로세스 구축 — SMB 대상 연간 계약 진행 프로세스 수립, 계약서·견적서 생성 자동화, 이탈 위험 고객 협상 리드",
+      "요금제 종류·변경 시점 파악 및 부서별 일정 조율 — 영업·개발·회계·법무·운영 협업 구조에서 요금제별 제공 기능 확인, 시행일 기준 역산으로 법무(약정 개정)·개발(개발 가능 일정, QA) 일정 조율",
+      "엣지 케이스 체크 — 유효 계약, 파트너 서비스 등 기존 정책을 유지하면 문제가 생기는 케이스 정리, 비즈니스 목표와 고객 경험 사이의 밸런스를 조율해 적용 로직 결정, 확인되는 그레이존 케이스를 전환 로직에 반영",
+      "고객 안내 프로세스 결정 — 안내 일정·방법·메시지 내용 설정, 이용 약관 변경 안내 메일 작성 및 전송, 메일 문의 회신 프로세스와 기본 안내 워크플로우 설정, 고객사 이슈 발생 시 대응 정책을 운영 구성원과 함께 설정",
+      "데이터 연동·대시보드 제작 협업 요청 — 요금제 전환 정보 확인과 안내 자동화를 위한 데이터 연동 요청(DA), 전체 시뮬레이션 데이터 검증용 대시보드 제작 요청 및 검증",
+      "연간 계약 프로세스 설정 — AM 미타겟(SMB) 대상 연간 계약 프로세스 구축, 계약서·견적서 생성 자동화, 이탈 위험 대상 협상 리드",
+      "이상 데이터 확인 — Pipedrive나 계약 관리 어드민에 등록이 누락된 계약 건을 로직으로 찾아 일괄 반영, 전환 후 금액이 잘못 들어간 대상을 Metabase로 확인해 일괄 처리",
     ],
     fullResult:
-      "레거시 코드에 따른 요금제 전환 간 발생한 여러 엣지 케이스를 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경 사전 안내 및 요금제 전환을 완료했고, NDR 118%로 상승 전환했습니다. 이탈 관리 과정에서 연간 계약 전환을 유도해 선납금 약 0.5억을 확보했고, 이탈율은 10% 이하로 유지하고 있습니다.",
+      "레거시 코드로 인해 요금제 전환 중 발생한 여러 문제를 엣지 케이스별로 직접 검토하고 변경 로직을 확정했습니다. 주요 약관 변경을 사전 안내하고 요금제 전환을 진행해 NDR 118%로 상승 전환했고, 이탈 관리 과정에서 연간 계약 전환을 유도해 선납금 약 0.5억 원을 확보했습니다. 이탈율은 10% 이하로 유지해 비즈니스 목표 달성에 기여했습니다.",
     notionUrl: "https://app.notion.com/p/36b8937a33b180cc8f31f3cd9919dd82",
     en: {
-      title: "Pricing Plan Migration Project",
+      title: "Pricing Plan Migration",
       summary:
-        "Led the full redesign of the billing structure from feature-based to a subscription plan model, building the migration logic and customer communication process from scratch.",
-      role: "Migration PM — edge cases, technical review and the overall schedule; customer communication process",
-      result: "NDR 118% achieved, churn rate kept below 10%",
-      tags: ["Business Action", "Plan Restructure", "Customer Communication"],
+        "In a pricing overhaul driven by business targets, planned and ran the plan structure, the logic for applying prices and the migration itself, and the process for notifying and supporting customers.",
+      role: "Migration PM — edge cases, technical review and the overall schedule; customer notification process (prices set by finance)",
+      result: "NDR 118%; churn kept under 10%; about 50m KRW in prepayments",
+      tags: ["Business Action"],
       background:
-        "A need arose to raise prices to meet business targets, and leadership decided to go beyond a simple price hike — restructuring from feature-based billing to a subscription plan model.",
+        "Prices had to rise to meet business targets, and rather than a simple increase the company moved from feature-based billing to plans. The migration logic and the customer notification process had to be built from scratch.",
       problem:
-        "As the first major billing overhaul since launch, there was significant risk of customer shock. Some high-feature users faced substantial price increases, and there was zero pre-existing customer communication process.",
+        "As the first major billing change since launch, it would be felt sharply by customers, who could see it as paying for features they did not use. Customers on higher-tier features faced large increases, and there was no standard process for notifying customers in advance.",
       process: [
-        "Setting up the collaboration — Across sales, engineering, finance, legal and operations, finance set the prices while edge cases, technical review and the overall schedule sat with me as PM",
-        "Mapping plans and the schedule — Reviewing features per plan, then working back from the launch date to line up each team's dates: legal's terms revision, engineering's build window and QA",
-        "Checking edge cases — Cataloguing scenarios where legacy policies (active contracts, partner services) would cause issues; balancing business goals against customer experience; defining per-case logic and folding gray-zone cases into the migration logic as they surfaced",
-        "Establishing the customer communication process — Designing notification schedules, channels, and message content; drafting and sending terms-of-service change notification emails; setting up inquiry response workflows; agreeing with the operations team how to handle issues raised by customers",
-        "Data integration & dashboard collaboration — Requesting data pipeline from the DA team to verify plan migration and enable notification automation; building a simulation data validation dashboard",
-        "Building the annual contract process — Establishing the annual contract flow for SMB customers; automating contract and quote generation; leading negotiations with at-risk churn accounts",
+        "Plans, timing and team schedules — Across sales, engineering, finance, legal and operations: confirming the features in each plan, then working back from the effective date to set legal's terms revision and engineering's build and QA dates",
+        "Edge cases — Listing cases that would break under the existing policies, such as active contracts and partner services; balancing business goals against customer experience to decide the logic for each; folding grey-zone cases into the migration logic as they surfaced",
+        "Customer notification process — Setting the schedule, channel and message; writing and sending the terms-change email; setting up replies to email inquiries and the basic notification workflow; agreeing with the operations team how to respond to customer issues",
+        "Data and dashboard requests — Asking the DA team for a data link to check migration status and automate notices, and for a dashboard to validate the full simulation data",
+        "Annual contracts — Building an annual-contract process for SMB customers outside AM coverage, automating contracts and quotes, and leading negotiations with customers at risk of churning",
+        "Checking anomalies — Finding contracts missing from Pipedrive or the contract admin by rule and adding them in bulk; finding accounts billed the wrong amount after migration with Metabase and fixing them in bulk",
       ],
       fullResult:
-        "Personally reviewed and finalized the migration logic for numerous edge cases caused by legacy code. Completed major terms changes and plan migration, and NDR rose to 118%. Working the churn risk into annual contracts secured about 50m KRW in prepayments, and churn is holding below 10%.",
+        "Reviewed the problems legacy code caused during migration case by case and settled the change logic. Terms changes were announced in advance and the migration completed; NDR turned upward to 118%. Steering at-risk customers into annual contracts secured about 50m KRW in prepayments, and churn stayed under 10%, contributing to the business target.",
     },
   },
   {
@@ -212,46 +212,44 @@ export const projectsData: Project[] = [
     company: "flex",
     period: "2026.04 – 2026.05",
     summary:
-      "구성원이 주 단위로 돌아가며 맡던 AI 상담 답변 검수를 검수 전용 에이전트가 판단하는 구조로 바꿔, 사람이 하던 것보다 빠르고 정확하게 처리하면서 팀의 시간을 프로젝트로 돌렸습니다.",
-    role: "프로세스 기획, AI 에이전트 기획·구성",
+      "사람이 모니터링하던 AI 상담 데이터를 AI 에이전트가 모니터링·판단하는 시스템을 구축해, 사람이 진행하던 것보다 빠르고 정확한 검수를 달성하고 모니터링 리소스를 주요 프로젝트에 활용할 수 있도록 했습니다.",
+    role: "프로세스 기획 및 AI 에이전트 기획, 구성",
     result: "검수 처리 속도 50% 향상, 사람 검수 대비 오판단 20% 감소, 판정 누락 0건",
-    tags: ["프로세스 개선", "고객 경험 개선", "AI 에이전트"],
+    tags: ["프로세스 개선", "고객 경험 개선"],
     background:
-      "AI 상담 답변이 잘못된 KB를 참조하거나 할루시네이션을 일으키지 않는지 매일 검수해야 했고, 구성원이 주 단위 로테이션으로 이 모니터링을 맡았습니다.",
+      "AI 상담 답변이 잘못된 KB를 참조하거나 할루시네이션을 일으키지 않는지 매일 검수가 필요했고, 구성원이 주 단위 로테이션으로 매일 모니터링을 맡았습니다.",
     problem:
-      "검수 속도가 인입 속도를 따라가지 못해 오후 8시까지 확인하는 날이 잦았고, 담당자는 그 주 동안 다른 프로젝트에서 빠져야 했습니다. SaaS 모니터링 솔루션은 월 약 20만원이 드는데 ROI가 나오지 않는다고 판단했고, 사람이 데이터를 확인하는 과정에서 생기는 휴먼 에러와 누락 탓에 모니터링의 목적 자체가 달성되지 않는 경우가 있었습니다.",
+      "검수 속도가 인입 속도를 따라가지 못해 오후 8시까지 확인하는 날이 잦았고, 담당자는 그 주 동안 다른 프로젝트에서 빠져야 했습니다. SaaS 모니터링 솔루션은 월 약 20만원의 비용이 들어 ROI 측면에서 가치가 없다고 판단했습니다. 데이터 확인 과정에서 휴먼 에러와 누락이 생겨 모니터링의 목적이 달성되지 못하는 경우도 있었습니다.",
     process: [
-      "검수 전용 에이전트 분리 — 답변 모델과 같은 환경에서 검수하면 같은 오류를 공유할 수 있어, MCP로 Claude Code에 검수 전용 에이전트를 따로 구축하고 기존 KB 학습과 가이드라인·가중치 기반 판정 점수 산출 구조로 설계",
-      "모니터링 프로세스 구조화 — 현재 진행 중인 모니터링을 분석해 단계별 확인 정보, 이상 데이터 발견 시 조치 방법, 팀 내 조치 기준과 가이드라인으로 구조화",
-      "에이전트 KB 학습 구조 설계 — Intercom API 호출로 KB 데이터를 학습시키는 구조를 설계하고, 가이드라인과 자체 웹서치로 할루시네이션을 방지",
-      "피드백–재학습 루프 설계 — 모니터링 결과를 Notion MCP로 DB화하고, 정확도 체크 → 판단 기준 재설계 → 재판단·재학습 리포트로 이어지는 구조를 설계",
-      "에이전트 및 업무 프로세스 구축 — 세션 토큰과 서브 에이전트 액션의 한계를 고려해 cron 구조로 자동화하고, 결과 활용·피드백 업무 프로세스와 재학습 시의 할루시네이션 방지 가이드라인을 정리",
-      "운영 및 검증 — 점수에 따라 개선 / 양호 / 정확 구간으로 분류하고 개선·양호 건만 사람이 검토해 판정을 피드백, 매일 아침 피드백을 재학습에 반영해 가이드라인을 보정. 도입 초기에는 사람 검수와 병행 운영하며 결과를 교차 비교해 검증",
+      "모니터링 프로세스 구조화 — 현재 진행 중인 모니터링 프로세스를 분석해 단계별 확인 정보, 이상 데이터 확인 시 조치 방법, 팀 내 조치 기준 및 가이드라인으로 구조화",
+      "에이전트 KB 학습 구조 설계 — 답변 모델과 같은 환경에서 검수하면 같은 오류를 공유할 수 있어 MCP로 Claude Code에 검수 전용 에이전트를 분리 구축, Intercom API 호출로 KB 데이터를 학습하고 가이드라인·가중치 기반으로 판정 점수 산출, 가이드라인 설정과 자체 웹서치로 할루시네이션 방지",
+      "피드백–재학습 루프 설계 — 모니터링 결과 피드백을 Notion MCP로 DB화, 판단 결과 보완 시 정확도 체크 → 응답 데이터 기반 판단 기준 재설계 → 재판단·재학습 결과 리포트 구조 설계",
+      "에이전트 및 업무 프로세스 구축 — 세션 토큰과 서브 에이전트 액션의 한계를 고려해 cron 구조로 모니터링 자동화, 데이터 판독 → 판단 결과 보강 → 피드백 → 재학습으로 재판단 로직을 강화하는 에이전트 구축, 결과 활용·피드백 업무 프로세스와 재학습 시 할루시네이션 방지 가이드라인 설정",
+      "운영 및 검증 — 점수에 따라 개선 / 양호 / 정확 구간으로 분류해 개선·양호 건만 사람이 검토하고 판정 피드백, 매일 아침 피드백을 재학습에 반영해 가이드라인 보정, 도입 초기에는 사람 검수와 병행하며 결과를 교차 비교해 검증",
     ],
     fullResult:
-      "모니터링 업무를 에이전트로 전면 대체했습니다. 검수 처리 속도가 50% 빨라져 업무 시간 안에 전건을 처리하게 됐고, 사람 검수 대비 오판단은 20% 줄었으며 판정 누락은 0건이었습니다. 확보한 리소스를 다른 프로젝트에 재배치해 리드타임을 10% 단축했습니다.",
+      "모니터링 업무를 에이전트로 전체 대체했습니다. 검수 처리 속도가 50% 향상돼 업무 시간 내 전건을 처리하게 됐고, 사람 검수 대비 오판단은 20% 감소, 판정 누락은 0건이었습니다. 확보한 리소스를 재배치해 타 프로젝트 리드타임을 10% 단축했습니다.",
     notionUrl: "https://app.notion.com/p/3d48937a33b180dda696d3440123b46e",
     en: {
-      title: "Monitoring Agent Design & Build",
+      title: "Monitoring Agent: Design and Build",
       summary:
-        "Replaced the rotating human review of AI support answers with a dedicated review agent that scores and judges them, running faster and more accurately than the manual pass and giving the team its hours back for project work.",
+        "Built a system in which an AI agent monitors and judges the AI support data people used to review, reaching faster and more accurate review than the manual pass and freeing the monitoring time for main projects.",
       role: "Process design; AI agent design and configuration",
-      result: "Review 50% faster; 20% fewer misjudgements than human review, zero missed verdicts",
-      tags: ["Process Improvement", "Customer Experience", "AI Agent"],
+      result: "Review 50% faster; 20% fewer misjudgements than human review; zero missed verdicts",
+      tags: ["Process Improvement", "Customer Experience Improvement"],
       background:
-        "Every AI support answer had to be checked daily for citing the wrong KB article or hallucinating, and team members took the review on a weekly rotation.",
+        "Every AI support answer had to be checked daily for citing the wrong KB article or hallucinating, and team members took the daily monitoring on a weekly rotation.",
       problem:
-        "Review could not keep pace with incoming volume, so checks often ran until 8 p.m., and whoever held the rotation was pulled off other projects for the week. A SaaS monitoring product would have cost roughly 200,000 KRW a month, which did not justify itself on ROI, and the human error and gaps in a manual read meant the monitoring sometimes failed to do the one thing it was for.",
+        "Review could not keep up with incoming volume, so checks often ran until 8 p.m., and whoever held the rotation dropped out of other projects for the week. A SaaS monitoring product cost about 200,000 KRW a month, which was judged not worth it on ROI. Human error and gaps in the manual check meant the monitoring sometimes missed its purpose.",
       process: [
-        "Separating a dedicated review agent — A reviewer running in the same environment as the answering model can share its mistakes, so the review agent was built separately in Claude Code over MCP, trained on the existing KB and scoring each answer against guidelines and weights",
-        "Structuring the monitoring process — Analysing how the pass was actually run, then writing it down as what to check at each step, what to do when anomalous data appears, and the team's criteria and guidelines for acting on it",
-        "Designing the agent's knowledge base — Building the KB learning structure on Intercom API calls, with guidelines and its own web search to keep hallucination out",
-        "Designing the feedback–retraining loop — Writing the agent's output to a database via Notion MCP, then looping through it: check each judgement's accuracy, redesign the criteria from the data, report on re-judgement and retraining",
-        "Building the agent and the process around it — Automating the run on a cron structure that fits within session token and sub-agent action limits, and defining how the team uses the results, feeds back, and guards against hallucination when the criteria change",
-        "Running and validating it — Sorting answers by score into needs-work / fair / accurate, having people review only the first two and feed back whether the verdict was right, and folding that feedback into retraining every morning. Early on the agent ran alongside human review and the two were cross-checked",
+        "Structuring the monitoring process — Analysing the existing process and writing it down as what to check at each step, what to do when anomalous data appears, and the team's criteria and guidelines",
+        "Designing the agent's knowledge base — Building a separate review agent in Claude Code over MCP, since a reviewer in the same environment as the answering model can share its mistakes; learning the KB through Intercom API calls and scoring answers against guidelines and weights; using guidelines and its own web search to prevent hallucination",
+        "Designing the feedback–retraining loop — Storing monitoring feedback in a database through Notion MCP; checking accuracy when verdicts are corrected, redesigning the criteria from the response data, and reporting on re-judgement and retraining",
+        "Building the agent and the work process — Automating the run on cron within session-token and sub-agent limits; an agent that reads data, reinforces its verdicts, takes feedback and retrains; a team process for using results and giving feedback, and guidelines against hallucination when criteria change",
+        "Running and validating — Sorting answers into needs-work / fair / accurate by score, with people reviewing only the first two and feeding back on the verdict; folding feedback into retraining every morning; running alongside human review at first and cross-checking the two",
       ],
       fullResult:
-        "The agent now handles the monitoring work in full. Reviews run 50% faster, so every item is cleared within working hours, with 20% fewer misjudgements than human review and zero missed verdicts. Moving the freed time to other projects cut their lead time by 10%.",
+        "The agent replaced the monitoring work entirely. Review ran 50% faster, so every item was cleared within working hours, with 20% fewer misjudgements than human review and zero missed verdicts. Reassigning the freed time cut other projects' lead time by 10%.",
     },
   },
   {
@@ -260,86 +258,168 @@ export const projectsData: Project[] = [
     company: "flex",
     period: "2026.01 – 2026.02",
     summary:
-      "기존·잠재 고객 구분 없이 수신되던 리드 메시지에 분기 기준을 도입해, 불필요한 이중 컨택을 차단하고 업셀링 기회를 확보했습니다.",
-    role: "프로세스 기획·테스트",
-    result: "AM 담당 고객 자동 안내 실현, 재계약 성사",
-    tags: ["운영 개선", "자동화", "CX"],
-    background:
-      "리드폼 수집 시 기존 고객과 잠재 고객을 구분하지 않아 신규 영업팀과 AM팀이 동일 고객을 중복 컨택하는 상황이 반복됐습니다.",
+      "기존 고객과 잠재 고객 구분 없이 수신되던 리드 메시지에 분기 기준을 설정해, 담당 AM 자동 지정으로 불필요한 이중 컨택을 방지하고 업셀링 기회를 창출했습니다.",
+    role: "기획 및 테스트",
+    result: "AM 담당 고객사 자동 안내, 재계약 성사",
+    tags: ["운영 프로세스 개선"],
+    background: "리드폼 수집 시 기존 고객과 잠재 고객 여부를 분리하지 않았습니다.",
     problem:
-      "기존 고객에게 이력 확인 없이 신규 영업팀이 컨택 후 AM으로 이관되는 경험이 누적되어 고객 신뢰도가 저하되고, AM이 업셀링 기회를 놓치는 구조적 문제가 있었습니다.",
+      "기존 고객임에도 신규 영업팀이 이력 확인 없이 컨택한 뒤 AM으로 이관하는 일이 생겼고, 컨택 포인트가 나뉘면서 AM이 업셀링 등의 컨택 기회를 놓쳤습니다. 담당 AM이 아닌 다른 담당자와 소통한 뒤 이관되는 경험은 고객에게 관리받지 못한다는 느낌을 줬습니다.",
     process: [
-      "메시지 채널 현황 정리 — 각 액션별 메시지 구조·발송 채널·분리 기준 파악",
-      "AM 니즈 체크 — 메시지 내 필수·선택 정보 체크 후 메시지 구조 설계",
-      "발송 로직 기획 — 신규·기존 채널 분기 조건 설정, 메시지 구조·내용·하이퍼링크 변수 기획",
-      "개발 협업 및 QA — 기획안 기반 개발 요청, PRD 배포 후 메시지 내용·분기 QA 진행",
+      "메시지 내용 및 채널 정리 — 각 액션별 메시지 구조와 발송 내용, 발송 채널과 분리 기준 확인",
+      "AM 니즈 체크 — 메시지에 필요한 정보를 필수·선택으로 나눠 메시지 구조 설계",
+      "메시지 내용 및 발송 로직 기획 — 메시지 구조·내용·하이퍼링크 변수 기획, 신규 채널 / 기존 채널 분기 조건 설정",
+      "개발 부서 협업 요청 및 QA — 기획안을 바탕으로 개발 협업을 요청하고 개발 과정 모니터링, PRD 배포 후 메시지 내용과 분기 테스트",
     ],
     fullResult:
-      "AM 담당 고객·AM 배정 필요 고객의 액션 팔로업 체계가 구축되었습니다. 리드 수집 시 AM 터치를 통한 라포 형성이 가능해졌고, 챔피언 확인 및 재계약 컨택을 통해 실 재계약 성사로 이어졌습니다.",
+      "AM 담당 고객과 AM 배정이 필요한 고객의 액션 팔로업 체계를 구축했습니다. 리드 메시지 수집 시 AM이 먼저 컨택해 라포를 형성했고, 이 컨택을 바탕으로 챔피언을 확인하고 재계약 컨택을 진행해 재계약을 성사시켰습니다.",
     notionUrl: "https://app.notion.com/p/3498937a33b180d1a478ce45a805aa56",
     en: {
-      title: "Lead Message Channel Routing Improvement",
+      title: "Lead Message Channel Routing",
       summary:
-        "Introduced branching logic to differentiate existing vs. prospective customers in lead message routing, eliminating redundant double-contacts and unlocking upsell opportunities.",
-      role: "Process planning & QA",
-      result: "Automated AM-managed customer notifications; renewal deal closed",
-      tags: ["Operations Improvement", "Automation", "CX"],
-      background:
-        "Lead form submissions were not segmented by existing vs. new customers, causing the new sales team and Account Management team to repeatedly contact the same customer.",
+        "Set routing rules for lead messages that arrived without distinguishing existing from prospective customers, so the assigned AM is set automatically, double contact is avoided, and upsell opportunities open up.",
+      role: "Planning and testing",
+      result: "Automatic notice to the assigned AM's accounts; a renewal closed",
+      tags: ["Operations Process Improvement"],
+      background: "Lead-form submissions were not separated into existing and prospective customers.",
       problem:
-        "Existing customers were repeatedly contacted by the new sales team without history checks before being handed off to AM, eroding trust and causing AM to miss upsell opportunities.",
+        "Existing customers were contacted by the new-business sales team without a history check and then handed over to AM, and with contact split this way AM missed chances such as upsells. Talking to someone other than their own AM before being handed over left customers feeling unmanaged.",
       process: [
-        "Auditing message channels — Mapping the message structure, sending channels, and segmentation criteria for each action type",
-        "Checking AM requirements — Reviewing required vs. optional fields in messages, then designing the message structure",
-        "Planning send logic — Defining branch conditions for new vs. existing customer channels; designing message structure, content, and hyperlink variables",
-        "Dev collaboration & QA — Filing development requests based on the plan; running QA on message content and branching logic after PRD deployment",
+        "Mapping messages and channels — Checking the message structure and content for each action, the sending channels, and how they were split",
+        "Checking AM needs — Sorting the information a message needs into required and optional, then designing the message structure",
+        "Planning content and send logic — Planning the structure, content and hyperlink variables; setting the conditions that route to the new or existing channel",
+        "Engineering request and QA — Requesting the build from the plan and following its progress; testing message content and routing after production release",
       ],
       fullResult:
-        "Built a follow-up system for AM-assigned customers and those needing AM assignment. AM touch points now enable rapport-building from the lead stage, and champion identification plus renewal outreach led to actual contract renewals.",
+        "A follow-up system now covers customers with an AM and those needing one. AM reaches out first when a lead message arrives and builds rapport; from that contact, AM identified the champion, pursued the renewal, and closed it.",
     },
   },
 
   // JARVIS
   {
-    id: "proj-jarvis-1",
-    title: "신규 환급 서비스 런칭 운영",
+    id: "proj-jarvis-6",
+    title: "서비스 모니터링 대시보드 제작",
     company: "jarvis",
-    period: "2023.10 – 2024.05",
+    period: "2025.04 – 2025.06",
     summary:
-      "신규 환급 서비스의 운영 정책을 처음부터 설계하고, SQL 기반 모니터링 체계를 구축해 안정적인 서비스 랜딩을 이끌었습니다.",
-    role: "서비스 운영 담당자 (운영 정책·모니터링·이슈 대응 전담)",
-    result: "서비스 안정 랜딩 기여, 신규 서비스 매출 비중 20.13%",
-    tags: ["신규 서비스", "운영 정책", "SQL"],
-    background:
-      "기존 삼쩜삼의 신규 환급 서비스 런칭을 앞두고 운영 정책·알림톡·이슈 대응 체계가 없는 상태에서 준비가 필요했습니다.",
-    problem:
-      "신규 서비스라 선례가 없어 대상자 판단 기준, 결제·환불 정책, 엣지 케이스 처리 방식을 모두 직접 정의해야 했습니다.",
+      "서비스 주요 지표를 확인할 수 있는 데이터 대시보드를 제작하고, 이를 바탕으로 서비스 주요 이슈 발생 시 빠르게 대응했습니다.",
+    role: "기획 및 운영",
+    result: "메인 시즌 안정적인 서비스 운영, 서비스 개선 사항 실시간 파악",
+    tags: ["데이터 가공", "분석"],
     process: [
-      "서비스 내용 파악 및 운영 정책 설정 — 대상자 판단·결제·환불·엣지 케이스·어드민 처리 절차 수립",
-      "서비스 운영 모니터링 대시보드 구축 — 서비스 플로우 정상 데이터 파악, 비정상 로그 추적 쿼리 빌드, 고객 여정 데이터 대시보드 제작",
-      "서비스 운영 — 제출 서류 검토, 서비스 이슈 라이징, 운영 개선 사항 PM 전달, 고객 경험 개선 아이데이션",
+      "서비스 운영 필요 지표 선정 — 결제·환불 금액(이슈 환불 / 고객 요청 환불 비교), 처리 필요 건 실시간 데이터, 탈퇴 유저 추이(평균 이상 발생 시 사유 확인), 매 시즌 크리티컬했던 이슈의 반복 발생에 대비한 모니터링 지표 설정",
+      "필요 지표 확인을 위한 SQL 쿼리 빌드 — SQL 기반 데이터 쿼리와 노운 이슈 모니터링용 쿼리 빌드",
+      "쿼리 활용 대시보드 제작, 알럿 설정 — 가시성을 고려한 대시보드 제작, 목적에 따른 탭 분류, 크리티컬 이슈 발생 시 알럿과 자동 리프레시 설정",
     ],
     fullResult:
-      "운영 프로세스 확립을 통한 안정적 서비스 랜딩에 기여했으며, 신규 서비스 이용을 통한 매출 기여 비중 20.13%를 달성했습니다.",
-    notionUrl: "https://app.notion.com/p/1418937a33b180a0be91dd0c447a1c8a",
+      "메인 시즌 동안 안정적으로 서비스를 운영하고 서비스 개선 사항을 실시간으로 파악했습니다. 대시보드로 처리 필요 건 수와 일정을 확인했고, 주요 이슈 발생 상황과 메인 이슈 현황을 모니터링해 대응 방안과 개선 방향성을 결정하는 데이터 기반을 마련했습니다.",
+    notionUrl: "https://app.notion.com/p/1f68937a33b1802a8c58f68718854059",
     en: {
-      title: "New Refund Service Launch Operations",
+      title: "Service Monitoring Dashboard",
       summary:
-        "Designed the operational policies for a new refund service from scratch and built an SQL-based monitoring system, contributing to a stable service landing.",
-      role: "Service operations lead (operational policy, monitoring, and issue response)",
-      result: "Contributed to stable service landing; new service revenue share at 20.13%",
-      tags: ["New Service", "Operations Policy", "SQL"],
-      background:
-        "With the launch of a new refund service on 삼쩜삼 approaching, there were no operational policies, KakaoTalk notification templates, or issue response procedures in place.",
-      problem:
-        "With no precedent to draw from, we had to define eligibility criteria, payment/refund policies, and edge case handling entirely from scratch.",
+        "Built a data dashboard showing the service's key metrics, and used it to respond quickly when major issues occurred.",
+      role: "Planning and operations",
+      result: "Stable operation through the main season; service improvements tracked in real time",
+      tags: ["Data Processing", "Analysis"],
       process: [
-        "Service research & policy setting — Establishing eligibility criteria, payment, refund, edge case handling, and admin processing procedures",
-        "Service monitoring dashboard build — Mapping normal service flow data, building queries to trace abnormal logs, creating customer journey data dashboards",
-        "Service operations — Reviewing submitted documents, surfacing service issues, relaying improvements to PM, ideating on customer experience enhancements",
+        "Choosing the metrics operations needs — Payment and refund amounts (issue refunds vs. customer-requested refunds), items awaiting processing in real time, account-deletion trends (checking the cause when a day runs above average), and metrics for issues that turned critical in past seasons",
+        "SQL queries for those metrics — SQL data queries and queries for monitoring known issues",
+        "Dashboard and alerts — A dashboard built for readability, tabs by purpose, alerts on critical issues and automatic refresh",
       ],
       fullResult:
-        "Contributed to a stable service launch by establishing the full operations process. Achieved a 20.13% revenue contribution share from the new service.",
+        "The service ran stably through the main season, with improvements tracked in real time. The dashboard showed how many items needed processing and when, and monitoring of major and ongoing issues gave a data basis for deciding responses and the direction of improvements.",
+    },
+  },
+  {
+    id: "proj-jarvis-4",
+    title: "서비스 오인지에 따른 서비스 신뢰도 하락 이슈 해결",
+    company: "jarvis",
+    period: "2025.04 – 2025.05",
+    summary:
+      "서비스 전환 시 발생하는 서비스 오인지로 신뢰도가 하락하던 장기 known 이슈에 대해, 서비스 배포 전 자체 해결 방안으로 SQL 대상자 추출 쿼리와 알림톡 자동 발송 트리거를 빌드해 동일 이슈 불만·문의를 95% 줄였습니다.",
+    role: "개선안 기획 및 고객 안내 액션 실행",
+    result: "동일 이슈 문의 95% 감소, 불필요한 환불 및 PG사 민원 대응 80% 감소",
+    tags: ["데이터 분석", "운영 처리"],
+    background:
+      "세금 신고 기간에 따라 서비스를 클로징·오픈하는데, 오픈 후 재진입 시 기존 이용 내역이 아닌 신규 이용을 바탕으로 서비스 대상 여부를 판단했습니다.",
+    problem:
+      "결제와 신고 이후 진행 상황을 확인하러 온 고객이 초기화된 화면을 만났고, '서비스 미대상자' 안내를 오해해 이용료를 사기당했다고 인지했습니다. 서비스 신뢰도 하락과 부정 바이럴이 확산됐습니다.",
+    process: [
+      "이슈 상황 정의 — 불만 인입의 90%가 서비스 전환 후 대상자가 아니라는 안내를 받은 고객임을 확인 (소액이라도 다른 연도 신고가 가능한 대상은 불만이 아닌 문의로 인입)",
+      "대상자 구체화 — 개발자와 명확하게 소통하기 위해 이슈 대상을 고객향 언어가 아닌 DB명·속성명 코드 형태로 정의",
+      "개선 방향 기획 — 메인 시즌(5월)까지의 기간과 개발·PD·PM 리소스를 고려해 BE 로직 개선(근본 해결, 큰 개발 리소스와 사이드 이펙트 우려) / FE 화면 개선(빠른 작업, 화면을 자세히 보지 않으면 해결 불가) / 운영 자체 해결(즉시 실행, 알림톡 비용·효율 문제) 세 가지 방향 비교",
+      "개선 방향 결정 및 실행 — 유관 부서 미팅 후 FE 개선으로 결정(로직 수정 시 삼쩜삼 전체 서비스 QA 필요, 메인 시즌까지 시간 부족), 주요 문의 시기인 6월 전 5월 말 배포 목표. 배포 딜레이에 대비해 SQL로 대상자 판단 쿼리를 빌드하고, 운영계 DB에서 대상자 발생 시 알림톡 API가 자동 실행되는 트리거를 만들어 선안내 별도 진행",
+    ],
+    fullResult:
+      "4월 말부터 실시간 알림톡을 자동 발송했고, 5월 말에는 원래 없던 이용 내역·신고 내역 진입점을 미대상자 화면에 새로 노출했습니다(이전 시즌 신고 고객의 클릭율 10%). 해당 이슈 불만·문의는 작년 대비 95% 감소했고(작년 6월 인입 카테고리 상위 5% → 올해 하위 5%), 화면 개선보다 알림톡 선안내의 기여가 더 컸습니다. 환불 대응이 불가한 PG사 등 대외 민원은 80% 감소해 중요 대응 리소스를 확보했습니다.",
+    notionUrl: "https://app.notion.com/p/2108937a33b18017bc67ca551f9705a6",
+    en: {
+      title: "Resolving a Trust Issue Caused by Customer Misreading",
+      summary:
+        "Customers misread the service at each seasonal switch and lost trust in it, a long-standing known issue. Ahead of a product fix, an SQL query and an automatic KakaoTalk trigger cut related complaints and inquiries by 95%.",
+      role: "Improvement planning and customer notification",
+      result: "Inquiries on the issue down 95%; unnecessary refunds and payment-processor complaints down 80%",
+      tags: ["Data Analysis", "Operations Handling"],
+      background:
+        "The service closes and reopens with each tax-filing period, and on return it judged eligibility from new usage rather than the customer's existing history.",
+      problem:
+        "Customers who came back to check on a paid, filed return found a reset screen, read the 'not eligible' notice as meaning they had been cheated out of their fee, and trust fell as negative word of mouth spread.",
+      process: [
+        "Defining the issue — Confirming that 90% of complaints came from customers told after the switch that they were not eligible (those who could still file another year, even for a small amount, came in as questions rather than complaints)",
+        "Specifying the affected group — Defining it in database and field names rather than customer-facing language, so engineers knew exactly who was meant",
+        "Planning options — Weighing three, given the time to the main season (May) and engineering, PD and PM capacity: fix the back-end logic (a root fix, but heavy work and side-effect risk), change only the front-end screen (fast, but works only if customers read it), or handle it in operations (immediate, but notices cost money and are less effective)",
+        "Deciding and executing — After meeting the teams involved, choosing the front-end change (a logic change would need QA across every 삼쩜삼 service, and time to the main season was short), targeting end of May before the June peak; meanwhile building an SQL query to identify affected customers and a trigger in the operations database that calls the KakaoTalk API when one appears, so notices went out ahead of the release",
+      ],
+      fullResult:
+        "Real-time KakaoTalk notices ran from the end of April, and at the end of May the not-eligible screen gained an entry point to past usage and filings that had not existed before (clicked by 10% of customers who filed the previous season). Complaints and inquiries on the issue fell 95% year on year (from the top 5% of last June's inbound categories to the bottom 5% this year), with the advance notices contributing more than the screen change. Outside complaints, such as those to payment processors where refunds could not be handled, fell 80%, freeing capacity for critical work.",
+    },
+  },
+  {
+    id: "proj-jarvis-5",
+    title: "크리티컬 노운 이슈 해결 (오신고 문제)",
+    company: "jarvis",
+    period: "2025.04 – 2025.05",
+    summary:
+      "장기 노운 이슈인 부양가족 오신고에 대해 경고 메시지 수집 DB를 만들고 기존 데이터와 연결해 모니터링 체계를 구축했으며, 이슈 발생 시 고객 자동 안내와 문의·환불 처리 프로세스를 설정해 선제적 대응 기반을 마련했습니다.",
+    role: "기획 및 운영",
+    result: "이슈 후처리 대상 25% 감소, 재정 리스크 약 10억 감소",
+    tags: ["데이터 분석", "운영 처리"],
+    background:
+      "삼쩜삼 이용 중 요건에 맞지 않는 부양가족을 포함해 신고하는 경우가 생겨 부정확한 세금 신고가 진행됐습니다.",
+    problem:
+      "부양가족의 소득 요건은 확인할 수 없지만 고객은 삼쩜삼 귀책을 주장해 불필요한 재정적 손실이 발생했고, 대외 이슈로 확대되며 서비스 신뢰도가 하락했습니다.",
+    process: [
+      "필요 데이터 확인, DB 적재 요청 — 모니터링용 신규 데이터 테이블 적재 요청, 신고 시 발생하는 경고 메시지 추출, 경고 메시지와 기존 신고 데이터를 연결할 키 값 세팅",
+      "이상 데이터 추출 쿼리 빌드 — 기존 신고 데이터와 신규 DB로 경고 메시지 발송 대상·연도·유형 추출",
+      "오신고 대상자 안내 메시지 설정 — 세무서 검토 시 결과가 변동될 수 있는 대상에게 보낼 알림톡을 신고 유형별 처리 방향에 맞춰 세 가지 버전으로 기획",
+      "API 활용 알림톡 자동 발송 세팅 — 쿼리로 대상자가 발생하면 알림톡이 자동 발송되도록 API 트리거 설정",
+      "환불·상담 처리 방향 결정 — 환불 진행 불가 케이스 대응 정책, 고객센터 문의 인입 시 정책 설정",
+      "이슈 모니터링 대시보드 제작 — 대상자 발생율과 이슈 환불 여부를 모니터링하는 대시보드를 전사에 공유해 이슈 발생율 추이에 따른 개발 방향성 설정 기반 마련",
+    ],
+    fullResult:
+      "오신고에 따른 이슈 후처리 대상이 25% 감소했습니다. 작년 동일 이슈 처리 금액이 최소 40억이었던 것을 기준으로 환불과 대납 비용에서 약 10억 가량의 재정 리스크를 줄였고, 노운 이슈 처리 방향을 설정해 안정적인 서비스 운영 기반을 마련했습니다.",
+    notionUrl: "https://app.notion.com/p/1fc8937a33b180d59937f2a226db9d5d",
+    en: {
+      title: "Resolving a Critical Known Issue (Incorrect Dependant Filings)",
+      summary:
+        "For the long-standing issue of dependants claimed in error, built a warning database linked to filing data for monitoring, plus automatic customer notices and handling for inquiries and refunds.",
+      role: "Planning and operations",
+      result: "Cases needing follow-up down 25%; about 1bn KRW less financial risk",
+      tags: ["Data Analysis", "Operations Handling"],
+      background:
+        "Some 삼쩜삼 users included dependants who did not meet the requirements, so returns were filed incorrectly.",
+      problem:
+        "A dependant's income could not be checked in advance, yet customers held 삼쩜삼 responsible, causing avoidable financial losses; as it became a public issue, trust in the service fell.",
+      process: [
+        "Data and table request — Requesting a new monitoring table, extracting the warnings raised during filing, and setting a key to join them to existing filing data",
+        "Anomaly query — Using existing filings and the new table to extract who received warnings, for which year, and of what type",
+        "Customer notices — Planning KakaoTalk messages for customers whose result could change on tax-office review, in three versions to match how each filing type is handled",
+        "Automatic sending via API — A trigger that sends the notice automatically when the query finds a new case",
+        "Refund and support policy — Policy for cases where a refund is not possible and for related inquiries to customer support",
+        "Issue dashboard — A dashboard of case rates and refund status, shared company-wide to guide development priorities as the trend moved",
+      ],
+      fullResult:
+        "Cases needing follow-up after incorrect filings fell 25%. Against at least 4bn KRW spent on the same issue the year before, this reduced financial risk by about 1bn KRW across refunds and covered payments, and settled how the known issue is handled so the service can run stably.",
     },
   },
   {
@@ -348,218 +428,126 @@ export const projectsData: Project[] = [
     company: "jarvis",
     period: "2025.03 – 2025.04",
     summary:
-      "환급 대기 기간에 대한 고객 불만을 해소하기 위한 즉시환급 테스트 서비스를 운영하며 행정·운영 한계점을 실증했습니다.",
-    role: "신규 서비스(즉시환급) 운영 담당 — 고객 플로우 기획, 모니터링 체계 구축, 이슈 처리",
-    result: "운영 이슈 사전 대비 체계 구축, 서비스 기획 방향 전환 근거 마련",
-    tags: ["신규 서비스", "운영", "SQL", "대시보드"],
+      "삼쩜삼의 환급 시기 불만을 해소하기 위한 즉시환급 테스트 서비스를 기획·라이브했습니다. 수익성 면에서 좋은 수치를 보이지는 못했지만 세무 처리의 행정적 한계와 문제점을 확인했고, 이를 바탕으로 서비스 기획 방향 전환과 신규 서비스 재오픈 준비의 근거를 마련했습니다.",
+    role: "신규 서비스(즉시환급) 운영 담당자 — 고객 플로우 기획, 고객 여정 모니터링 체계 구축, 전체 운영 플로우 구축, 엣지 케이스 및 이슈 사전 대비와 처리",
+    result: "수익성 한계 확인으로 서비스 기획 방향 전환 근거 마련, 운영 이슈 사전 대비 체계 구축",
+    tags: ["신규 서비스 운영"],
     background:
-      "삼쩜삼 신고 시점과 환급금 지급 시점 간 약 2개월 차이에 대한 고객 불만이 지속되었고, 경쟁사 증가에 따른 경쟁력 확보가 필요했습니다.",
+      "세무 처리는 행정 지연으로 신고 시점에서 약 2개월의 차이가 생기고, 다양한 세무 플랫폼이 시장에 진입하고 있었습니다.",
     problem:
-      "선지급 후 환수 구조로 인한 회수 리스크가 있었고, 고객 어뷰징·세무서 행정 처리 미흡 등 운영 불확실성이 높은 상황이었습니다.",
+      "삼쩜삼의 귀책이 아닌 세무 처리 딜레이임에도 신고 시점과 환급금 지급 시점의 차이에 대한 고객 불만이 꾸준히 인입됐고, 경쟁사 증가로 경쟁력 확보가 필요했습니다.",
     process: [
-      "서비스 방향 기획 — 환급금 선지급 시 회수 가능 방법 확인, 세무 행정 절차 내 가능 여부 연구",
-      "테스트 서비스 결정 — 전체 대상자 진행 시 회수 리스크를 고려해 일부 대상 테스트 서비스로 진행",
-      "운영 가능성·이슈 케이스 검토 — 입금 대상자 판단·입금 방법 등 운영 가능 여부 체크, 엣지 케이스별 사전 대응 방안 마련, SQL 대시보드 제작(Redash)",
-      "운영 서버 배포 및 모니터링 — 결제·서비스 완료 여부 모니터링, 이슈 발생 추적",
-      "크리티컬 이슈 대응 — 금액 계산 로직 오류 확인 후 서비스 임시 차단, 로직 수정 요청·QA 진행",
-      "테스트 결과 분석 — 환수율 60%, 행정 처리 문제 확인 후 서비스 방향 전환 근거 마련",
+      "서비스 방향 기획 — 환급금 선지급 시 회수할 수 있는 방법을 세무 행정 절차 안에서 연구하고 서비스 내 반영 가능 여부 확인",
+      "서비스 내 반영 방향성 검토 — 전체 대상자로 진행하면 회수 문제가 생길 수 있어 전체 로직 변경 대신 테스트 서비스로 임시 오픈 결정",
+      "운영 가능성 및 이슈 케이스 검토 — 입금 대상자 판단·입금 방법 등 운영 가능 여부 체크, 기존 환급 신고의 이슈 케이스별 대응 방안 마련(대응 불가 대상은 테스트 제외), BPO 전달용 서비스 플로우·대응 안내 문서 제작, Redash로 서비스 여정과 엣지 케이스 모니터링 대시보드 제작",
+      "일부 대상 운영 서버 배포 — 결제·서비스 완료 여부와 이슈 발생 모니터링",
+      "오류 발생 및 수정 — 금액 계산 로직 오류를 크리티컬 이슈로 확인해 서비스 진입 임시 차단, PM·BE에 수정 요청 후 QA, 이슈 후처리 방안 기획·진행",
+      "테스트 결과 확인 — 지급 금액 환수 여부를 체크하고, 세무서 처리 방향과 국세청 행정 가이드라인 사이의 차이를 확인해 기획에 활용한 행정 방안의 유효성이 사실상 없음을 확인",
     ],
     fullResult:
-      "선환급 후 환수율 60% 달성. 고객 어뷰징 케이스 10%, 세무서 오처리 90%를 확인하며 현 구조의 수익성 한계를 실증했습니다. 해당 결과를 바탕으로 신규 서비스 기획 방향 전환의 근거가 되었고, 운영 모니터링 체계 중요성을 확인해 이후 서비스 운영에 반영했습니다.",
+      "선환급금 지급 후 환수율은 60%였고, 미환수 건 중 고객 어뷰징(의도적 오신고, 고액 체납자의 의도적 신고)이 10%, 세무서 오처리가 90%였습니다. 서비스 자체보다 행정적 문제라 단기간 해결이 불가능해, 동일한 기획안으로는 수익성에 도움이 되지 않음을 확인했습니다. 기존에 파악하지 못한 어뷰징 케이스와 세무서 행정 처리의 미흡한 점에 대한 운영 대응안을 마련했고, 오픈 초기 모니터링 대시보드로 이슈를 빠르게 확인해 대응하며 운영 모니터링 체계의 중요성을 확인했습니다.",
     notionUrl: "https://app.notion.com/p/2138937a33b180b5b062fcb1a9e64a59",
     en: {
-      title: "Instant Refund Test Service Operations",
+      title: "Instant Refund Test Service",
       summary:
-        "Operated a test service for instant refunds designed to address customer complaints about waiting periods, empirically validating administrative and operational limitations.",
-      role: "New service (instant refund) operations — customer flow planning, monitoring setup, issue handling",
-      result: "Built proactive issue response system; provided evidence to redirect the service roadmap",
-      tags: ["New Service", "Operations", "SQL", "Dashboard"],
+        "Planned and launched a test service paying refunds immediately. Profitability fell short, but it exposed the administrative limits of tax processing, which became the basis for changing the service plan and preparing a relaunch.",
+      role: "Operations owner for the new instant-refund service — customer flow, journey monitoring, the end-to-end operations flow, and preparing for and handling edge cases and issues",
+      result: "Profitability limits established as grounds to change the service plan; issue-readiness process in place",
+      tags: ["New Service Operations"],
       background:
-        "Ongoing customer complaints about the ~2-month gap between 삼쩜삼's filing date and refund disbursement created pressure, and growing competition made competitive differentiation necessary.",
+        "Tax processing runs about two months behind the filing date because of administrative delay, and more tax platforms were entering the market.",
       problem:
-        "The advance-payment / clawback structure carried collection risk, and operational uncertainty was high due to potential user abuse and inconsistent tax authority processing.",
+        "Customers kept complaining about the gap between filing with 삼쩜삼 and receiving the refund, even though the delay came from tax processing rather than 삼쩜삼, and growing competition made it necessary to stay competitive.",
       process: [
-        "Service direction planning — Researching clawback methods for advance payments; studying feasibility within tax admin procedures",
-        "Test service decision — Given clawback risk from a full rollout, decided to run a limited-audience test service",
-        "Feasibility & edge case review — Checking operational viability (eligibility criteria, disbursement methods); preparing per-case contingency plans; building SQL dashboards (Redash)",
-        "Production deployment & monitoring — Monitoring payment status and service completion; tracking issue occurrence",
-        "Critical issue response — Confirmed a payment calculation logic error; temporarily blocked the service, filed a fix request, and ran QA",
-        "Test result analysis — Confirmed 60% clawback rate; identified 10% user abuse and 90% tax authority processing errors, establishing grounds to redirect the service roadmap",
+        "Service direction — Researching how an advance refund could be recovered within tax administration procedures, and whether that could be built into the service",
+        "Scope — Opening a temporary test service instead of changing the logic for everyone, since recovery problems could follow a full rollout",
+        "Feasibility and issue cases — Checking whether operations staff could decide who to pay and how; preparing responses for each known issue case from past refund filings (excluding cases that could not be handled); writing the service flow and response guide for the BPO team; building a Redash dashboard for the service journey and edge cases",
+        "Release to a subset of users — Monitoring payment and completion status and any issues",
+        "Error and fix — Confirming a critical error in the amount calculation, blocking entry to the service temporarily, requesting the fix from PM and back end, running QA, and planning and carrying out the follow-up",
+        "Results — Checking whether paid amounts were recovered, and finding that tax offices' handling differed from the National Tax Service's administrative guidelines, so the administrative route the plan relied on was effectively unusable",
       ],
       fullResult:
-        "60% clawback rate achieved. Confirmed 10% user abuse and 90% tax authority processing errors, empirically demonstrating the profitability limits of the current structure. Results became the basis for redirecting the new service roadmap; monitoring best practices were incorporated into subsequent operations.",
+        "60% of advance refunds were recovered. Of the unrecovered cases, 10% were customer abuse (deliberate incorrect filings, deliberate filings by large tax debtors) and 90% were processing errors by tax offices. Because the problem was administrative rather than in the service, it could not be fixed quickly, and the same plan would not help profitability. Operational responses were prepared for the abuse cases and the tax-office handling problems found, and catching issues early through the monitoring dashboard showed how much a monitoring setup matters.",
     },
   },
   {
     id: "proj-jarvis-3",
-    title: "백오피스 기능 고도화",
+    title: "백오피스 기능 개선 (로직 고도화 및 기능 개선)",
     company: "jarvis",
     period: "2024.07 – 2025.05",
     summary:
-      "서비스 변경에 따라 누적된 백오피스 기능 부재 문제를 리스트업·기획·개발 리딩하여 운영 업무 효율을 50% 향상시켰습니다.",
-    role: "백오피스 기능 개선 기획 및 개발 리딩",
-    result: "운영 업무 효율 50% 향상, BE 리소스 확보",
-    tags: ["서비스 개선", "백오피스", "운영 효율화"],
-    background:
-      "신규 서비스 추가·기존 서비스 로직 변경 등이 반복되며 백오피스 기능이 누락된 채 운영되었고, BE 개발자가 단순 확인 업무까지 처리해야 하는 상황이 발생했습니다.",
+      "서비스 운영 업무 효율을 높이기 위해 백오피스 기능 개선 필요 건을 리스트업해 초기 기획을 진행하고, 서비스 고도화에 따른 기능 추가와 로직 오류로 정상 작동하지 않던 기능의 개선 작업을 리딩했습니다. 리드 타임 감소로 운영 업무 효율성을 50% 높였습니다.",
+    role: "백오피스 기능 개선 기획 및 작업 리딩",
+    result: "운영 업무 효율성 50% 증대, BE 및 운영 리소스 확보",
+    tags: ["서비스 개선"],
+    background: "신규 서비스 추가, 기존 서비스 로직 변경 등 서비스 변경 사항이 다수 발생했습니다.",
     problem:
-      "백오피스 미지원으로 인해 단순 확인·보정 처리 시 이전 대비 리드 타임이 300% 이상 소요되며 업무 효율이 급감하고 고객 불만이 증가했습니다.",
+      "백오피스가 지원하지 않는 부분은 BE 개발자가 별도로 확인·처리해야 했고, 단순 확인·응대에도 이전 대비 리드 타임이 300% 이상 소요돼 업무 효율이 떨어지고 고객 불만이 늘었습니다.",
     process: [
-      "개선 필요 사항 리스트업 — 서비스 기능 추가에 따른 필수 기능 확인, 운영 간 필요 기능·개선 필요 로직 파악, 우선순위 체크 후 HIGH 이상만 최종 선정",
-      "개선안 기획 — 개선 아이템별 초기 기획 진행, 필요 스펙·버튼 동작 정의",
-      "개발 논의 및 리딩 — PM과 개발 일정·담당 논의, 필수·후순위 티켓 재선정 후 개발 리딩",
-      "개발 현황 확인·QA — STG 배포 건 QA 진행, 정상 작동·오작동 여부 체크 후 전달",
+      "백오피스 개선 필요 사항 리스트업 — 서비스 기능 추가에 따른 필수 기능, 운영에 필요한 기능, 개선 필요 로직을 확인하고 우선순위 HIGH 이상만 최종 기획 아이템으로 선정",
+      "개선안 기획 — 개선 아이템 초기 기획, 필요 스펙과 버튼에 따른 동작 정의",
+      "개발 관련 논의 — PM과 개발 일정·담당 논의, 필수 반영 티켓과 후순위 티켓을 재선정한 뒤 개발 리딩",
+      "개발 상황 확인, QA — 개발 진행 상황 확인, STG 배포 건의 정상 작동·오작동 여부를 체크해 전달",
     ],
     fullResult:
-      "전체 아이템 중 필수 아이템 개선·배포 완료. 백오피스 기능 개선을 통해 운영 업무 효율 50% 향상, 단순 확인·보정 처리를 위한 BE 리소스를 확보했습니다.",
+      "전체 아이템 중 필수 아이템의 개선과 배포를 완료했고, 드랍된 아이템은 하반기 개선 아이템으로 선정했습니다. 백오피스 기능 개선으로 업무 효율성을 50% 높이고, 단순 확인·보정 처리에 쓰이던 BE 리소스를 확보했습니다.",
     notionUrl: "https://app.notion.com/p/2278937a33b1802e9009c523b9560ab4",
     en: {
-      title: "Back-Office Feature Upgrade",
+      title: "Back-Office Improvements (Logic and Features)",
       summary:
-        "Systematically identified accumulated back-office gaps caused by service changes, led planning and development, and improved operational efficiency by 50%.",
-      role: "Back-office improvement planning and development lead",
-      result: "50% improvement in operational efficiency; freed up back-end engineering resources",
-      tags: ["Service Improvement", "Back-Office", "Operations Efficiency"],
-      background:
-        "Repeated new service additions and logic changes left the back-office missing key features, requiring back-end engineers to handle routine verification tasks.",
+        "Listed the back-office improvements operations needed, wrote the initial plans, and led the work to add missing features and fix ones broken by logic errors. Shorter lead times raised operational efficiency by 50%.",
+      role: "Back-office improvement planning and leading the work",
+      result: "Operational efficiency up 50%; back-end and operations time freed",
+      tags: ["Service Improvement"],
+      background: "New services were added and existing service logic changed many times.",
       problem:
-        "Lack of back-office support caused lead time for routine checks and corrections to increase by 300%+, sharply degrading operational efficiency and increasing customer complaints.",
+        "Anything the back office did not support had to be checked and handled separately by back-end engineers, and even simple checks and replies took over 300% longer than before, lowering efficiency and raising customer complaints.",
       process: [
-        "Listing improvements — Identifying required features from service additions; cataloguing needed functions and logic fixes from operations; shortlisting to HIGH priority and above",
-        "Planning improvements — Initial planning for each improvement item; defining required specs and button behaviors",
-        "Dev discussion & lead — Discussing schedule and ownership with PM; re-prioritizing tickets to essential/deferred; leading development",
-        "Dev status check & QA — Running QA on STG-deployed items; checking correct vs. incorrect behavior and feeding back",
+        "Listing what to improve — Checking features required by new service functions, features operations needed, and logic to fix, then keeping only HIGH-priority items and above for planning",
+        "Planning — Initial plans for each item, with the required specs and what each button should do",
+        "Engineering discussion — Agreeing schedule and ownership with PM, re-sorting tickets into must-ship and later, and leading development",
+        "Progress and QA — Following development, checking items released to staging for correct behaviour, and reporting back",
       ],
       fullResult:
-        "Completed deployment of all essential items. Back-office improvements delivered a 50% gain in operational efficiency and freed back-end engineering resources from routine verification tasks.",
+        "All must-have items were improved and released, and the dropped items were scheduled for the second half. The improvements raised efficiency by 50% and freed the back-end time that had gone to simple checks and corrections.",
     },
   },
   {
-    id: "proj-jarvis-4",
-    title: "서비스 신뢰도 하락 이슈 해결",
+    id: "proj-jarvis-1",
+    title: "신규 서비스 런칭 운영 준비 및 서비스 운영",
     company: "jarvis",
-    period: "2025.04 – 2025.05",
+    period: "2023.10 – 2024.05",
     summary:
-      "서비스 전환 시 고객이 오인하는 장기 known 이슈를 SQL·알림톡 자동화로 선제 해결해, 관련 문의를 95% 감소시켰습니다.",
-    role: "개선안 기획 및 고객 안내 액션 실행",
-    result: "관련 문의 95% 감소, PG사 민원 80% 감소",
-    tags: ["데이터 분석", "SQL", "고객 안내", "자동화"],
-    background:
-      "세금 신고 기간에 따라 서비스가 클로징·오픈되는 구조에서, 재진입 시 기존 이용 내역이 아닌 신규 이용으로 판단되어 고객이 '이용료를 사취당했다'고 오인하는 이슈가 반복되었습니다.",
-    problem:
-      "서비스 신뢰도 하락 및 부정 바이럴이 확산되고 있었으나 개발 리소스 부족·사이드 이펙트 우려로 근본적 수정이 어려운 상황이었습니다.",
+      "신규 환급 서비스 런칭을 앞두고 운영 정책 설정과 알림톡 준비를 진행하고, 런칭 이후 서비스 운영을 맡았습니다.",
+    role: "프로젝트 서비스 운영 담당자",
+    result: "운영 프로세스 확립으로 서비스 안정적 랜딩 기여, 전체 매출 중 20.13% 기여",
+    tags: ["신규 서비스 운영"],
+    background: "더 많은 환급 제공을 통한 고객 확보를 위해 신규 환급 서비스를 오픈했습니다.",
+    problem: "신규 서비스에 따라 기존 환급 절차와 다른 운영 방안이 필요했고, 이에 따른 정책이 전무했습니다.",
     process: [
-      "이슈 상황 정의 — 불만 인입의 90%가 서비스 전환 후 미대상자 안내를 받은 고객임을 확인",
-      "대상자 구체화 — DB명·속성명으로 이슈 처리 대상자를 코드 형태로 정의",
-      "개선 방향 3가지 기획 — BE 로직 수정 / FE 화면 개선 / 운영 자체 해결 방안 비교 분석",
-      "방향 결정 및 실행 — FE 개선 + 운영 자체 선안내 병행 결정. SQL 쿼리로 대상자 판단 로직 빌드, 알림톡 발송 트리거를 운영계 DB에 직접 구축해 대상자 발생 시 자동 발송",
-      "FE 배포·알림톡 운영 — 5월 말 미대상자 화면에 이전 이용 내역 진입점 노출, 4월 말부터 실시간 알림톡 자동 발송 운영",
+      "서비스 내용 파악, 운영 정책 설정 — 대상자 판단, 결제 및 환불, 엣지 케이스 대응, 고객센터 응대, 어드민 처리 절차 설정",
+      "서비스 운영 모니터링 대시보드 및 쿼리 빌드 — 서비스 플로우 정상 데이터 파악과 비정상 로그 추적 쿼리 빌드, 고객 여정 데이터 대시보드로 특이 데이터를 모니터링해 이슈 리포팅, 노운 이슈 팔로업 쿼리와 알럿 설정, 클렌징 필요 데이터 확인 쿼리 빌드",
+      "서비스 운영 — 제출 서류 검토, 서비스 이용 중 발생한 이슈 제기, 운영 개선 필요사항 기획 후 PM 전달, 운영 개선을 통한 고객 경험 개선 아이디어 도출",
     ],
     fullResult:
-      "해당 이슈 불만·문의 작년 대비 95% 감소 (상위 5% 인입율 → 하위 5%). 환불 대응 불가한 PG사 등 대외 민원 80% 감소. 중요 대응 리소스를 확보했습니다.",
-    notionUrl: "https://app.notion.com/p/2108937a33b18017bc67ca551f9705a6",
+      "운영 프로세스를 확립해 서비스의 안정적인 랜딩에 기여했고, 신규 서비스 이용을 통해 전체 매출 중 20.13%를 기여했습니다.",
+    notionUrl: "https://app.notion.com/p/1418937a33b180a0be91dd0c447a1c8a",
     en: {
-      title: "Resolving Service Trust Decline Issue",
+      title: "New Service Launch: Operations Preparation and Running",
       summary:
-        "Pre-emptively resolved a long-standing known issue causing customers to misinterpret service transitions through SQL and KakaoTalk automation, reducing related inquiries by 95%.",
-      role: "Improvement planning and customer communication execution",
-      result: "95% reduction in related inquiries; 80% reduction in external payment processor complaints",
-      tags: ["Data Analysis", "SQL", "Customer Communication", "Automation"],
-      background:
-        "The service's seasonal close/reopen structure caused returning customers to appear as new users, leading them to believe they had been fraudulently charged — a recurring and damaging issue.",
-      problem:
-        "Service trust was declining and negative word-of-mouth was spreading, but a root code fix was blocked by resource constraints and side-effect concerns.",
+        "Ahead of a new refund service's launch, set the operating policies and prepared the KakaoTalk notices, then ran the service after launch.",
+      role: "Service operations owner for the project",
+      result: "Contributed to a stable launch through the operations process; 20.13% of total revenue",
+      tags: ["New Service Operations"],
+      background: "The company opened a new refund service to win customers by offering more refunds.",
+      problem: "The new service needed ways of operating that differed from the existing refund process, and there were no policies for it at all.",
       process: [
-        "Defining the issue — Confirmed 90% of complaints came from customers who received non-target notifications after a service transition",
-        "Identifying affected users — Defined the affected population in query form using DB names and attribute names",
-        "Planning 3 improvement approaches — Comparing BE logic fix / FE screen improvement / operations-led workaround",
-        "Decision & execution — Chose FE improvement + proactive operations-led pre-notification in parallel; built user identification query logic via SQL; wired notification send triggers directly to the operations DB for automatic dispatch",
-        "FE deployment & notification operations — Exposed previous usage entry point on the non-target screen at end of May; ran real-time automatic KakaoTalk notifications starting end of April",
+        "Understanding the service and setting policy — Eligibility, payment and refunds, edge cases, customer-support replies, and admin procedures",
+        "Monitoring dashboard and queries — Queries for normal service-flow data and for tracing abnormal logs; a customer-journey dashboard for spotting unusual data and reporting issues; follow-up queries and alerts for known issues; queries for data needing cleanup",
+        "Running the service — Reviewing submitted documents, raising issues found in use, planning operational fixes and passing them to PM, and generating ideas to improve the customer experience through operations",
       ],
       fullResult:
-        "Complaints and inquiries for this issue dropped 95% YoY (from top 5% to bottom 5% of inbound). External complaints to payment processors dropped 80%. Recovered critical response capacity for the team.",
-    },
-  },
-  {
-    id: "proj-jarvis-5",
-    title: "크리티컬 노운 이슈 해결 (오신고 문제 해결)",
-    company: "jarvis",
-    period: "2025.04 – 2025.05",
-    summary:
-      "부양가족 오신고 장기 노운 이슈에 대해 SQL 쿼리 기반 대상자 추출 및 알림톡 자동 발송 체계를 구축해 선제적으로 대응했습니다.",
-    role: "이슈 원인 분석, SQL 쿼리 빌드, 알림톡 자동화 구축, 이슈 처리 프로세스 설정",
-    result: "이슈 후처리 대상 25% 감소, 재정 리스크 약 10억 감소",
-    tags: ["데이터 분석", "SQL", "알림톡 자동화", "운영 프로세스"],
-    background:
-      "삼쩜삼 이용 중 요건에 맞지 않은 부양가족을 포함해 신고하는 오신고 케이스가 지속 발생, 귀책 주장으로 서비스 신뢰도 하락 및 대외 민원이 발생했습니다.",
-    problem:
-      "부양가족 소득 요건 사전 확인이 불가한 구조적 한계로 근본적 해결이 어려웠고 재정 손실·민원이 반복됐습니다.",
-    process: [
-      "데이터 확인 및 DB 적재 요청 — 모니터링용 신규 테이블 요청, 경고 메시지 추출, 연결 키 세팅",
-      "이상 데이터 추출 쿼리 빌드 — 경고 메시지 발송 대상·연도·유형 추출",
-      "오신고 대상자 안내 메시지 설정 — 신고 유형별 3가지 버전 알림톡 기획",
-      "API 활용 알림톡 자동 발송 세팅 — 대상자 발생 시 자동 알림톡 발송 API 트리거",
-      "환불·상담 처리 방향 결정 — 환불 불가 케이스 정책, 고객센터 처리 방향 정의",
-      "이슈 발생 및 환불율 모니터링 대시보드 제작 — 대상자 발생율·환불 여부 모니터링",
-    ],
-    fullResult:
-      "오신고에 따른 이슈 후처리 대상 25% 감소. 같은 이슈로 전년에 최소 40억이 처리됐던 것을 기준으로, 환불과 대납 비용에서 약 10억의 재정 리스크를 줄였습니다. 노운 이슈 처리 방향을 정해 안정적인 서비스 운영 기반을 마련했습니다.",
-    notionUrl: "https://app.notion.com/p/1fc8937a33b180d59937f2a226db9d5d",
-    en: {
-      title: "Critical Known Issue Resolution (Erroneous Tax Filing)",
-      summary:
-        "Built a proactive response system for a long-standing erroneous dependent declaration issue using SQL-based automated user extraction and KakaoTalk notification automation.",
-      role: "Root cause analysis, SQL query build, notification automation setup, issue processing workflow design",
-      result: "25% reduction in post-issue processing targets; ~1B KRW financial risk reduction",
-      tags: ["Data Analysis", "SQL", "Notification Automation", "Operations Process"],
-      background:
-        "Recurring cases of users filing with ineligible dependents on 삼쩜삼 led to blame disputes, eroding service trust and generating external complaints.",
-      problem:
-        "Structural inability to pre-verify dependent income eligibility made root-cause fixes impossible, leading to repeated financial losses and complaints.",
-      process: [
-        "Data verification & DB table request — Requested new monitoring table, extracted warning messages, configured join keys",
-        "Anomaly extraction query build — Queried affected users, filing years, and error types",
-        "Notification message setup — Planned 3 KakaoTalk message versions by filing type",
-        "Automated notification via API — Configured API trigger to auto-send notifications when affected users appear",
-        "Refund & counseling policy decision — Defined no-refund case policy and customer support handling direction",
-        "Monitoring dashboard creation — Built dashboard to track issue occurrence rate and refund status",
-      ],
-      fullResult:
-        "25% fewer cases needing post-issue handling. Against the ~4bn KRW the same issue cost to process the previous year, this cut roughly 1bn KRW of financial exposure across refunds and covered tax payments, and set a handling path that makes the known issue routine rather than recurring damage.",
-    },
-  },
-  {
-    id: "proj-jarvis-6",
-    title: "서비스 모니터링 대시보드 제작",
-    company: "jarvis",
-    period: "2025.04 –",
-    summary:
-      "삼쩜삼 서비스 주요 지표를 실시간으로 확인할 수 있는 SQL 기반 모니터링 대시보드를 구축해 이슈 대응 속도와 운영 안정성을 높였습니다.",
-    role: "운영 지표 선정, SQL 쿼리 빌드, 대시보드 제작 및 알럿 설정",
-    result: "메인 시즌 안정적 운영, 실시간 이슈 모니터링 기반 마련",
-    tags: ["SQL", "대시보드", "서비스 모니터링", "데이터 분석"],
-    process: [
-      "서비스 운영 필요 지표 선정 — 결제·환불 금액, 처리 필요 건 실시간 데이터, 탈퇴 유저 추이, 노운 이슈 모니터링 지표 정의",
-      "필요 지표 SQL 쿼리 빌드 — 일반 운영 지표 및 노운 이슈 모니터링용 쿼리 작성",
-      "대시보드 제작 및 알럿 설정 — 목적별 탭 분류, 크리티컬 이슈 자동 알럿, 자동 리프레시 적용",
-    ],
-    fullResult:
-      "메인 시즌 안정적인 서비스 운영 및 서비스 개선 사항 실시간 파악. 대시보드를 통한 처리 필요 건 확인 및 이슈 모니터링으로 개선 방향성 결정 데이터 기반 마련.",
-    notionUrl: "https://app.notion.com/p/1f68937a33b1802a8c58f68718854059",
-    en: {
-      title: "Service Monitoring Dashboard Build",
-      summary:
-        "Built an SQL-based real-time monitoring dashboard for 삼쩜삼's key service metrics, improving issue response speed and operational stability.",
-      role: "Metric selection, SQL query build, dashboard creation, alert setup",
-      result: "Stable operations during main season; real-time issue monitoring foundation established",
-      tags: ["SQL", "Dashboard", "Service Monitoring", "Data Analysis"],
-      process: [
-        "Metric selection — Defined KPIs: payment/refund amounts, real-time pending items, churned user trends, and known issue monitoring metrics",
-        "SQL query build — Wrote queries for general operations metrics and known issue monitoring",
-        "Dashboard creation & alert setup — Organized tabs by purpose; configured critical issue auto-alerts and auto-refresh",
-      ],
-      fullResult:
-        "Enabled stable service operations during peak season and real-time visibility into service improvements. Dashboard-driven monitoring of pending items and issues established a data foundation for improvement decisions.",
+        "The operations process contributed to a stable launch, and the new service accounted for 20.13% of total revenue.",
     },
   },
   {
@@ -568,32 +556,32 @@ export const projectsData: Project[] = [
     company: "jarvis",
     period: "2023.06",
     summary:
-      "고객 만족도 조사 문항을 간소화하고 R 기반 대시보드를 구축해, 응답률을 높이고 고객 페인포인트 해결 처리율을 50% 향상시켰습니다.",
-    role: "설문 문항 검토·개선, 지표 선정, R shinydashboard 대시보드 개발 및 배포",
-    result: "설문 응답률 개선, 고객 Pain Point 해결 처리율 50% 향상",
-    tags: ["운영 모니터링", "R", "대시보드", "고객 만족도"],
+      "삼쩜삼 이용 고객 대상 만족도 조사의 설문 내용과 로직을 개선하고, 조사 결과 데이터를 바탕으로 고객 Pain Point 해결을 위한 개선 사항을 도출했습니다.",
+    role: "기획 및 운영",
+    result: "설문 간소화로 응답률 개선, 고객 Pain Point 해결 처리율 작년 대비 50% 상승",
+    tags: ["운영 모니터링"],
     process: [
-      "기존 고객 만족도 조사 문항 검토 — 수집 및 관리 지표 정의, 불필요한 문항 삭제, 유관 부서 의견 수렴 후 간소화",
-      "고객 만족도 조사 지표 선정 — NPS(고객 추천 점수), CES(고객 서비스 편의성 점수), 재이용 여부 지표 확정",
-      "대시보드 기획 및 R 코딩 — R shinydashboard 모듈 활용 대시보드 제작, 전사 관리용 사이트 배포",
+      "기존 고객 만족도 조사 문항 검토 — 수집·관리 지표 정의, 불필요한 문항 삭제, 유관 부서의 수집 희망 항목을 반영하고 나머지 문항은 삭제 또는 간소화",
+      "고객 만족도 조사 지표 선정 — NPS(추천 점수, 상위권 비율 − 하위권 비율), CES(서비스 편의성, 평균 점수), 재이용 여부(신뢰도 판단)",
+      "대시보드 기획 및 코딩 — R shinydashboard 모듈로 대시보드를 제작하고 사이트로 배포해 전사 관리 대시보드로 활용",
     ],
     fullResult:
-      "고객 만족도 설문 간소화(평균 10문항 → 5문항)를 통한 응답률 개선. 고객 만족도 대시보드를 통한 페인포인트 확인으로 해결 처리율 작년 대비 50% 상승.",
+      "고객 만족도 설문을 평균 10문항에서 5문항으로 간소화해 응답률을 개선했고, 고객 만족도 대시보드로 페인포인트를 확인해 고객 Pain Point 해결 처리율이 작년 대비 50% 상승했습니다.",
     notionUrl: "https://app.notion.com/p/6813c9f7691540aeb5bad0b7a7902033",
     en: {
-      title: "Customer Satisfaction Survey Improvement & Dashboard Build",
+      title: "Customer Satisfaction Survey Improvement and Dashboard",
       summary:
-        "Streamlined the customer satisfaction survey and built an R-based dashboard, improving response rates and boosting pain point resolution rate by 50%.",
-      role: "Survey question review & improvement, metric selection, R shinydashboard development and deployment",
-      result: "Improved survey response rate; 50% YoY improvement in customer pain point resolution rate",
-      tags: ["Operations Monitoring", "R", "Dashboard", "Customer Satisfaction"],
+        "Improved the content and logic of the satisfaction survey sent to 삼쩜삼 users, and used the results to identify improvements addressing customers' pain points.",
+      role: "Planning and operations",
+      result: "Higher response rate from a shorter survey; pain-point resolution rate up 50% year on year",
+      tags: ["Operations Monitoring"],
       process: [
-        "Survey review — Defined key metrics, removed redundant questions, simplified based on cross-team input",
-        "Metric selection — Finalized NPS (Net Promoter Score), CES (Customer Effort Score), and repurchase intent metrics",
-        "Dashboard planning & R coding — Built dashboard using R shinydashboard; deployed as a company-wide management site",
+        "Reviewing the survey — Defining the metrics to collect and manage, removing unneeded questions, keeping what other teams wanted to collect and cutting or simplifying the rest",
+        "Choosing metrics — NPS (likelihood to recommend: share of high scores minus share of low scores), CES (ease of use, as an average), and intent to use again (as a measure of trust)",
+        "Dashboard design and code — Built with the R shinydashboard package and deployed as a site used company-wide",
       ],
       fullResult:
-        "Simplified survey from avg. 10 to 5 questions, improving response rates. Dashboard-driven pain point visibility raised resolution rate 50% YoY.",
+        "Cutting the survey from an average of 10 questions to 5 improved the response rate, and the pain points the dashboard surfaced lifted the resolution rate 50% year on year.",
     },
   },
 
@@ -603,41 +591,37 @@ export const projectsData: Project[] = [
     title: "고객 요구사항 기반 기능 개선 및 백로그 해소",
     company: "midas",
     period: "2022.05 – 2022.12",
-    summary:
-      "누적된 고객 요구사항을 개선 항목으로 정의하고 우선순위를 세워 기능 개선까지 반영, 기존 고객 재계약 기반을 마련했습니다.",
+    summary: "누적된 고객 요구사항을 개선 항목으로 정의하고 우선순위를 세워 기능 개선까지 반영했습니다.",
     role: "개선 항목 정의 및 우선순위 수립, 기능 기획, 개발 협업, QA",
     result: "누적 백로그 5건 해소, 기존 고객 재계약 기반 마련",
-    tags: ["서비스 개선", "VOC", "백로그 해소", "QA"],
-    background:
-      "고객사에서 지속적으로 요청해온 개선 항목이 처리되지 못한 채 누적되어 재계약 시점의 리스크로 이어졌습니다.",
+    tags: ["서비스 개선"],
+    background: "고객사에서 지속적으로 요청해온 개선 항목이 처리되지 못한 채 누적됐습니다.",
     problem:
-      "미해결 상태가 길어지면서 고객 불만이 지속적으로 쌓이고 재계약 리스크가 높아졌습니다.",
+      "기존 고객의 요청 사항이 개선되지 않아 고객 불만이 지속적으로 쌓였고, 미해결 상태가 길어지면서 재계약 시점의 리스크로 이어지고 있었습니다.",
     process: [
-      "요구사항 분류 및 우선순위 수립 — VOC와 고객사 요청을 성격별로 분류, 영향 범위와 처리 난이도를 기준으로 순서 결정",
+      "요구사항 분류 및 우선순위 수립 — VOC와 고객사 요청을 성격별로 분류하고 영향 범위와 처리 난이도를 기준으로 순서 결정",
       "기능 개선 기획 — 개선 항목별 요구사항 정의, 개발 조직과 구현 범위 협의",
       "QA 및 반영 — 개발 완료 건 검증 후 서비스 반영, 고객사 안내",
     ],
     fullResult:
-      "오래 남아 있던 요구사항을 정리하고 주요 고객의 백로그 5건을 해소했습니다. 기능 개선 건에 대한 검토-기획-제품 개발 프로세스를 구축하고 기존 고객 재계약 기반을 마련했습니다.",
+      "오래 남아 있던 요구사항을 정리해 주요 고객의 백로그 5건을 해소했고, 기능 개선 건에 대한 검토-기획-제품 개발 프로세스를 구축해 기존 고객 재계약 기반을 마련했습니다.",
     notionUrl: "https://app.notion.com/p/3b18937a33b1811f842bc7566475919f",
     en: {
-      title: "Customer Requirement–Based Feature Improvement & Backlog Resolution",
-      summary:
-        "Defined accumulated customer requests as improvement items, prioritized them, and drove them to completion — laying the groundwork for existing customer renewals.",
-      role: "Improvement item definition and prioritization, feature planning, dev collaboration, QA",
-      result: "5 accumulated backlogs resolved; foundation laid for existing customer renewals",
-      tags: ["Service Improvement", "VOC", "Backlog Resolution", "QA"],
-      background:
-        "Improvement requests repeatedly submitted by customers had gone unaddressed, accumulating as a risk factor at contract renewal time.",
+      title: "Feature Improvements from Customer Requests and Backlog Clearance",
+      summary: "Turned accumulated customer requests into defined improvement items, set priorities, and carried them through to shipped features.",
+      role: "Defining and prioritising improvement items, feature planning, engineering collaboration, QA",
+      result: "5 backlog items cleared; groundwork for existing customers' renewals",
+      tags: ["Service Improvement"],
+      background: "Improvements customers had asked for repeatedly were piling up unhandled.",
       problem:
-        "Prolonged unresolved status caused customer dissatisfaction to compound and renewal risk to rise.",
+        "With existing customers' requests left unaddressed, dissatisfaction kept building, and the longer they stayed open the more they became a risk at renewal.",
       process: [
-        "Requirement classification & prioritization — Categorized VOC and customer requests by nature; prioritized by impact scope and resolution complexity",
-        "Feature improvement planning — Defined requirements per improvement item; negotiated implementation scope with engineering",
-        "QA & deployment — Verified completed items and deployed to production; communicated updates to customers",
+        "Sorting and prioritising — Grouping VOC and customer requests by type and ordering them by impact and difficulty",
+        "Planning — Defining requirements for each item and agreeing scope with engineering",
+        "QA and release — Verifying finished work, releasing it, and informing customers",
       ],
       fullResult:
-        "Cleared long-standing backlog items and resolved 5 major customer requests. Established a review-planning-development process for improvements and laid the foundation for existing customer renewals.",
+        "Long-standing requests were sorted out and 5 backlog items for key customers cleared. A review–plan–build process for improvements was put in place, laying the groundwork for existing customers' renewals.",
     },
   },
   {
@@ -645,83 +629,37 @@ export const projectsData: Project[] = [
     title: "VOC 기반 개선 운영 및 시나리오봇 응대율 개선",
     company: "midas",
     period: "2021.01 – 2023.05",
-    summary:
-      "VOC를 데이터 기반으로 추출·분류하고 제품 개선으로 연결하는 체계를 구축했으며, 시나리오봇 응대 구조 개선으로 처리율 13%를 향상시켰습니다.",
+    summary: "VOC를 데이터 기반으로 추출·분류해 개선 항목으로 연결하고, 시나리오봇 응대 구조도 함께 개선했습니다.",
     role: "VOC 추출 및 분류, 개선 항목 정의, 업그레이드 플래닝 반영 관리, 시나리오봇 개선",
     result: "상반기 VOC 반영률 62% 달성, 시나리오봇 처리율 13% 개선",
-    tags: ["VOC 분석", "시나리오봇", "운영 개선", "데이터 분석"],
-    background:
-      "시나리오봇으로 상세하게 답변이 제공되는 문의에도 고객이 계속 인입했고, VOC가 응대 단계에서 소진되어 제품 개선으로 이어지지 않는 구조적 문제가 있었습니다.",
+    tags: ["운영 개선"],
+    background: "시나리오봇으로 상세한 답변이 제공되는 건에도 고객 문의 인입이 반복됐습니다.",
     problem:
-      "VOC가 개선 항목으로 연결되지 않으며, 시나리오봇이 처리하지 못하고 상담으로 넘어가는 문의가 많아 운영 효율이 저하됐습니다.",
+      "VOC가 응대 단계에서 소진되고 개선 항목으로 이어지지 않았고, 시나리오봇이 처리하지 못하고 상담으로 넘어가는 문의가 많았습니다.",
     process: [
       "VOC 데이터 추출 및 분류 — 문의 데이터를 분석해 반복 유형 정리",
-      "개선 항목 정의 및 반영 관리 — 제품 개선 항목 도출, 업그레이드 플래닝에 전달 및 반영 여부 추적",
+      "개선 항목 정의 및 반영 관리 — 유형별 제품 개선 항목을 도출해 업그레이드 플래닝에 전달하고 반영 여부 추적",
       "시나리오봇 구조 개선 — 봇이 놓치던 문의 유형을 확인하고 응답 시나리오 보완",
     ],
     fullResult:
-      "문의 데이터가 제품 개선으로 연결되는 흐름 구축. 시나리오봇 답변 해결율 향상으로 운영 시간 외에도 고객이 정보를 얻을 수 있는 환경 조성. 상반기 VOC 반영률 62% 달성, 시나리오봇 처리율 13% 개선.",
+      "문의 데이터가 제품 개선으로 연결되는 흐름을 만들었고, 시나리오봇의 답변 해결율을 올려 운영 시간이 아니더라도 고객이 원하는 정보를 얻을 수 있는 환경을 조성했습니다. 상반기 VOC 반영률 62%를 달성하고 시나리오봇 처리율을 13% 개선했습니다.",
     notionUrl: "https://app.notion.com/p/3b18937a33b181d6a9deec4cc34ffba9",
     en: {
-      title: "VOC-Based Improvement Operations & Chatbot Response Rate Improvement",
-      summary:
-        "Built a system to extract, classify, and route VOC data into product improvements, and improved the scenario bot's handling structure to increase resolution rate by 13%.",
-      role: "VOC extraction and classification, improvement item definition, upgrade planning tracking, chatbot improvement",
-      result: "62% VOC incorporation rate achieved H1; scenario bot resolution rate improved by 13%",
-      tags: ["VOC Analysis", "Scenario Bot", "Operations Improvement", "Data Analysis"],
-      background:
-        "Customers kept contacting support even for inquiries the scenario bot already answered in detail, and VOC was being consumed at the support layer without flowing into product improvements.",
+      title: "VOC-Driven Improvements and Scenario Bot Resolution",
+      summary: "Extracted and classified VOC from data and connected it to improvement items, while also improving how the scenario bot handles inquiries.",
+      role: "VOC extraction and classification, defining improvement items, tracking them through upgrade planning, scenario bot improvement",
+      result: "62% of VOC reflected in H1; scenario bot resolution up 13%",
+      tags: ["Operations Improvement"],
+      background: "Customers kept contacting support even about questions the scenario bot already answered in detail.",
       problem:
-        "VOC was not reaching product improvement cycles, and high bot-to-human handoff rates were degrading operational efficiency.",
+        "VOC was used up at the support stage without turning into improvements, and many inquiries the bot could not handle were passed on to agents.",
       process: [
-        "VOC data extraction & classification — Analyzed inquiry data to organize recurring issue types",
-        "Improvement item definition & tracking — Identified product improvement items; delivered to upgrade planning and tracked incorporation",
-        "Scenario bot restructuring — Identified inquiry types the bot was missing and supplemented response scenarios",
+        "Extracting and classifying VOC — Analysing inquiry data to group recurring types",
+        "Defining and tracking improvements — Deriving product improvements by type, passing them to upgrade planning, and tracking whether they shipped",
+        "Restructuring the scenario bot — Finding the inquiry types the bot missed and filling in its response scenarios",
       ],
       fullResult:
-        "Established a pipeline from inquiry data to product improvement. Improved bot resolution rate enabled customers to get information outside operating hours. H1 VOC incorporation rate: 62%; scenario bot resolution rate improved by 13%.",
-    },
-  },
-  {
-    id: "proj-midas-3",
-    title: "대규모 채용 프로젝트 사전 안정성 점검 (QA)",
-    company: "midas",
-    period: "2021.01 – 2023.05",
-    summary:
-      "대기업 대규모 채용 오픈 전 QA 시나리오를 설계하고 직접 수행해, 동시 접속 1,000명 이상 규모 채용 프로젝트를 오류 없이 완료했습니다.",
-    role: "QA 시나리오 설계 및 수행, 오픈 전 안정성 점검 리드",
-    result: "동시 접속 1,000명 이상 채용 프로젝트 오류 없이 종료",
-    tags: ["QA", "서비스 안정성", "채용"],
-    background:
-      "대기업 채용 과정에서 대규모 인원이 동시 접속할 예정이었으나, 배포 전 검증 시간 부족으로 PRD 환경의 안정성 체크가 진행되지 못했습니다.",
-    problem:
-      "오픈 직후 오류가 발생하면 지원자 이탈과 고객사 신뢰 훼손이 우려되는 상황에서 사전 검증 프로세스가 부재했습니다.",
-    process: [
-      "사용 흐름 기준 시나리오 설계 — 지원자와 기업 담당자가 실제로 거치는 단계를 기준으로 점검 항목 정리, 영향도가 큰 구간을 우선순위로 배치",
-      "QA 수행 및 이슈 정리 — 기능별 검증 진행, 발견한 이슈를 재현 조건과 함께 정리해 개발 조직에 전달",
-      "수정 반영 확인 및 오픈 전 최종 점검 — 수정 건 재검증, 오픈 직전 전체 흐름 재확인",
-    ],
-    fullResult:
-      "오픈 전 이슈를 사전에 발견하고 처리하여 서비스 영향 차단. 동시 접속 1,000명 이상 규모의 대기업 채용 프로젝트를 오류 없이 성공적으로 마무리.",
-    notionUrl: "https://app.notion.com/p/3b18937a33b181f18940efddfb3c2fd6",
-    en: {
-      title: "Large-Scale Recruitment Project Pre-Launch Stability Check (QA)",
-      summary:
-        "Designed and executed QA scenarios before a large enterprise recruitment launch, completing the project error-free with 1,000+ concurrent users.",
-      role: "QA scenario design and execution, pre-launch stability check lead",
-      result: "Large-scale recruitment project with 1,000+ concurrent users completed without errors",
-      tags: ["QA", "Service Stability", "Recruitment"],
-      background:
-        "A major enterprise client expected large simultaneous user traffic during recruitment, but insufficient pre-deployment verification time meant production stability had not been tested.",
-      problem:
-        "Errors immediately after launch would risk applicant dropout and damage client trust, yet no pre-verification process existed.",
-      process: [
-        "Scenario design based on user flow — Mapped actual steps taken by applicants and HR staff; prioritized high-impact checkpoints",
-        "QA execution & issue documentation — Verified each function; compiled discovered issues with reproduction conditions and handed off to engineering",
-        "Fix verification & final pre-launch check — Re-verified fixes; ran full end-to-end flow confirmation immediately before launch",
-      ],
-      fullResult:
-        "Pre-launch issues were caught and resolved before they could affect the service. Successfully completed a 1,000+ concurrent user enterprise recruitment project without a single error.",
+        "Inquiry data now flows into product improvement, and a higher bot resolution rate lets customers find what they need outside support hours. 62% of VOC was reflected in H1, and the scenario bot's resolution rate improved by 13%.",
     },
   },
 ];

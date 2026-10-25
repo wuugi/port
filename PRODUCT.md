@@ -22,7 +22,7 @@ is worth a call.
 ## Product Purpose
 
 A personal portfolio presenting 총 5년 5개월 of service-operations work as
-**evidence**: career history across three companies, fourteen projects each with a
+**evidence**: career history across three companies, thirteen projects each with a
 problem → process → result narrative, and a skills inventory.
 
 Success is that a reader grasps who he is and what he has actually delivered
@@ -73,6 +73,12 @@ what the presentation must serve.
   project databases, the About page, the skills database and the template page;
   sharing inherits, so connecting a parent page covers everything beneath it.
 - The `/v2` route and `components/v2/` have been **removed**.
+- **Role variants (confirmed 2026-10-25):** `/` targets operations-manager roles;
+  `/axm` is the link sent when applying to AI-automation / AX Manager roles. A variant
+  swaps only the title, intro and project order (`lib/variants.ts`); career, figures
+  and every project field stay shared, so a project-copy fix lands on both pages.
+- **Copy source (confirmed 2026-10-25):** when project copy is wrong, fix the Notion
+  page first, then carry the corrected text into `lib/static-data.ts` in KO and EN.
 
 ## Brand Commitments
 
@@ -88,9 +94,9 @@ what the presentation must serve.
 
 - Three companies with dated tenures and responsibility lists (마이다스인 2021.1–2023.5,
   자비스앤빌런즈 2023.6–2025.8, 플렉스 2026.1–present).
-- Fourteen projects — 플렉스 4, 자비스앤빌런즈 7, 마이다스인 3 — each with summary, role and
+- Thirteen projects — 플렉스 4, 자비스앤빌런즈 7, 마이다스인 2 — each with summary, role and
   result; most with background / problem / process / fullResult; all in KO and EN.
-- Seven skills, mirroring the Notion skills database exactly (its 상태 number is the
+- Eleven skills (as of 2026-10-25), mirroring the Notion skills database exactly (its 상태 number is the
   level). They order the list and band it into 주력 / 실무 활용 / 사용 경험; neither the
   number nor a bar is shown, because a self-rating cannot support that precision.
   Notion lists no process skills, so that category is absent and the panel renders two

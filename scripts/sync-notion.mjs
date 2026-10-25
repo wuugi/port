@@ -43,7 +43,7 @@ async function loadToken() {
   return null;
 }
 
-async function notion(token, endpoint, init = {}) {
+async function notion(token, endpoint, init = {}, attempt = 0) {
   const res = await fetch(`https://api.notion.com/v1/${endpoint}`, {
     ...init,
     headers: {
@@ -53,6 +53,12 @@ async function notion(token, endpoint, init = {}) {
       ...init.headers,
     },
   });
+  // Notion rate-limits at ~3 req/s; long runs hit 429 partway through.
+  if (res.status === 429 && attempt < 5) {
+    const wait = Number(res.headers.get("retry-after")) || 2 ** attempt;
+    await new Promise((r) => setTimeout(r, wait * 1000));
+    return notion(token, endpoint, init, attempt + 1);
+  }
   if (!res.ok) {
     throw new Error(`Notion ${endpoint} -> ${res.status} ${(await res.text()).slice(0, 200)}`);
   }
@@ -206,7 +212,7 @@ async function main() {
     try {
       body = await walk(token, page.rawId, 0, { images: [], lines: [] });
     } catch (err) {
-      console.warn(`  ! ${page.title.slice(0, 46)}: ${err.message.slice(0, 70)}`);
+      console.warn(`  ! ${page.title.slice(0, 46)}: ${err.message.slice(0, 200)}`);
       continue;
     }
 

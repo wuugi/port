@@ -45,7 +45,7 @@ function ProjectRow({
             </svg>
           </h3>
 
-          <p className="mt-2 text-[var(--text-muted)] text-sm leading-relaxed line-clamp-2 max-w-[62ch]">
+          <p className="mt-2 text-[var(--text-muted)] text-sm leading-relaxed line-clamp-3 max-w-[62ch]">
             {project.summary}
           </p>
 
