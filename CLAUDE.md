@@ -4,7 +4,7 @@
 
 ## 먼저 읽을 것
 - `PRODUCT.md` — 독자, 원칙, 확정된 결정. 제품 사실의 기준
-- `SESSION_HANDOFF.md` — 2026-08-29까지의 경위·함정. 이후 변경은 `git log`가 기준
+- `SESSION_HANDOFF.md` — 현재 상태, 디자인 원칙, 회귀 주의 버그, 연표. 이후 변경은 `git log`
 - 콘텐츠 갱신 절차는 `wuugi_port` 스킬
 
 ## 구조
