@@ -14,6 +14,8 @@ interface VariantConfig {
   intro?: { ko: string; en: string };
   /** Ids listed here render first, in this order; the rest keep file order. */
   projectOrder?: string[];
+  /** Tags appended on this variant only; the default page keeps Notion's categories. */
+  extraTags?: Record<string, { ko: string[]; en: string[] }>;
 }
 
 const configs: Record<Variant, VariantConfig> = {
@@ -34,6 +36,10 @@ const configs: Record<Variant, VariantConfig> = {
         "I lead AX by analysing customer needs and problems clearly, separating what AI can handle from what people need to focus on, and securing both the outcome and the stability the work requires.",
     },
     projectOrder: ["proj-flex-4", "proj-flex-3", "proj-flex-1", "proj-flex-2"],
+    extraTags: {
+      "proj-flex-4": { ko: ["AI 에이전트"], en: ["AI Agent"] },
+      "proj-flex-3": { ko: ["자동화"], en: ["Automation"] },
+    },
   },
 };
 
@@ -45,11 +51,20 @@ export function variantPerson(variant: Variant): PersonInfo {
 }
 
 export function variantProjects(variant: Variant): Project[] {
-  const { projectOrder = [] } = configs[variant];
+  const { projectOrder = [], extraTags = {} } = configs[variant];
   const rank = (id: string) => {
     const i = projectOrder.indexOf(id);
     return i === -1 ? projectOrder.length : i;
   };
+  const tagged = projects.map((p) => {
+    const extra = extraTags[p.id];
+    if (!extra) return p;
+    return {
+      ...p,
+      tags: [...p.tags, ...extra.ko],
+      en: p.en && { ...p.en, tags: [...(p.en.tags ?? p.tags), ...extra.en] },
+    };
+  });
   // Array.prototype.sort is stable, so unlisted projects keep file order.
-  return [...projects].sort((a, b) => rank(a.id) - rank(b.id));
+  return tagged.sort((a, b) => rank(a.id) - rank(b.id));
 }

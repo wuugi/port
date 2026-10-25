@@ -75,7 +75,8 @@ what the presentation must serve.
 - The `/v2` route and `components/v2/` have been **removed**.
 - **Role variants (confirmed 2026-10-25):** `/` targets operations-manager roles;
   `/axm` is the link sent when applying to AI-automation / AX Manager roles. A variant
-  swaps only the title, intro and project order (`lib/variants.ts`); career, figures
+  swaps only the title, intro, project order and extra tags (`lib/variants.ts`);
+  tags beyond the Notion categories (e.g. AI 에이전트) appear on `/axm` only; career, figures
   and every project field stay shared, so a project-copy fix lands on both pages.
 - **Copy source (confirmed 2026-10-25):** when project copy is wrong, fix the Notion
   page first, then carry the corrected text into `lib/static-data.ts` in KO and EN.

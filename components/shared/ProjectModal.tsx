@@ -203,14 +203,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <Label>{t.process}</Label>
                 {/* Hanging numerals rather than a boxed chip per step. */}
                 <ol className="mt-3 space-y-3">
-                  {shown.process.map((step, i) => (
-                    <li key={i} className="grid grid-cols-[1.75rem_1fr] text-[15px] text-[var(--text)]">
-                      <span className="tabular-nums text-[var(--text-muted)] leading-[1.85]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="leading-[1.85]">{step}</p>
-                    </li>
-                  ))}
+                  {shown.process.map((step, i) => {
+                    // Data writes "heading — detail"; show it as Notion does, a heading over its notes.
+                    const [head, detail] = step.split(" — ", 2);
+                    return (
+                      <li key={i} className="grid grid-cols-[1.75rem_1fr] text-[15px] text-[var(--text)]">
+                        <span className="tabular-nums text-[var(--text-muted)] leading-[1.85]">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div className="leading-[1.85]">
+                          <p className="font-medium">{head}</p>
+                          {detail && <p className="text-[var(--text-muted)]">{detail}</p>}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ol>
               </section>
             )}
