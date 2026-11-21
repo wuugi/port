@@ -10,7 +10,7 @@ export const personInfo: PersonInfo = {
   intro:
     "서비스 이슈 분석 및 개선을 주도하며 고객 중심의 운영 전략을 수립해온 Operation Manager입니다. 고객 여정 전반을 설계하면서 서비스 인지부터 종료까지 만족스러운 경험을 제공하기 위해 노력했습니다.\n\n" +
     "고객이 갖고 있는 불편사항을 직접 컨택해 확인하고, 그 개선점을 팀과 제품을 통해 이끌어내면서 제품의 가치를 고객이 온전히 느낄 수 있도록 만들었습니다.\n\n" +
-    "AI를 활용해 업무 효율을 높이고, 그렇게 확보한 시간을 다시 고객에게 쓸 수 있는 환경을 만들었습니다.",
+    "고객에게 더 집중할 수 있도록 AI로 업무 효율을 높였고, 고객을 위해 일할 수 있는 환경을 만들었습니다.",
   education: "경희대학교 지리학/언론정보학",
   educationPeriod: "2014.03 - 2020.02",
   certifications: ["SQLD (23.12.15)"],
@@ -19,10 +19,10 @@ export const personInfo: PersonInfo = {
   en: {
     title: "Operations Manager Focused on Customer Experience & Data",
     intro:
-      "An Operations Manager who leads service issue analysis and improvement and sets customer-centred operating strategy. I design the customer journey end to end, so the experience holds from the moment someone first hears about a service to the moment they leave it.\n\n" +
-      "I contact customers directly to find out what is not working, then drive those fixes through the team and the product — so the value of the product actually reaches the people using it.\n\n" +
-      "And I use AI to cut the routine work, which buys back the hours to spend on customers.",
-    education: "Kyung Hee University — Geography / Journalism & Communications",
+      "An Operations Manager who leads service issue analysis and improvement and builds customer-focused operating strategy. I worked on the whole customer journey, from first hearing about a service to leaving it, to give customers a good experience.\n\n" +
+      "I contacted customers directly to learn what was inconvenient for them, then pushed for fixes through the team and the product, so customers could feel the full value of the product.\n\n" +
+      "I used AI to work more efficiently so I could focus more on customers, and built a way of working around them.",
+    education: "Kyung Hee University, Geography / Journalism & Communications",
     certifications: ["SQLD (Dec 15, 2023)"],
     languages: ["Conversational English", "OPIc IH (Sep 2026)"],
   },
@@ -67,7 +67,7 @@ export const careerData: CareerItem[] = [
     en: {
       tasks: [
         "Service monitoring (usage, applications, tax filing)",
-        "Operational policy establishment and management",
+        "Setting and managing operational policy",
         "Service issue response / extracting affected users via query build and determining resolution direction",
         "Customer-facing message planning (KakaoTalk notifications, in-service copy)",
         "Service satisfaction survey dashboard planning and development (R coding)",
@@ -82,25 +82,25 @@ export const careerData: CareerItem[] = [
     companyKey: "flex",
     period: "2026.1",
     tasks: [
+      "CRM 전체 개편 및 관리",
       "요금제 개편 전환 로직 설계 및 고객 안내 프로세스 기획·운영",
       "리드 메시지 분기 체계 설계 및 담당 AM 자동 지정 로직 구축",
       "운영 정책 설계",
       "백오피스 기능 기획 및 설계",
       "서비스 운영 효율화 / 자동화 작업",
-      "서비스 모니터링 대시보드 기획 및 구축",
-      "고객 현황 모니터링 대시보드 구축",
+      "서비스 모니터링, 고객 현황 대시보드 기획 및 구축",
       "고객 경험 개선 액션 진행",
       "서비스 관련 고객 문의 대응",
     ],
     en: {
       tasks: [
-        "Pricing-plan migration logic design, and the customer notice process that went with it",
+        "Full CRM overhaul and management",
+        "Pricing-plan migration logic design; customer notice process planning and operation",
         "Lead message routing design, with the owning AM assigned automatically",
         "Operational policy design",
         "Back-office feature planning and design",
         "Service operations efficiency and automation",
-        "Service monitoring dashboard planning and development",
-        "Customer status monitoring dashboard development",
+        "Service monitoring and customer status dashboard planning and development",
         "Customer experience improvement initiatives",
         "Handling customer inquiries related to the service",
       ],
